@@ -24,6 +24,8 @@ git push origin branch-name
 
 Push your local changes on your branch to the GitHub server on your branch.
 
+git add .
+git commit  (You'll have to type in a message explaining what you did by typing "i", type the message, then ESC, ":", "wq", enter
 git push origin branch-name
 
 Check what branch you are on/what you’ve done.
@@ -36,3 +38,5 @@ git checkout branch-name
 
 When you are ready to submit a pull request, do it through the GitHub web repo page, it's the button that says "New pull request". The web thing is pretty straightforward after you have done it once, so if you start it and it doesn't make sense, I'll walk you through it.
 
+# GITHUB DESKTOP GLIENT
+  Alternatively, you can download the Github Desktop Client and just do all of that through a GUI if you aren't comfortable with command line stuff

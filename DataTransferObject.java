@@ -4,6 +4,7 @@
  */
 public class DataTransferObject
 {
+    private int playerID;
     private String command;
     private Object data;
     private String errorMsg;
@@ -50,5 +51,15 @@ public class DataTransferObject
     public void setErrorMsg(String errorMsg)
     {
         this.errorMsg = errorMsg;
+    }
+    
+    public int getPlayerID()
+    {
+        return playerID;
+    }
+    
+    public void setPlayerID(int id)
+    {
+        this.playerID = id;
     }
 }

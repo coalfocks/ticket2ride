@@ -3,7 +3,6 @@ package common;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import interfaces.ICommand;
 
 import java.io.*;
 
@@ -70,14 +69,14 @@ public class Parser
     }
 
     // The method to deserialize a command
-    public static ICommand readCommand(InputStream fileIn) throws IOException
+    public static iCommand readCommand(InputStream fileIn) throws IOException
     {
-        ICommand command = null;
+        iCommand command = null;
 
         try
         {
             ObjectInputStream is = new ObjectInputStream(fileIn);
-            command = (ICommand) is.readObject();
+            command = (iCommand) is.readObject();
 
             is.close();
             fileIn.close();
@@ -92,7 +91,7 @@ public class Parser
     }
 
     // The method to serialize a command
-    public static void writeCommand(ICommand command, OutputStream fileOut) throws IOException
+    public static void writeCommand(iCommand command, OutputStream fileOut) throws IOException
     {
         ObjectOutputStream os = new ObjectOutputStream(fileOut);
         os.writeObject(command);

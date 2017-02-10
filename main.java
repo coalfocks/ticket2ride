@@ -29,12 +29,12 @@ public class main
         User me = new User("cole","fox",0,0);
         String s = gson.toJson(me);
         data.setData(s);
-        data.setCommand("Register");
+        data.setCommand("Login");
 
         testcommand test = new testcommand();
         test.setData(data);
 
-        DataTransferObject dto;
+        DataTransferObject dto = null;
         try
         {
             String urlString = "http://127.0.0.1:8080/command";
@@ -75,7 +75,8 @@ public class main
             e.printStackTrace();
         }
 
-
+        System.out.println(dto.getData());
+        System.out.println(dto.getErrorMsg());
         server.stop();
     }
 

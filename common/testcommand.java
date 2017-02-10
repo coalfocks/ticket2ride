@@ -23,7 +23,7 @@ public class testcommand implements iCommand,Serializable
     public DataTransferObject execute()
     {
         TTRServerFacade facade = new TTRServerFacade();
-        data = facade.register(data);
+        data = facade.login(data);
         return data;
     }
 }

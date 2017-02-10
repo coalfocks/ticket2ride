@@ -6,6 +6,8 @@ import common.DataTransferObject;
 import com.google.gson.Gson;
 import server.Database.Database;
 
+import java.util.Objects;
+
 /**
  * Created by colefox on 2/5/17.
  */
@@ -59,10 +61,15 @@ public class TTRServerFacade implements iTTRServer
         {
             User loginUser = gson.fromJson(data.getData(), User.class);
             User u = gameUserManager.getUser(loginUser.getUsername());
-            if (loginUser.getPassword() == u.getPassword())
+            if (u != null && Objects.equals(loginUser.getPassword(), u.getPassword()))
             {
+                u.setPassword("GOOD");
                 userInfo.setData(gson.toJson(u));
                 userInfo.setPlayerID(u.getPlayerID());
+            }
+            else
+            {
+                userInfo.setErrorMsg("Invalid username or password");
             }
         } catch (Exception e)
         {

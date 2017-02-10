@@ -10,15 +10,16 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Base64;
 
 import com.google.gson.Gson;
 
 import common.DataTransferObject;
 import common.iCommand;
+import common.testcommand;
 
 
-
-    /**
+/**
      * Created by colefox on 1/19/17.
      */
     public class ServerCommunicator
@@ -29,11 +30,13 @@ import common.iCommand;
         private static int SERVER_PORT_NUMBER = 8080;
         private Gson gson = new Gson();
 
+        public ServerCommunicator(){}
+
         public void run()
         {
             try
             {
-                server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost()/*"127.0.0.1"*/, SERVER_PORT_NUMBER), MAX_WAITING_CONNECTION);
+                server = HttpServer.create(new InetSocketAddress(/*InetAddress.getLocalHost()*/"127.0.0.1", SERVER_PORT_NUMBER), MAX_WAITING_CONNECTION);
                 System.out.print("Server created at " + InetAddress.getLocalHost());
             }
             catch (IOException e)
@@ -57,7 +60,7 @@ import common.iCommand;
                 try
                 {
                     String body = streamToString(input);
-                    iCommand command = gson.fromJson(body, iCommand.class);
+                    iCommand command = (iCommand) fromString(body);
                     DataTransferObject response = command.execute();
                     sendOutData(response, httpExchange);
                 } catch (IOException e)
@@ -68,6 +71,11 @@ import common.iCommand;
                 {
                     e.printStackTrace();
                     sendOutData(new DataTransferObject("","","Failed. No request body was found"), httpExchange);
+                } catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                    sendOutData(new DataTransferObject("","","Failed. Class not found"), httpExchange);
+
                 }
 
             }
@@ -112,6 +120,15 @@ import common.iCommand;
         public void stop()
         {
             Runtime.getRuntime().exit(0);
+        }
+
+        private static Object fromString(String s) throws IOException, ClassNotFoundException
+        {
+            byte [] data = Base64.getDecoder().decode(s);
+            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
+            Object o = ois.readObject();
+            ois.close();
+            return o;
         }
 
     }

@@ -58,11 +58,13 @@ public class Database
         try
         {
             connection = DriverManager.getConnection(connectionURL);
-            createIfNotExsit();
+            createIfNotExist();
         }
         catch(SQLException e)
         {
             System.out.print("SQL error\n");
+            e.printStackTrace();
+            System.out.print(e);
         }
         return;
 
@@ -115,17 +117,16 @@ public class Database
         connection = null;
     }
 
-    public void createIfNotExsit() throws SQLException
+    public void createIfNotExist() throws SQLException
     {
 
         String sql = "CREATE TABLE IF NOT EXISTS USERS"+
                 "("+
-                "playerID INT primary key autoincrement" +
-                "username varchar(64) primary key,"+
+                "playerID INTEGER PRIMARY KEY autoincrement," +
+                "username varchar(64),"+
                 "password varchar(64),"+
-                "inGame INT" +
+                "inGame INTEGER" +
                 ");";
-
 
         PreparedStatement stmt = this.connection.prepareStatement(sql);
         stmt.executeUpdate();

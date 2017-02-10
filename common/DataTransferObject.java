@@ -1,9 +1,12 @@
 package common;
 
+
+import java.io.Serializable;
+
 /**
  * Created by colefox on 1/20/17.
  */
-public class DataTransferObject
+public class DataTransferObject implements Serializable
 {
     private int playerID;
     private String command;

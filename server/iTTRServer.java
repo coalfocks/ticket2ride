@@ -16,4 +16,6 @@ public interface iTTRServer
     public DataTransferObject joinGame(DataTransferObject data);
 
     public DataTransferObject login(DataTransferObject data);
+
+    public DataTransferObject register(DataTransferObject data);
 }

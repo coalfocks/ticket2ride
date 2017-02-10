@@ -72,6 +72,7 @@ public class TTRServerFacade implements iTTRServer
         return userInfo;
     }
 
+    @Override
     public DataTransferObject register(DataTransferObject data)
     {
         DataTransferObject userInfo = new DataTransferObject();
@@ -96,6 +97,6 @@ public class TTRServerFacade implements iTTRServer
             userInfo.setErrorMsg(e.getMessage());
         }
 
-        return null;
+        return userInfo;
     }
 }

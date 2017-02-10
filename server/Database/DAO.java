@@ -57,6 +57,7 @@ import java.sql.*;
            User user = null;
            try
            {
+               db.startTransaction();
                String sql = "SELECT * FROM users WHERE users.username = ?";
                stmt = db.connection.prepareStatement(sql);
                stmt.setString(1, username);
@@ -81,6 +82,7 @@ import java.sql.*;
                    stmt.close();
                if (rs != null)
                    rs.close();
+               db.closeTransaction(true);
            }
            return user;
        }
@@ -95,9 +97,15 @@ import java.sql.*;
            PreparedStatement stmt = null;
            try
            {
-               String sql = "INSERT IGNORE INTO users (username, password, inGame)" +
-                       "VALUES (" + u.getUsername() + ", " + u.getPassword() + ", 0);";
+               String sql = "INSERT OR IGNORE INTO users (username, password, inGame)" +
+                       "VALUES (?,?,?" +
+                        ");";
+               db.startTransaction();
                stmt = db.connection.prepareStatement(sql);
+               stmt.setString(1, u.getUsername());
+               stmt.setString(2, u.getPassword());
+               stmt.setInt(3, 0);
+
                stmt.executeUpdate();
 
            }
@@ -106,6 +114,7 @@ import java.sql.*;
                System.out.println(e.getMessage());
                return false;
            }
+           db.closeTransaction(true);
 
            return true;
 

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ticket2RideClient</string>
+    <string name="user_name_label">User Name</string>
+    <string name="password_label">Password</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="register_button">Register</string>
+    <string name="register_title">Register to Play!</string>
 </resources>

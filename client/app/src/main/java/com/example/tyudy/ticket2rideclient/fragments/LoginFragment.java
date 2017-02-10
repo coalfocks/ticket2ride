@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.model.User;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -82,15 +83,13 @@ public class LoginFragment extends Fragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MethodsFacade.SINGLETON.readUserInfo(userName, password);
-                MethodsFacade.SINGLETON.login();
+                User user = MethodsFacade.SINGLETON.loginUser(userName, password);
                 // TODO: base the success variable off of what login returns;
-                boolean success = false;
-                if(success){
+                if(user != null){
                     // Go to waiting room
                 } else {
                     // Display toast
-                    Toast.makeText(getContext() , "Sorry, try again...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext() , "Invalid user name or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,7 +99,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Go to register activity
-                Toast.makeText(getContext() , "Go to register activity!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext() , "Register a new user name and password!", Toast.LENGTH_SHORT).show();
                 Fragment registerFragment = new RegisterFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_container, registerFragment);

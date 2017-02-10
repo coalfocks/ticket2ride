@@ -14,24 +14,29 @@ public class MethodsFacade {
 
     }
 
-    /**
-     * Function called by the LoginFragment when the Login button is clicked.
-     * @param enteredName - string that was typed into the User Name field.
-     * @param enteredPassword - string that was typed into the Password field.
-     */
-    public void readUserInfo(String enteredName, String enteredPassword){
-
-    }
 
     /**
      * Function called by the LoginFragment when the Login button is clicked.
      * Logs the user in and returns a user object if successful, and a null object if not successful.
      * NOTE: we could also do the checking in another function called like canDoLogin or somethings which
      *    is what Dr.Woodfield suggested in class, then this function wouldnt run into errors when loggin in.
+     * @param enteredName - name entered to perform login in the login fragment
+     * @param enteredPassword - password entered to perform login in the login fragment
+     * @return - a User object reflecting the logged in user
      */
-    public User login(){
+    public User loginUser(String enteredName, String enteredPassword){
         return null;
     }
 
+    /**
+     * Function called by the RegisterFragment when thte register button is clicked.
+     * Registers the user on the server if they have entered a valid user name and password
+     * @param enteredName - name entered to perform login in the login fragment
+     * @param enteredPassword - password entered to perform login in the login fragment
+     * @return - a User object reflecting the registered user or null if the userName or password was invalid
+     */
+    public User registerUser(String enteredName, String enteredPassword){
+        return null;
+    }
 
 }

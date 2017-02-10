@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.model.User;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -79,9 +80,13 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Try to register the user
-                Toast.makeText(getContext() , "Server go verify the user name!!", Toast.LENGTH_SHORT).show();
-                MethodsFacade.SINGLETON.readUserInfo(enteredName, enteredPassword);
-                MethodsFacade.SINGLETON.registerUser();
+                User user = MethodsFacade.SINGLETON.registerUser(enteredName, enteredPassword);
+
+                if(user != null){
+                    Toast.makeText(getContext() , "Login Successful!" , Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext() , "Login Failed!" , Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

@@ -4,6 +4,7 @@ import common.Command;
 import common.DataTransferObject;
 import common.iCommand;
 import server.TTRGameServer;
+import server.TTRServerFacade;
 
 import java.io.Serializable;
 
@@ -15,6 +16,7 @@ public class LoginCommand extends Command implements iCommand, Serializable
     @Override
     public DataTransferObject execute(DataTransferObject dto)
     {
-        return TTRGameServer.getInstance().login(dto);
+        TTRServerFacade serverFacade = new TTRServerFacade();
+        return serverFacade.login(dto);
     }
 }

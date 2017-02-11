@@ -8,14 +8,14 @@ import server.TTRServerFacade;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/10/2017.
+ * Created by Trevor on 2/11/2017.
  */
-public class CreateGameCommand extends Command implements iCommand, Serializable
+public class StartGameCommand extends Command implements iCommand, Serializable
 {
     @Override
     public DataTransferObject execute(DataTransferObject dto)
     {
         TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.createGame(dto);
+        return serverFacade.startGame(dto);
     }
 }

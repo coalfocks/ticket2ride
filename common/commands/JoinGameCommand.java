@@ -3,6 +3,7 @@ package common.commands;
 import common.Command;
 import common.DataTransferObject;
 import common.iCommand;
+import server.TTRServerFacade;
 
 import java.io.Serializable;
 
@@ -14,7 +15,7 @@ public class JoinGameCommand extends Command implements iCommand, Serializable
     @Override
     public DataTransferObject execute(DataTransferObject dto)
     {
-        // TODO
-        return super.execute(dto);
+        TTRServerFacade serverFacade = new TTRServerFacade();
+        return serverFacade.joinGame(dto);
     }
 }

@@ -83,9 +83,9 @@ public class RegisterFragment extends Fragment {
                 User user = MethodsFacade.SINGLETON.registerUser(enteredName, enteredPassword);
 
                 if(user != null){
-                    Toast.makeText(getContext() , "Login Successful!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext() , "Register Successful!" , Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext() , "Login Failed!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext() , "Register Failed!" , Toast.LENGTH_SHORT).show();
                 }
 
             }

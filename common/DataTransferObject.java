@@ -1,23 +1,24 @@
 package common;
 
-
-import java.io.Serializable;
+import com.google.gson.JsonObject;
 
 /**
  * Created by colefox on 1/20/17.
  */
-public class DataTransferObject implements Serializable
+public class DataTransferObject
 {
     private int playerID;
     private String command;
     private String data;
     private String errorMsg;
+    private JsonObject obj;
 
-    public DataTransferObject(String c, String d, String e)
+    public DataTransferObject(String c, String d, String e, JsonObject o)
     {
         command = c;
         data = d;
         errorMsg = e;
+        obj = o;
     }
 
     public DataTransferObject()
@@ -25,6 +26,7 @@ public class DataTransferObject implements Serializable
         command = "";
         data = "";
         errorMsg = "";
+        obj = null;
     }
 
     public String getCommand()
@@ -66,4 +68,6 @@ public class DataTransferObject implements Serializable
     {
         this.playerID = id;
     }
+
+    public JsonObject getJsonObj() { return obj; }
 }

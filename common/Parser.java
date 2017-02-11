@@ -29,45 +29,6 @@ public class Parser
         return string;
     }
 
-    // The method to deserialize a response using JSON
-    public static Response readResponse(InputStream fileIn) throws IOException
-    {
-        Response response = null;
-        JsonReader reader = new JsonReader(new InputStreamReader(fileIn));
-        reader.beginObject();
-
-        try
-        {
-            int intVal = 0;
-            String str = null;
-
-            while (reader.hasNext())
-            {
-                String name = reader.nextName();
-
-                if (name.equals(responseInt))
-                    intVal = reader.nextInt();
-
-                else if (name.equals(responseStr))
-                    str = reader.nextString();
-            }
-
-            response = new Response(str, intVal);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Response couldn't be deserialized.");
-            e.printStackTrace();
-        }
-        finally
-        {
-            reader.endObject();
-            reader.close();
-        }
-
-        return response;
-    }
-
     // The method to deserialize a command
     public static iCommand readCommand(InputStream fileIn) throws IOException
     {
@@ -98,20 +59,6 @@ public class Parser
         os.close();
 
         System.out.println("Command serialized\n");
-    }
-
-    // The method to serialize a response using JSON
-    public static void writeResponse(Response response, OutputStream fileOut) throws IOException
-    {
-        JsonWriter writer = new JsonWriter(new OutputStreamWriter(fileOut));
-
-        writer.beginObject();
-        writer.name(responseInt).value(response.intValue);
-        writer.name(responseStr).value(response.stringValue);
-        writer.endObject();
-        writer.close();
-
-        System.out.println("Response serialized\n");
     }
 
     // The method to serialize a string using JSON

@@ -6,6 +6,7 @@ import common.DataTransferObject;
 import com.google.gson.Gson;
 import server.Database.Database;
 
+import javax.xml.crypto.Data;
 import java.util.Objects;
 
 /**
@@ -20,11 +21,11 @@ public class TTRServerFacade implements iTTRServer
     @Override
     public DataTransferObject createGame(DataTransferObject data)
     {
-        //Game g = new Game
-        //g.setID
-        //g.setOwner (perhaps joinGame (owner, g)
-        //db.add(g)
-        return null;
+
+        int gameID = gameUserManager.createGame(data.getPlayerID());
+        data.setData(String.valueOf(gameID));
+        return joinGame(data);
+
     }
 
     @Override
@@ -46,11 +47,18 @@ public class TTRServerFacade implements iTTRServer
     @Override
     public DataTransferObject joinGame(DataTransferObject data)
     {
-        //Game g = db.getGame
-        //User player = db.getPlayer
-        //g.addPlayer(player)
-        //player.addGame(g)
-        return null;
+        int gameID = Integer.parseInt(data.getData());
+        boolean added = gameUserManager.joinGame(gameID, data.getPlayerID());
+        if(added)
+        {
+            data.setData("Player " + data.getPlayerID() + " joined game " + gameID);
+        }
+        else
+        {
+            data.setData("");
+            data.setErrorMsg("An error occurred, game not joined");
+        }
+        return data;
     }
 
     @Override
@@ -106,4 +114,5 @@ public class TTRServerFacade implements iTTRServer
 
         return userInfo;
     }
+
 }

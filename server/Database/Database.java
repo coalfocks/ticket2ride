@@ -120,7 +120,7 @@ public class Database
     public void createIfNotExist() throws SQLException
     {
 
-        String sql = "CREATE TABLE IF NOT EXISTS USERS"+
+        String sql = "CREATE TABLE IF NOT EXISTS users"+
                 "("+
                 "playerID INTEGER PRIMARY KEY autoincrement," +
                 "username varchar(64),"+
@@ -130,6 +130,19 @@ public class Database
 
         PreparedStatement stmt = this.connection.prepareStatement(sql);
         stmt.executeUpdate();
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS games"+
+                "("+
+                "gameID INTEGER PRIMARY KEY autoincrement," +
+                "owner varchar(64)," +
+                "inProgress TINYINT," +
+                "game TEXT" +
+                ");";
+
+        PreparedStatement stmt2 = this.connection.prepareStatement(sql2);
+        stmt2.executeUpdate();
+
+
 
     }
 

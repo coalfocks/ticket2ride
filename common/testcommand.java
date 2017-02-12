@@ -1,5 +1,6 @@
 package common;
 
+import server.Database.DAO;
 import server.TTRServerFacade;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ public class testcommand implements iCommand,Serializable
     public DataTransferObject execute()
     {
         TTRServerFacade facade = new TTRServerFacade();
-        data = facade.login(data);
+        data = facade.createGame(data);
         return data;
     }
 }

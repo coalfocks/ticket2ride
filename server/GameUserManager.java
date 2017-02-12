@@ -61,4 +61,41 @@ public class GameUserManager
         }
         return true;
     }
+
+    public int createGame(int ownerID)
+    {
+        try
+        {
+            int gameID = dao.createGame(ownerID);
+            return gameID;
+
+        } catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    public boolean getGames()
+    {
+        return true;
+    }
+
+    public boolean joinGame(int gameID, int playerID)
+    {
+        try
+        {
+            TTRGame game = dao.getGame(gameID);
+            game.addPlayer(playerID);
+            User player = dao.getUser(playerID);
+            if (dao.updatePlayerGame(gameID, playerID))
+            {
+                player.setInGame(gameID);
+            }
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

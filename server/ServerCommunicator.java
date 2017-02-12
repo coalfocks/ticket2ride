@@ -60,7 +60,7 @@ import common.testcommand;
                 try
                 {
                     String body = streamToString(input);
-                    iCommand command = (iCommand) fromString(body);
+                    iCommand command = (iCommand) Serializer.deserialize(body);
                     DataTransferObject response = command.execute();
                     sendOutData(response, httpExchange);
                 } catch (IOException e)
@@ -120,15 +120,6 @@ import common.testcommand;
         public void stop()
         {
             Runtime.getRuntime().exit(0);
-        }
-
-        private static Object fromString(String s) throws IOException, ClassNotFoundException
-        {
-            byte [] data = Base64.getDecoder().decode(s);
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-            Object o = ois.readObject();
-            ois.close();
-            return o;
         }
 
     }

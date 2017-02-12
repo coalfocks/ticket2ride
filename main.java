@@ -26,10 +26,11 @@ public class main
         server.run();
 
         DataTransferObject data = new DataTransferObject();
-        User me = new User("cole","fox",0,0);
+        User me = new User("cole","fox",1,0);
         String s = gson.toJson(me);
         data.setData(s);
-        data.setCommand("Login");
+        data.setCommand("CreateGame");
+        data.setPlayerID(1);
 
         testcommand test = new testcommand();
         test.setData(data);

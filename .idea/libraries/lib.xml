@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dependencies/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/visualvm/platform/lib/boot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dependencies/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/visualvm/platform/lib/org-openide-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dependencies/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/visualvm/platform/lib/org-openide-modules.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dependencies/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/visualvm/platform/lib/org-openide-util-lookup.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

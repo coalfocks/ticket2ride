@@ -24,7 +24,7 @@ public class testcommand implements iCommand,Serializable
     public DataTransferObject execute()
     {
         TTRServerFacade facade = new TTRServerFacade();
-        data = facade.createGame(data);
+        data = facade.endGame(data);
         return data;
     }
 }

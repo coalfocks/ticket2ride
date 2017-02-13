@@ -3,14 +3,15 @@ import common.Command;
 import common.DataTransferObject;
 import common.iCommand;
 import common.testcommand;
-import server.ServerCommunicator;
-import server.TTRServerFacade;
-import server.User;
+import server.*;
 import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.TreeSet;
 
 /**
  * Created by colefox on 2/9/17.
@@ -28,8 +29,8 @@ public class main
         DataTransferObject data = new DataTransferObject();
         User me = new User("cole","fox",1,0);
         String s = gson.toJson(me);
-        data.setData(s);
-        data.setCommand("CreateGame");
+        data.setData("15");
+        data.setCommand("JoinGame");
         data.setPlayerID(1);
 
         testcommand test = new testcommand();
@@ -76,7 +77,7 @@ public class main
             e.printStackTrace();
         }
 
-        System.out.println(dto.getData());
+       System.out.println(dto.getData());
         System.out.println(dto.getErrorMsg());
         server.stop();
     }

@@ -3,6 +3,11 @@ package server;
 
 import server.Database.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Created by colefox on 2/6/17.
  */
@@ -20,16 +25,6 @@ public class GameUserManager
             instance = new GameUserManager();
         }
         return instance;
-    }
-
-    public boolean createPlayer()
-    {
-        return true;
-    }
-
-    public boolean createGame()
-    {
-        return true;
     }
 
     public User getUser(String s)
@@ -75,9 +70,9 @@ public class GameUserManager
         }
     }
 
-    public boolean getGames()
+    public ArrayList<TTRGame> getGames()
     {
-        return true;
+        return dao.getGames();
     }
 
     public boolean joinGame(int gameID, int playerID)
@@ -86,6 +81,7 @@ public class GameUserManager
         {
             TTRGame game = dao.getGame(gameID);
             game.addPlayer(playerID);
+            dao.addPlayerToGame(gameID, Serializer.serialize(game));
             User player = dao.getUser(playerID);
             if (dao.updatePlayerGame(gameID, playerID))
             {
@@ -97,5 +93,20 @@ public class GameUserManager
             return false;
         }
         return true;
+    }
+
+    public TTRGame getGame(int gameID)
+    {
+        return dao.getGame(gameID);
+    }
+
+    public boolean startGame(int ownerID)
+    {
+        return dao.startGame(ownerID);
+    }
+
+    public boolean endGame(int ownerID)
+    {
+        return dao.endGame(ownerID);
     }
 }

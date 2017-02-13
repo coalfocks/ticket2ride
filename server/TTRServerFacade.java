@@ -7,7 +7,10 @@ import com.google.gson.Gson;
 import server.Database.Database;
 
 import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by colefox on 2/5/17.
@@ -31,17 +34,43 @@ public class TTRServerFacade implements iTTRServer
     @Override
     public DataTransferObject startGame(DataTransferObject data)
     {
-        //Game g = db.getGame
-        //g.start()
-        return null;
+        if (gameUserManager.startGame(data.getPlayerID()))
+        {
+            try
+            {
+                TTRGame game = gameUserManager.getGame(data.getPlayerID());
+                String gstring = Serializer.serialize(game);
+                data.setData(gstring);
+            } catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            data.setErrorMsg("An error occurred, couldn't start game");
+        }
+        return data;
     }
 
     @Override
     public DataTransferObject endGame(DataTransferObject data)
     {
-        //Game g = db.getGame
-        //g.end()
-        return null;
+        if (gameUserManager.endGame(data.getPlayerID()))
+        {
+            try
+            {
+                data.setData("Ended game");
+            } catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            data.setErrorMsg("An error occurred, couldn't start game");
+        }
+        return data;
     }
 
     @Override
@@ -113,6 +142,21 @@ public class TTRServerFacade implements iTTRServer
         }
 
         return userInfo;
+    }
+
+    public DataTransferObject listGames(DataTransferObject data)
+    {
+        try
+        {
+            ArrayList<TTRGame> games = gameUserManager.getGames();
+            data.setData(Serializer.serialize(games));
+            return data;
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+            data.setErrorMsg("An error occurred - could not get games");
+            return data;
+        }
     }
 
 }

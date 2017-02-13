@@ -10,9 +10,13 @@ import server.User;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 
-    public class DAO
+public class DAO
     {
         private static DAO instance;
         private static Database db;
@@ -334,8 +338,146 @@ import java.sql.*;
            db.closeTransaction(true);
 
            return true;
-
-
        }
 
+        public boolean addPlayerToGame(int gameID, String game)
+        {
+
+            if (gameID == 0 || game == null)
+            {
+                return false;
+            }
+
+            PreparedStatement stmt = null;
+            try
+            {
+                String sql = "UPDATE games" +
+                        " SET game = ?" +
+                        " WHERE gameID = ?";
+                db.startTransaction();
+                stmt = db.connection.prepareStatement(sql);
+                stmt.setString(1, game);
+                stmt.setInt(2, gameID);
+
+                stmt.executeUpdate();
+
+            }
+            catch(SQLException e)
+            {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            db.closeTransaction(true);
+
+            return true;
+        }
+
+        public ArrayList<TTRGame> getGames()
+        {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            TTRGame game = null;
+            ArrayList<TTRGame> games = new ArrayList<>();
+            try
+            {
+                db.startTransaction();
+                String sql = "SELECT * FROM games";
+                stmt = db.connection.prepareStatement(sql);
+                rs = stmt.executeQuery();
+
+                while (rs.next())
+                {
+                    String g = rs.getString(4);
+                    game = (TTRGame) Serializer.deserialize(g);
+                    games.add(game);
+                }
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e)
+            {
+                e.printStackTrace();
+            }  catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (stmt != null)
+                        stmt.close();
+                    if (rs != null)
+                        rs.close();
+                    db.closeTransaction(true);
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            return games;
+        }
+
+        public boolean startGame(int ownerID)
+        {
+
+            if (ownerID == 0)
+            {
+                return false;
+            }
+
+            PreparedStatement stmt = null;
+            try
+            {
+                String sql = "UPDATE games" +
+                        " SET inProgress = 1" +
+                        " WHERE owner = ?";
+                db.startTransaction();
+                stmt = db.connection.prepareStatement(sql);
+                stmt.setInt(1, ownerID);
+
+                stmt.executeUpdate();
+
+            }
+            catch(SQLException e)
+            {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            db.closeTransaction(true);
+
+            return true;
+        }
+
+        public boolean endGame(int ownerID)
+        {
+
+            if (ownerID == 0)
+            {
+                return false;
+            }
+
+            PreparedStatement stmt = null;
+            try
+            {
+                String sql = "UPDATE games" +
+                        " SET inProgress = 0" +
+                        " WHERE owner = ?";
+                db.startTransaction();
+                stmt = db.connection.prepareStatement(sql);
+                stmt.setInt(1, ownerID);
+
+                stmt.executeUpdate();
+
+            }
+            catch(SQLException e)
+            {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            db.closeTransaction(true);
+
+            return true;
+        }
 }

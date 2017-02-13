@@ -50,10 +50,4 @@ public class TTRGameServer implements iTTRServer
     {
         return null;
     }
-
-    @Override
-    public DataTransferObject register(DataTransferObject data)
-    {
-        return null;
-    }
 }

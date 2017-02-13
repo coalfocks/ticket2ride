@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="mc">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/dependencies/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/missioncontrol/mc.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

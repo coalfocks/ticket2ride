@@ -5,4 +5,6 @@
     <string name="sign_in_button">Sign In</string>
     <string name="register_button">Register</string>
     <string name="register_title">Register to Play!</string>
+    <string name="game_selection_label">Select a game to play!</string>
+    <string name="create_game_button">Create Game</string>
 </resources>

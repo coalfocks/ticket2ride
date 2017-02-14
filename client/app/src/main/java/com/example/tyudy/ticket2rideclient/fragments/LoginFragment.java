@@ -1,9 +1,7 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,8 +38,6 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.login_fragment, container, false);
-
-        // TODO: Make this an observable
 
         mUserField = (EditText) v.findViewById(R.id.user_name_field);
         mUserField.addTextChangedListener(new TextWatcher() {

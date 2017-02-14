@@ -3,6 +3,8 @@ package server;
 
 import server.Database.DAO;
 
+import java.util.ArrayList;
+
 /**
  * Created by colefox on 2/6/17.
  */
@@ -60,5 +62,10 @@ public class GameUserManager
             return false;
         }
         return true;
+    }
+
+    public ArrayList<TTRGame> getGames()
+    {
+        return dao.getGames();
     }
 }

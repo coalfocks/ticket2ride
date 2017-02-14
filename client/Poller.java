@@ -1,6 +1,7 @@
 package client;
 
 import common.DataTransferObject;
+import server.TTRServerFacade;
 
 /**
  * Created by Trevor on 2/11/2017.
@@ -20,6 +21,7 @@ public class Poller
     }
 
     private static Poller poller = null;
+    private DataTransferObject gamesData = null;
 
     /**
      * Poll method, called every [amount of time] by ClientCommunicator
@@ -28,7 +30,17 @@ public class Poller
      */
     public DataTransferObject poll()
     {
-        return null;
+        TTRServerFacade facade = new TTRServerFacade();
+        DataTransferObject previousData = new DataTransferObject(gamesData);
+
+        gamesData = facade.listGames(previousData);
+
+        if (gamesData.equals(previousData))
+        {
+            return null;
+        }
+
+        return gamesData;
     }
 
 }

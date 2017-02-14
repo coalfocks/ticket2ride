@@ -21,6 +21,25 @@ public class DataTransferObject
         obj = o;
     }
 
+    public DataTransferObject(DataTransferObject d)
+    {
+        if (d != null)
+        {
+            command = d.getCommand();
+            data = d.getData();
+            errorMsg = d.getErrorMsg();
+            playerID = d.getPlayerID();
+            obj = d.getJsonObj();
+        }
+        else
+        {
+            command = "";
+            data = "";
+            errorMsg = "";
+            obj = null;
+        }
+    }
+
     public DataTransferObject()
     {
         command = "";

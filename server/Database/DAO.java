@@ -3,13 +3,17 @@ package server.Database;
 /**
  * Created by colefox on 2/6/17.
  */
+import server.Serializer;
+import server.TTRGame;
 import server.User;
 
 import java.awt.*;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 
-    public class DAO
+public class DAO
     {
         private static DAO instance;
         private static Database db;
@@ -84,6 +88,53 @@ import java.sql.*;
            }
            return user;
        }
+
+        public ArrayList<TTRGame> getGames()
+        {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            TTRGame game = null;
+            ArrayList<TTRGame> games = new ArrayList<>();
+            try
+            {
+                db.startTransaction();
+                String sql = "SELECT * FROM games";
+                stmt = db.connection.prepareStatement(sql);
+                rs = stmt.executeQuery();
+
+                while (rs.next())
+                {
+                    String g = rs.getString(4);
+                    game = (TTRGame) Serializer.deserialize(g);
+                    games.add(game);
+                }
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e)
+            {
+                e.printStackTrace();
+            }  catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (stmt != null)
+                        stmt.close();
+                    if (rs != null)
+                        rs.close();
+                    db.closeTransaction(true);
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            return games;
+        }
 
        public boolean addUser(User u)
        {

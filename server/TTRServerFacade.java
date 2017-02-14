@@ -6,6 +6,8 @@ import common.DataTransferObject;
 import com.google.gson.Gson;
 import server.Database.Database;
 
+import java.util.ArrayList;
+
 /**
  * Created by colefox on 2/5/17.
  */
@@ -97,5 +99,20 @@ public class TTRServerFacade implements iTTRServer
         }
 
         return userInfo;
+    }
+
+    public DataTransferObject listGames(DataTransferObject data)
+    {
+        try
+        {
+            ArrayList<TTRGame> games = gameUserManager.getGames();
+            data.setData(Serializer.serialize(games));
+            return data;
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+            data.setErrorMsg("An error occurred - could not get games");
+            return data;
+        }
     }
 }

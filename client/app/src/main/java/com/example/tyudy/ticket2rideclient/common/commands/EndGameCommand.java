@@ -12,10 +12,20 @@ import java.io.Serializable;
  */
 public class EndGameCommand extends Command implements iCommand, Serializable
 {
+  public EndGameCommand(){}
+
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.endGame(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.endGame(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

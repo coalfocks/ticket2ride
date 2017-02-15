@@ -12,10 +12,20 @@ import java.io.Serializable;
  */
 public class JoinGameCommand extends Command implements iCommand, Serializable
 {
+  public JoinGameCommand(){}
+
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.joinGame(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.joinGame(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

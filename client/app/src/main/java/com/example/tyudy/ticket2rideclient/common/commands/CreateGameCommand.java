@@ -9,13 +9,42 @@ import java.io.Serializable;
 
 /**
  * Created by Trevor on 2/10/2017.
+ private DataTransferObject data;
+
+
+ public testcommand(){}
+
+ public void setData(DataTransferObject d)
+ {
+     this.data = d;
+ }
+
+ @Override
+ public DataTransferObject execute()
+ {
+     TTRServerFacade facade = new TTRServerFacade();
+     data = facade.endGame(data);
+     return data;
+ }
  */
 public class CreateGameCommand extends Command implements iCommand, Serializable
 {
+
+
+  public CreateGameCommand(){}
+
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.createGame(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.createGame(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

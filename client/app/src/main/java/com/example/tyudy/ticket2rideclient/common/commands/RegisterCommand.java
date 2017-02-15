@@ -12,10 +12,20 @@ import java.io.Serializable;
  */
 public class RegisterCommand extends Command implements iCommand, Serializable
 {
+  public RegisterCommand(){}
+
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.register(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.register(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

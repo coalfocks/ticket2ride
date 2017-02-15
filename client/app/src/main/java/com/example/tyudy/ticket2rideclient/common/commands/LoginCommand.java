@@ -13,10 +13,20 @@ import java.io.Serializable;
  */
 public class LoginCommand extends Command implements iCommand, Serializable
 {
+  public LoginCommand(){}
+
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.login(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.login(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

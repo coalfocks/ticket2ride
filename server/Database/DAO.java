@@ -182,11 +182,12 @@ public class DAO
            game.setOwnerID(ownerID);
            game.setInProgress(0);
 
-
            ResultSet rs = null;
            PreparedStatement stmt = null;
            try
            {
+               User u = getUser(ownerID);
+               game.setOwnerUsername(u.getUsername());
                String g = Serializer.serialize(game);
                String sql = "INSERT OR IGNORE INTO games (owner, inProgress, game)" +
                        "VALUES (?,?,?);";
@@ -381,7 +382,7 @@ public class DAO
             try
             {
                 db.startTransaction();
-                String sql = "SELECT * FROM games";
+                String sql = "SELECT * FROM games WHERE inProgress = 0";
                 stmt = db.connection.prepareStatement(sql);
                 rs = stmt.executeQuery();
 
@@ -479,5 +480,41 @@ public class DAO
             db.closeTransaction(true);
 
             return true;
+        }
+
+        public int getGameStatus(int gameID)
+        {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            ArrayList<TTRGame> games = new ArrayList<>();
+            try
+            {
+                db.startTransaction();
+                String sql = "SELECT inProgress FROM games WHERE games.gameID = ?";
+                stmt = db.connection.prepareStatement(sql);
+                stmt.setInt(1,gameID);
+                rs = stmt.executeQuery();
+
+                return rs.getInt(1);
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+                return 1;
+            }
+            finally
+            {
+                try
+                {
+                    if (stmt != null)
+                        stmt.close();
+                    if (rs != null)
+                        rs.close();
+                    db.closeTransaction(true);
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
 }

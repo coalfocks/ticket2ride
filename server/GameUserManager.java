@@ -79,6 +79,10 @@ public class GameUserManager
     {
         try
         {
+            if (dao.getGameStatus(gameID) == 1)
+            {
+                return false;
+            }
             TTRGame game = dao.getGame(gameID);
             game.addPlayer(playerID);
             dao.addPlayerToGame(gameID, Serializer.serialize(game));
@@ -86,6 +90,10 @@ public class GameUserManager
             if (dao.updatePlayerGame(gameID, playerID))
             {
                 player.setInGame(gameID);
+            }
+            if (game.getNumPlayers() >= 5)
+            {
+                startGame(game.getOwnerID());
             }
         } catch(Exception e)
         {

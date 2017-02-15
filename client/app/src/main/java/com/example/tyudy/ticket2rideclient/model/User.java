@@ -1,10 +1,12 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import java.io.Serializable;
+
 /**
  * Created by tyudy on 2/7/17.
  */
 
-public class User {
+public class User implements Serializable {
 
   private String username;
   private String password;

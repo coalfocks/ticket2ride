@@ -52,7 +52,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MethodsFacade.SINGLETON.createGame();
+               // MethodsFacade.SINGLETON.createGame();
             }
         });
 

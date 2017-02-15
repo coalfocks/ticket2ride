@@ -9,6 +9,7 @@ import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.User;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,14 +55,14 @@ public class MethodsFacade {
             try {
                 String commandString = serializer.serialize(newCommand);
                 DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-                if(response.getErrorMsg.length()!=0){
+                if(response.getErrorMsg().length()!=0){
                   return null;
                 }
                 else{
-                  User loggedInUser = serializer.deserialize(response.getData());
+                  User loggedInUser = (User) serializer.deserialize(response.getData());
                   return loggedInUser;
                 }
-            } catch (IOException e){
+            } catch (Exception e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
                 return null;
@@ -93,14 +94,14 @@ public class MethodsFacade {
             try {
                 String commandString = serializer.serialize(newCommand);
                 DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-                if(response.getErrorMsg.length()!=0){
+                if(response.getErrorMsg().length()!=0){
                   return null;
                 }
                 else{
-                  User registeredUser = serializer.deserialize(response.getData());
+                  User registeredUser = (User) serializer.deserialize(response.getData());
                   return registeredUser;
                 }
-            } catch (IOException e){
+            } catch (Exception e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
                 return null;

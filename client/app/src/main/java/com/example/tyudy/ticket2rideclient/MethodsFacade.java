@@ -15,6 +15,7 @@ import java.util.List;
 public class MethodsFacade {
 
     public static final MethodsFacade SINGLETON = new MethodsFacade();
+    public Serializer serializer = new Serializer();
 
     private MethodsFacade(){
         // IMPLEMENT ME!
@@ -35,6 +36,11 @@ public class MethodsFacade {
         DataTransferObject dto = new DataTransferObject();
         User user = new User();
         String s = gson.toJson(user);
+        LoginCommand newCommand = new LoginCommand();
+        dto.setData(s);
+        dto.setCommand("login");
+        newCommand.setData(dto);
+        String commandString = serializer.serialize(newCommand);
         ClientCommunicator.getInstance().sendCommand(commandString);
 
         return null;

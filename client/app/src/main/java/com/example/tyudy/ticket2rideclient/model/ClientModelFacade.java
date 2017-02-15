@@ -69,4 +69,8 @@ public class ClientModelFacade implements IObservable {
     public void setIpAddress(String addressParam){
         ipAddress = addressParam;
     }
+    public String getIpAddress(String addressParam){
+        ipAddress = addressParam;
+    }
+
 }

@@ -8,11 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -21,6 +25,8 @@ import com.example.tyudy.ticket2rideclient.model.Game;
 public class GameSelectionFragment extends Fragment implements IObserver {
 
     private RecyclerView mGameRecyclerView;
+    private GameAdapter mGameAdapter;
+
     private Button mCreateGameButton;
 
     @Override
@@ -39,6 +45,8 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         mGameRecyclerView = (RecyclerView) v.findViewById(R.id.game_recycler_view);
         mGameRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        observe();
+
 
 
 
@@ -49,18 +57,37 @@ public class GameSelectionFragment extends Fragment implements IObserver {
     @Override
     public void observe() {
         // Update the screen by reading from the model and presenting data to the view
+        mGameAdapter = new GameAdapter(ClientModelFacade.SINGLETON.getGameList());
+        mGameRecyclerView.setAdapter(mGameAdapter);
 
     }
 
     // TODO: Implement this class
     private class GameHolder extends RecyclerView.ViewHolder {
 
+        private TextView mGameNumberTitle;
+        private TextView mGameOwnerText;
+        private TextView mNumberOfPlayers;
+
+
         public GameHolder(View gameView){
             super(gameView);
+
+            mGameNumberTitle = (TextView) gameView.findViewById(R.id.game_number_title);
+            mGameOwnerText = (TextView) gameView.findViewById(R.id.game_owner);
+            mNumberOfPlayers = (TextView) gameView.findViewById(R.id.game_list_players);
+
         }
+
     }
 
     private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
+
+        private ArrayList<Game> mGameList;
+
+        public GameAdapter(ArrayList<Game> gameList){
+            mGameList = gameList;
+        }
 
         @Override
         public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,13 +98,13 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         @Override
         public void onBindViewHolder(GameHolder holder, int position) {
-            Game game = ClientModelFacade.SINGLETON.getGameAtIndex(position);
+            Game game = mGameList.get(position);
             // Set fields of view according to this game
         }
 
         @Override
         public int getItemCount() {
-            return ClientModelFacade.SINGLETON.getGameList().size();
+            return mGameList.size();
         }
     }
 

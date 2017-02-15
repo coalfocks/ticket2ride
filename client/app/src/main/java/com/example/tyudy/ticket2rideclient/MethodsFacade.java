@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient;
 
+import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.User;
@@ -31,6 +32,11 @@ public class MethodsFacade {
      */
     public User loginUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
+        DataTransferObject dto = new DataTransferObject();
+        User user = new User();
+        String s = gson.toJson(user);
+        ClientCommunicator.getInstance().sendCommand(commandString);
+
         return null;
     }
 

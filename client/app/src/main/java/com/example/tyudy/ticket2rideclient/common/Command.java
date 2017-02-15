@@ -8,9 +8,18 @@ import java.io.Serializable;
  */
 public class Command implements iCommand, Serializable
 {
-    @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    private DataTransferObject data;
+
+    public void setData(DataTransferObject d)
     {
-        return null;
+        this.data = d;
+    }
+
+    @Override
+    public DataTransferObject execute()
+    {
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.endGame(data);
+        return data;
     }
 }

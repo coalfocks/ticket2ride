@@ -5,5 +5,5 @@ package com.example.tyudy.ticket2rideclient.common;
  */
 public interface iCommand
 {
-    DataTransferObject execute(DataTransferObject dto);
+    DataTransferObject execute();
 }

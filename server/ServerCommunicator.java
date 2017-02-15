@@ -36,7 +36,7 @@ import common.testcommand;
         {
             try
             {
-                server = HttpServer.create(new InetSocketAddress(/*InetAddress.getLocalHost()*/"127.0.0.1", SERVER_PORT_NUMBER), MAX_WAITING_CONNECTION);
+                server = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost()/*"127.0.0.1"*/, SERVER_PORT_NUMBER), MAX_WAITING_CONNECTION);
                 System.out.print("Server created at " + InetAddress.getLocalHost());
             }
             catch (IOException e)

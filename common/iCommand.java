@@ -5,5 +5,5 @@ package common;
  */
 public interface iCommand
 {
-    DataTransferObject execute(DataTransferObject dto);
+    DataTransferObject execute();
 }

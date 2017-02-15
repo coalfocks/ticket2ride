@@ -1,8 +1,10 @@
 package com.example.tyudy.ticket2rideclient;
 
 import com.example.tyudy.ticket2rideclient.model.Game;
+import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +50,7 @@ public class MethodsFacade {
      * Called by the Poller. Updates the game list stored in the model and notifies the observers that changes were made.
      * @param gameList - new game list from the server. (passed in by the Poller ).
      */
-    public void updateGameList(List<Game> gameList){
+    public void updateGameList(ArrayList<Game> gameList){
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
         ClientModelFacade.SINGLETON.addGames(gameList);

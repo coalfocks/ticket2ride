@@ -73,7 +73,7 @@ public class main
             }
             else
             {
-                dto = new DataTransferObject(data.getCommand(), "", "Could not connect!");
+                dto = new DataTransferObject(data.getCommand(), "", "Could not connect!",null);
                 System.out.print(dto.getErrorMsg());
             }
 

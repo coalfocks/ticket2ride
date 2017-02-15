@@ -66,15 +66,15 @@ import common.testcommand;
                 } catch (IOException e)
                 {
                     e.printStackTrace();
-                    sendOutData(new DataTransferObject("","","Failed. Connection error"), httpExchange);
+                    sendOutData(new DataTransferObject("","","Failed. Connection error",null), httpExchange);
                 } catch (ClassCastException e)
                 {
                     e.printStackTrace();
-                    sendOutData(new DataTransferObject("","","Failed. No request body was found"), httpExchange);
+                    sendOutData(new DataTransferObject("","","Failed. No request body was found",null), httpExchange);
                 } catch (ClassNotFoundException e)
                 {
                     e.printStackTrace();
-                    sendOutData(new DataTransferObject("","","Failed. Class not found"), httpExchange);
+                    sendOutData(new DataTransferObject("","","Failed. Class not found",null), httpExchange);
 
                 }
 

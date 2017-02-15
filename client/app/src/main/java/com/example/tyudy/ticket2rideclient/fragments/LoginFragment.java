@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.User;
 
 /**
@@ -100,6 +101,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                setIpAddress();
                 if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
                     return;
                 }
@@ -120,6 +122,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                setIpAddress();
                 if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
                     return;
                 }
@@ -151,5 +154,12 @@ public class LoginFragment extends Fragment {
         } else {
             return true;
         }
+    }
+
+    /**
+     * Set the ip Address on the model so it can be used in different places
+     */
+    private void setIpAddress(){
+        ClientModelFacade.SINGLETON.setIpAddress(ipAddress);
     }
 }

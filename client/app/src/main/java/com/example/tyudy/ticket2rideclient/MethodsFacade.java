@@ -35,6 +35,8 @@ public class MethodsFacade {
         // IMPLEMENT ME!
         DataTransferObject dto = new DataTransferObject();
         User user = new User();
+        user.setUsername(enteredName);
+        user.setPassword(enteredPassword);
         String s = gson.toJson(user);
         LoginCommand newCommand = new LoginCommand();
         dto.setData(s);
@@ -55,6 +57,17 @@ public class MethodsFacade {
      */
     public User registerUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
+        DataTransferObject dto = new DataTransferObject();
+        User user = new User();
+        user.setUsername(enteredName);
+        user.setPassword(enteredPassword);
+        String s = gson.toJson(user);
+        LoginCommand newCommand = new RegisterCommand();
+        dto.setData(s);
+        dto.setCommand("login");
+        newCommand.setData(dto);
+        String commandString = serializer.serialize(newCommand);
+        ClientCommunicator.getInstance().sendCommand(commandString);
         return null;
     }
 

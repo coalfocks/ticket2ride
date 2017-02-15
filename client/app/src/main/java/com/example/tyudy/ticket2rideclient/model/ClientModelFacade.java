@@ -16,6 +16,7 @@ public class ClientModelFacade implements IObservable {
     public static final ClientModelFacade SINGLETON = new ClientModelFacade();
     private ArrayList<Game> gameList;
     private ArrayList<IObserver> obsList;
+    private String ipAddress;
 
 
     private ClientModelFacade(){
@@ -63,5 +64,9 @@ public class ClientModelFacade implements IObservable {
      */
     public ArrayList<Game> getGameList(){
         return gameList;
+    }
+
+    public void setIpAddress(String addressParam){
+        ipAddress = addressParam;
     }
 }

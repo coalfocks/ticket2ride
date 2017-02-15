@@ -109,6 +109,7 @@ public class MethodsFacade {
       }
         return null;
     }
+
     public boolean check(String pass){
       if(pass == null || pass == ""){
         return false;
@@ -134,6 +135,16 @@ public class MethodsFacade {
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
         ClientModelFacade.SINGLETON.addGames(gameList);
+    }
+
+    /**
+     * Called when the create game button is clicked in the GameSelectionFragment.
+     * Creates a game based off of the current user and will add it to the games stored on the server.
+     */
+    public void createGame(){
+        // User this curUser for any data that you may need (i.e. userName)
+        User curUser = ClientModelFacade.SINGLETON.getCurrentUser();
+        // ZAC, IMPLEMENT ME!
     }
 
 }

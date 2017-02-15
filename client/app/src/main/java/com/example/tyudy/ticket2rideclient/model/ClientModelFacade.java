@@ -44,9 +44,9 @@ public class ClientModelFacade implements IObservable {
      * Add a game to the ClientModelFacade. (Stored in something like a GameList class or just a List<Game>)
      * @param g - game to be added
      */
-    public void addGame(Game g){
-        gameList.push(g);
-        return;
+    public void addGames(List<Game> gameList{
+        this.gameList = gameList;
+        this.notifyObservers;
     }
 
     /**

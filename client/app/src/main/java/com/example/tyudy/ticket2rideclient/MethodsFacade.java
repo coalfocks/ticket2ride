@@ -51,6 +51,7 @@ public class MethodsFacade {
     public void updateGameList(List<Game> gameList){
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
+        ClientModelFacade.SINGLETON.addGames(gameList);
     }
 
 }

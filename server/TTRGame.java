@@ -12,6 +12,7 @@ public class TTRGame implements Serializable
 {
     private int inProgress;
     private int ownerID;
+    private String ownerUsername;
     private Set<Integer> players = new TreeSet<Integer>();
 
     public TTRGame()
@@ -41,5 +42,30 @@ public class TTRGame implements Serializable
     public void addPlayer(int playerID)
     {
         players.add(playerID);
+    }
+
+    public int getNumPlayers()
+    {
+        return players.size();
+    }
+
+    public String getOwnerUsername()
+    {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername)
+    {
+        this.ownerUsername = ownerUsername;
+    }
+
+    public Set<Integer> getPlayers()
+    {
+        return players;
+    }
+
+    public void setPlayers(Set<Integer> players)
+    {
+        this.players = players;
     }
 }

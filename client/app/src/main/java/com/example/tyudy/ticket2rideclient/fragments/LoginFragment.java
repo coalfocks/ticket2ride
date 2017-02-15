@@ -99,6 +99,11 @@ public class LoginFragment extends Fragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
+                    return;
+                }
+
                 User user = MethodsFacade.SINGLETON.loginUser(userName, password);
                 // TODO: base the success variable off of what login returns;
                 if(user != null){
@@ -114,6 +119,11 @@ public class LoginFragment extends Fragment {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
+                    return;
+                }
+                
                 // Go to register activity
                 Toast.makeText(getContext() , "Register a new user name and password!", Toast.LENGTH_SHORT).show();
                 Fragment registerFragment = new RegisterFragment();
@@ -128,5 +138,18 @@ public class LoginFragment extends Fragment {
 
 
         return v;
+    }
+
+    /**
+     * Checks to make sure the ipAddress has been set and notifies the user if it hasn't
+     * @return - true if set false if not
+     */
+    private boolean IpAddressIsSet(){
+        if (ipAddress.equals(null)){
+            Toast.makeText(getContext() , "Enter an IP Address!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 }

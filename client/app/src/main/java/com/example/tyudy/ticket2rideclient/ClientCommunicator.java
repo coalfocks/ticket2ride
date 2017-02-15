@@ -36,38 +36,6 @@ public class ClientCommunicator implements Runnable
     }
 
     private static ClientCommunicator communicator = null;
-    private Poller poller = null;
-    private boolean stop = false;
-    private int wait = 2;           // default wait of 2 seconds
-
-    public void run()
-    {
-        DataTransferObject dto;
-        stop = false;
-
-        while(!stop)
-        {
-            try
-            {
-                TimeUnit.SECONDS.sleep(wait);
-
-                if ((dto = poller.poll()) != null)
-                {
-                    // TODO Send info to ClientModel
-                }
-
-            }
-            catch (InterruptedException e){}
-        }
-    }
-
-
-    public void stop() { stop = true; }
-
-    public void setWait(int seconds)
-    {
-        wait = seconds;
-    }
 
 
     public DataTransferObject sendCommand(String command)
@@ -116,5 +84,3 @@ public class ClientCommunicator implements Runnable
 
     }
 }
-
-

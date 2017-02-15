@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e785439-7035-4b9f-9fea-c3221676cbd8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/common/Response.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/MethodsFacade.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/MethodsFacade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/common/testcommand.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/common/testcommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/Command.java" afterPath="$PROJECT_DIR$/common/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/iCommand.java" afterPath="$PROJECT_DIR$/common/iCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.java" afterPath="$PROJECT_DIR$/main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/ServerCommunicator.java" afterPath="$PROJECT_DIR$/server/ServerCommunicator.java" />
-    </list>
+    <list default="true" id="8e785439-7035-4b9f-9fea-c3221676cbd8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,11 +19,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="67" column="51" lean-forward="false" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
+            <state relative-caret-position="621">
+              <caret line="82" column="9" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="82" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,7 +67,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Command.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Command.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/Command.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
@@ -718,16 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="67" column="51" lean-forward="false" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/ServerCommunicator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -754,6 +736,16 @@
             <element signature="imports" expanded="true" />
             <element signature="e#267#268#0" expanded="true" />
             <element signature="e#296#297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="82" column="9" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="82" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

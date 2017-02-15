@@ -7,4 +7,5 @@
     <string name="register_title">Register to Play!</string>
     <string name="game_selection_label">Select a game to play!</string>
     <string name="create_game_button">Create Game</string>
+    <string name="ip_address_label">IP Address</string>
 </resources>

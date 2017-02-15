@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/game_list_number"
+        android:id="@+id/game_number_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="20dp"
@@ -17,11 +17,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/game_list_number"
-        android:layout_toEndOf="@+id/game_list_number">
+        android:layout_toRightOf="@+id/game_number_title"
+        android:layout_toEndOf="@+id/game_number_title">
 
         <TextView
-            android:id="@+id/game_list_owner"
+            android:id="@+id/game_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Owner NAME"/>

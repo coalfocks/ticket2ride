@@ -24,9 +24,11 @@ public class LoginFragment extends Fragment {
 
     private EditText mUserField;
     private EditText mPasswordField;
+    private EditText mIpAddressField;
     private Button mLoginButton;
     private Button mRegisterButton;
 
+    private String ipAddress;
     private String password;
     private String userName;
 
@@ -38,6 +40,24 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.login_fragment, container, false);
+
+        mIpAddressField = (EditText) v.findViewById(R.id.ip_address_field);
+        mIpAddressField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing...
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ipAddress = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do nothing...
+            }
+        });
 
         mUserField = (EditText) v.findViewById(R.id.user_name_field);
         mUserField.addTextChangedListener(new TextWatcher() {

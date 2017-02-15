@@ -1,7 +1,7 @@
-package com.example.tyudy.ticket2rideclient.common;
+/**package com.example.tyudy.ticket2rideclient.common;
 
 import java.io.Serializable;
-
+*/
 /**
  * Created by colefox on 2/9/17.
  */

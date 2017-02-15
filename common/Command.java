@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Command implements iCommand, Serializable
 {
     @Override
-    public DataTransferObject execute()
+    public DataTransferObject execute(DataTransferObject dto)
     {
         return null;
     }

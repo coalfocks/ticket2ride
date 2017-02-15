@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.IObserver;
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
@@ -47,6 +48,14 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mGameRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         observe();
 
+        mCreateGameButton = (Button) v.findViewById(R.id.create_game_button);
+        mCreateGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MethodsFacade.SINGLETON.createGame();
+            }
+        });
+
 
 
 
@@ -79,6 +88,10 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         }
 
+        public void bindGame(Game game){
+
+        }
+
     }
 
     private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
@@ -106,6 +119,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         public int getItemCount() {
             return mGameList.size();
         }
+
     }
 
 }

@@ -32,7 +32,7 @@ public class CreateGameCommand extends Command implements iCommand, Serializable
 
 
   public CreateGameCommand(){}
-
+private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

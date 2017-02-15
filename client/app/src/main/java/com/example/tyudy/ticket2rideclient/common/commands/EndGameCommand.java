@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class EndGameCommand extends Command implements iCommand, Serializable
 {
   public EndGameCommand(){}
-
+private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class LoginCommand extends Command implements iCommand, Serializable
 {
   public LoginCommand(){}
-
+private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

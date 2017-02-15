@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class RegisterCommand extends Command implements iCommand, Serializable
 {
   public RegisterCommand(){}
-
+private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

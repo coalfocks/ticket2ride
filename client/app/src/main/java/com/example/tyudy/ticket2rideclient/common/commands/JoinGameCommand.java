@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class JoinGameCommand extends Command implements iCommand, Serializable
 {
   public JoinGameCommand(){}
-
+private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

@@ -52,7 +52,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // MethodsFacade.SINGLETON.createGame();
+                MethodsFacade.SINGLETON.createGame();
             }
         });
 
@@ -77,6 +77,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         private TextView mGameNumberTitle;
         private TextView mGameOwnerText;
         private TextView mNumberOfPlayers;
+        private Game mGame;
 
 
         public GameHolder(View gameView){
@@ -89,7 +90,9 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         }
 
         public void bindGame(Game game){
+            mGame = game;
 
+            mGameNumberTitle.setText(game.);
         }
 
     }

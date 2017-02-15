@@ -5,5 +5,14 @@ package com.example.tyudy.ticket2rideclient.model;
  */
 
 public class User {
+  private String name;
+  private String pass;
+
+  public getName(){
+    return name;
+  }
+  public getPass(){
+    return pass;
+  }
 
 }

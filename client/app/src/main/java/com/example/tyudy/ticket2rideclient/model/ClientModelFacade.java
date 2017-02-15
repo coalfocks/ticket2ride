@@ -14,6 +14,7 @@ public class ClientModelFacade implements IObservable {
 
     public static final ClientModelFacade SINGLETON = new ClientModelFacade();
     private ArrayList<Game> gameList;
+    private ArrayList<Observer> obsList;
 
 
     private ClientModelFacade(){
@@ -24,7 +25,7 @@ public class ClientModelFacade implements IObservable {
      * Add an observer to the list of observers stored inside this observable
      */
     public void addObserver(IObserver observer){
-        // IMPLEMENT ME!
+        obsList.push(observer);
     }
 
     /**
@@ -33,7 +34,10 @@ public class ClientModelFacade implements IObservable {
      */
     @Override
     public void notifyObservers(){
-        // IMPLEMENT ME!
+        for (Observer obs : obsList){
+          obs.observe();
+        }
+        return;
     }
 
     /**
@@ -41,7 +45,8 @@ public class ClientModelFacade implements IObservable {
      * @param g - game to be added
      */
     public void addGame(Game g){
-        // IMPLEMENT ME!
+        gameList.push(g);
+        return;
     }
 
     /**
@@ -49,15 +54,13 @@ public class ClientModelFacade implements IObservable {
      * @param index - location that the game is stored in the chosen data structure
      */
     public Game getGameAtIndex(int index){
-        // IMPLEMENT ME!
-        return null;
+        return gameList.get(index);
     }
 
     /**
      * @return - a list of all the games that the ClientModelFacade is currently aware of.
      */
     public ArrayList<Game> getGameList(){
-        // IMPLEMENT ME!
-        return null;
+        return gameList;
     }
 }

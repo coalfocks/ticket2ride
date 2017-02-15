@@ -31,6 +31,11 @@ public class MethodsFacade {
      */
     public User loginUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
+        DataTransferObject dto = new DataTransferObject();
+        User user = new User();
+        String s = gson.toJson(user);
+        ClientCommunicator.getInstance().sendCommand(commandString);
+
         return null;
     }
 

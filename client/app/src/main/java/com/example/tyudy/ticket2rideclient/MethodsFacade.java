@@ -1,10 +1,16 @@
 package com.example.tyudy.ticket2rideclient;
 
+import android.util.Log;
+
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +22,7 @@ public class MethodsFacade {
 
     public static final MethodsFacade SINGLETON = new MethodsFacade();
     public Serializer serializer = new Serializer();
+
 
     private MethodsFacade(){
         // IMPLEMENT ME!
@@ -43,8 +50,13 @@ public class MethodsFacade {
             dto.setData(s);
             dto.setCommand("login");
             newCommand.setData(dto);
-            String commandString = serializer.serialize(newCommand);
-            ClientCommunicator.getInstance().sendCommand(commandString);
+            try {
+                String commandString = serializer.serialize(newCommand);
+                ClientCommunicator.getInstance().sendCommand(commandString);
+            } catch (IOException e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
       }
 
         return null;
@@ -65,12 +77,17 @@ public class MethodsFacade {
             user.setUsername(enteredName);
             user.setPassword(enteredPassword);
             String s = gson.toJson(user);
-            LoginCommand newCommand = new RegisterCommand();
+            RegisterCommand newCommand = new RegisterCommand();
             dto.setData(s);
-            dto.setCommand("login");
+            dto.setCommand("register");
             newCommand.setData(dto);
-            String commandString = serializer.serialize(newCommand);
-            DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+            try {
+                String commandString = serializer.serialize(newCommand);
+                ClientCommunicator.getInstance().sendCommand(commandString);
+            } catch (IOException e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
       }
         // if(server no error)
         // return User
@@ -84,7 +101,7 @@ public class MethodsFacade {
       if(pass.length() > 10 || pass.length() < 2){
         return false;
       }
-      if(StringUtils.isAlphanumeric(pass)){
+      if(String.StringUtils.isAlphanumeric(pass)){
         return true;
       }
       else{

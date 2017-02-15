@@ -110,6 +110,7 @@ public class LoginFragment extends Fragment {
                 // TODO: base the success variable off of what login returns;
                 if(user != null){
                     // Go to waiting room
+                    Toast.makeText(getContext() , "User Logged in successfully!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Display toast
                     Toast.makeText(getContext() , "Invalid user name or password", Toast.LENGTH_SHORT).show();

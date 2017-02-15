@@ -5,6 +5,7 @@ import com.example.tyudy.ticket2rideclient.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -14,7 +15,7 @@ public class ClientModelFacade implements IObservable {
 
     public static final ClientModelFacade SINGLETON = new ClientModelFacade();
     private ArrayList<Game> gameList;
-    private ArrayList<Observer> obsList;
+    private ArrayList<IObserver> obsList;
 
 
     private ClientModelFacade(){
@@ -25,7 +26,7 @@ public class ClientModelFacade implements IObservable {
      * Add an observer to the list of observers stored inside this observable
      */
     public void addObserver(IObserver observer){
-        obsList.push(observer);
+        obsList.add(observer);
     }
 
     /**
@@ -34,7 +35,7 @@ public class ClientModelFacade implements IObservable {
      */
     @Override
     public void notifyObservers(){
-        for (Observer obs : obsList){
+        for (IObserver obs : obsList){
           obs.observe();
         }
         return;
@@ -42,11 +43,11 @@ public class ClientModelFacade implements IObservable {
 
     /**
      * Add a game to the ClientModelFacade. (Stored in something like a GameList class or just a List<Game>)
-     * @param g - game to be added
+     * @param gameList - game to be added
      */
-    public void addGames(List<Game> gameList{
+    public void addGames(ArrayList<Game> gameList) {
         this.gameList = gameList;
-        this.notifyObservers;
+        this.notifyObservers();
     }
 
     /**

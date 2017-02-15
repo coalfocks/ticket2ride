@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e785439-7035-4b9f-9fea-c3221676cbd8" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/client/.idea/dictionaries/tyudy.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.java" afterPath="$PROJECT_DIR$/main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/Database/DAO.java" afterPath="$PROJECT_DIR$/server/Database/DAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/GameUserManager.java" afterPath="$PROJECT_DIR$/server/GameUserManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/TTRGame.java" afterPath="$PROJECT_DIR$/server/TTRGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/.idea/gradle.xml" afterPath="$PROJECT_DIR$/client/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/build.gradle" afterPath="$PROJECT_DIR$/client/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/ClientCommunicator.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/ClientCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/Poller.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/Poller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/ClientModelFacade.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/ClientModelFacade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/Game.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/User.java" afterPath="$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/model/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/build.gradle" afterPath="$PROJECT_DIR$/client/build.gradle" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,10 +30,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="-294">
               <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -37,83 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/User.java">
+      <file leaf-file-name="ServerCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/ServerCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameUserManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/GameUserManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2362#2363#0" expanded="true" />
-                <element signature="e#2407#2408#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TTRGame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/TTRGame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#339#348#0" expanded="true" />
-                <element signature="e#749#750#0" expanded="true" />
-                <element signature="e#786#787#0" expanded="true" />
-                <element signature="e#824#825#0" expanded="true" />
-                <element signature="e#861#862#0" expanded="true" />
-                <element signature="e#941#942#0" expanded="true" />
-                <element signature="e#1003#1004#0" expanded="true" />
-                <element signature="e#1053#1054#0" expanded="true" />
-                <element signature="e#1097#1098#0" expanded="true" />
-                <element signature="e#1127#1128#0" expanded="true" />
-                <element signature="e#1183#1184#0" expanded="true" />
-                <element signature="e#1221#1222#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TTRServerFacade.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/TTRServerFacade.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="966">
-              <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testcommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/testcommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DAO.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/Database/DAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="189" column="54" lean-forward="false" selection-start-line="189" selection-start-column="54" selection-end-line="189" selection-end-column="54" />
+            <state relative-caret-position="108">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -160,8 +93,8 @@
         <option value="$PROJECT_DIR$/common/testcommand.java" />
         <option value="$PROJECT_DIR$/server/TTRGame.java" />
         <option value="$PROJECT_DIR$/server/Database/DAO.java" />
-        <option value="$PROJECT_DIR$/main.java" />
         <option value="$PROJECT_DIR$/server/GameUserManager.java" />
+        <option value="$PROJECT_DIR$/main.java" />
       </list>
     </option>
   </component>
@@ -209,20 +142,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ticket2ride" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ticket2ride" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -615,8 +534,7 @@
         <state relative-caret-position="150">
           <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
           <folding>
-            <element signature="e#205#206#0" expanded="true" />
-            <element signature="e#232#233#0" expanded="true" />
+            <element signature="e#254#255#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -626,9 +544,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -661,22 +577,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/ServerCommunicator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/DataTransferObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="355">
           <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1509#1510#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -706,16 +612,6 @@
         <state relative-caret-position="150">
           <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -767,6 +663,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="189" column="54" lean-forward="false" selection-start-line="189" selection-start-column="54" selection-end-line="189" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/src/main/java/com/example/tyudy/ticket2rideclient/fragments/LoginFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ServerCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-294">
+          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

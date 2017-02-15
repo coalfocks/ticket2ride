@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by tyudy on 2/13/17.
  */
@@ -9,8 +11,8 @@ public class Game {
   private Game(){
 
   }
-  public addUser(User player){
-    players.push(User);
+  public void addUser(User player){
+    players.add(player);
   }
 
 }

@@ -1,7 +1,7 @@
-package client;
+package com.example.tyudy.ticket2rideclient;
 
-import common.DataTransferObject;
-import server.TTRServerFacade;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
 /**
  * Created by Trevor on 2/11/2017.

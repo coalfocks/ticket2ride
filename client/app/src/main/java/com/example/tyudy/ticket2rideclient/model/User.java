@@ -8,10 +8,10 @@ public class User {
   private String name;
   private String pass;
 
-  public getName(){
+  public String getName(){
     return name;
   }
-  public getPass(){
+  public String getPass(){
     return pass;
   }
 

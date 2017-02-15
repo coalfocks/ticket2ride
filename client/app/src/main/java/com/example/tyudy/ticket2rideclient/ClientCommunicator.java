@@ -1,6 +1,6 @@
-package client;
+package com.example.tyudy.ticket2rideclient;
 
-import common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 
 import java.util.concurrent.TimeUnit;
 

@@ -33,17 +33,19 @@ public class MethodsFacade {
      */
     public User loginUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
-        DataTransferObject dto = new DataTransferObject();
-        User user = new User();
-        user.setUsername(enteredName);
-        user.setPassword(enteredPassword);
-        String s = gson.toJson(user);
-        LoginCommand newCommand = new LoginCommand();
-        dto.setData(s);
-        dto.setCommand("login");
-        newCommand.setData(dto);
-        String commandString = serializer.serialize(newCommand);
-        ClientCommunicator.getInstance().sendCommand(commandString);
+        if(check(enteredName) && check(enteredPassword)){
+            DataTransferObject dto = new DataTransferObject();
+            User user = new User();
+            user.setUsername(enteredName);
+            user.setPassword(enteredPassword);
+            String s = gson.toJson(user);
+            LoginCommand newCommand = new LoginCommand();
+            dto.setData(s);
+            dto.setCommand("login");
+            newCommand.setData(dto);
+            String commandString = serializer.serialize(newCommand);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+      }
 
         return null;
     }
@@ -57,18 +59,38 @@ public class MethodsFacade {
      */
     public User registerUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
-        DataTransferObject dto = new DataTransferObject();
-        User user = new User();
-        user.setUsername(enteredName);
-        user.setPassword(enteredPassword);
-        String s = gson.toJson(user);
-        LoginCommand newCommand = new RegisterCommand();
-        dto.setData(s);
-        dto.setCommand("login");
-        newCommand.setData(dto);
-        String commandString = serializer.serialize(newCommand);
-        ClientCommunicator.getInstance().sendCommand(commandString);
+        if(check(enteredName) && check(enteredPassword)){
+            DataTransferObject dto = new DataTransferObject();
+            User user = new User();
+            user.setUsername(enteredName);
+            user.setPassword(enteredPassword);
+            String s = gson.toJson(user);
+            LoginCommand newCommand = new RegisterCommand();
+            dto.setData(s);
+            dto.setCommand("login");
+            newCommand.setData(dto);
+            String commandString = serializer.serialize(newCommand);
+            DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+      }
+        // if(server no error)
+        // return User
+        //else return null;
         return null;
+    }
+    public boolean check(String pass){
+      if(pass == null || pass == ""){
+        return false;
+      }
+      if(pass.length() > 10 || pass.length() < 2){
+        return false;
+      }
+      if(StringUtils.isAlphanumeric(pass)){
+        return true;
+      }
+      else{
+        return false;
+      }
+
     }
 
     /**

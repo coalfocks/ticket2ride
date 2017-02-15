@@ -23,6 +23,7 @@ public class MethodsFacade {
     public static final MethodsFacade SINGLETON = new MethodsFacade();
     public Serializer serializer = new Serializer();
 
+    private Gson gson = new Gson();
 
     private MethodsFacade(){
         // IMPLEMENT ME!
@@ -52,10 +53,18 @@ public class MethodsFacade {
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
-                ClientCommunicator.getInstance().sendCommand(commandString);
+                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+                if(response.getErrorMsg.length()!=0){
+                  return null;
+                }
+                else{
+                  User loggedInUser = serializer.deserialize(response.getData());
+                  return loggedInUser;
+                }
             } catch (IOException e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
+                return null;
             }
       }
 
@@ -83,15 +92,20 @@ public class MethodsFacade {
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
-                ClientCommunicator.getInstance().sendCommand(commandString);
+                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+                if(response.getErrorMsg.length()!=0){
+                  return null;
+                }
+                else{
+                  User registeredUser = serializer.deserialize(response.getData());
+                  return registeredUser;
+                }
             } catch (IOException e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
+                return null;
             }
       }
-        // if(server no error)
-        // return User
-        //else return null;
         return null;
     }
     public boolean check(String pass){
@@ -101,9 +115,10 @@ public class MethodsFacade {
       if(pass.length() > 10 || pass.length() < 2){
         return false;
       }
-      if(String.StringUtils.isAlphanumeric(pass)){
-        return true;
-      }
+      //find another way to check that it's alphanumeric this ways broke
+      // if(String.StringUtils.isAlphanumeric(pass)){
+      //   return true;
+      // }
       else{
         return false;
       }

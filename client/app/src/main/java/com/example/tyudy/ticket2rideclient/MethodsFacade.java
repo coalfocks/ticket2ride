@@ -185,7 +185,7 @@ public class MethodsFacade {
      */
     public void createGame(){
         // User this curUser for any data that you may need (i.e. userName)
-       /* User user = ClientModelFacade.SINGLETON.getCurrentUser();
+        User user = ClientModelFacade.SINGLETON.getCurrentUser();
 
         if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
@@ -196,21 +196,20 @@ public class MethodsFacade {
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
-                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-                if(response.getErrorMsg().length()!=0){
-                  return;
-                }
-                else{
-                  User registeredUser = (User) serializer.deserialize(response.getData());
-                  return;
-                }
+                ClientCommunicator.getInstance().sendCommand(commandString);
             } catch (Exception e){
                 e.printStackTrace();
                 Log.d("createGame", e.getMessage());
             }
-        }*/
+        }
     }
     public void passBackDTOCreate(DataTransferObject response, FragmentActivity contxt){
+      if(response.getErrorMsg().length()!=0){
+        return;
+      }
+      else{
+        return;
+      }
     }
 
     public DataTransferObject getGameList(){

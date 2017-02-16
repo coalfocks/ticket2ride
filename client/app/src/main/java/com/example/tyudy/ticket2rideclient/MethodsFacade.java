@@ -213,32 +213,32 @@ public class MethodsFacade {
       }
     }
 
-    public DataTransferObject getGameList(){
-      //TODO how does he want the server to return the list of games?
-     /* DataTransferObject dto = new DataTransferObject();
-      CreateGameCommand newCommand = new CreateGameCommand();
-      dto.setCommand("gameList");
-      newCommand.setData(dto);
-      try {
-          String commandString = serializer.serialize(newCommand);
-          DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-          if(response.getErrorMsg().length()!=0){
-            return null;
-          }
-          else{
-            DataTransferObject gameList = response;
-            return gameList;
-          }
-      } catch (Exception e){
-          e.printStackTrace();
-          Log.d("createGame", e.getMessage());
-          return null;
-      }*/
-        return null;
-    }
-    public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
-
-    }
+    // public DataTransferObject getGameList(){
+    //   //TODO how does he want the server to return the list of games?
+    //   DataTransferObject dto = new DataTransferObject();
+    //   CreateGameCommand newCommand = new CreateGameCommand();
+    //   dto.setCommand("gameList");
+    //   newCommand.setData(dto);
+    //   try {
+    //       String commandString = serializer.serialize(newCommand);
+    //       DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+    //       if(response.getErrorMsg().length()!=0){
+    //         return null;
+    //       }
+    //       else{
+    //         DataTransferObject gameList = response;
+    //         return gameList;
+    //       }
+    //   } catch (Exception e){
+    //       e.printStackTrace();
+    //       Log.d("createGame", e.getMessage());
+    //       return null;
+    //   }
+    //     return null;
+    // }
+    // public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
+    //
+    // }
 
 
 }

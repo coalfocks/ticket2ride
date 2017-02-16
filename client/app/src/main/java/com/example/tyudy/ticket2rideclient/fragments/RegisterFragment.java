@@ -1,7 +1,9 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.User;
@@ -32,6 +35,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        ClientCommunicator.getInstance().setContext((FragmentActivity) getActivity());
     }
 
     @Override
@@ -79,18 +83,17 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Try to register the user
-                User user = MethodsFacade.SINGLETON.registerUser(enteredName, enteredPassword);
-
-                if(user != null){
-                    Toast.makeText(getContext() , "Register Successful!" , Toast.LENGTH_SHORT).show();
-                    getFragmentManager().popBackStack(); // Go back to login
-
-                } else {
-                    Toast.makeText(getContext() , "Register Failed!" , Toast.LENGTH_SHORT).show();
-                }
-
+                MethodsFacade.SINGLETON.registerUser(enteredName, enteredPassword);
             }
         });
         return v;
+    }
+
+    /**
+     * Function called by MethodsFacade when registration response comes back.
+     * @param jeffery - our dood
+     */
+    public static void popRegisterFragment(FragmentActivity jeffery){
+            jeffery.getFragmentManager().popBackStack(); // Go back to login
     }
 }

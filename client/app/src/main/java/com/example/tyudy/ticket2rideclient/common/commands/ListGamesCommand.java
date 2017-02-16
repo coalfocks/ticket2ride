@@ -12,8 +12,8 @@ import java.io.Serializable;
  */
 public class ListGamesCommand extends Command implements iCommand, Serializable
 {
-  public ListGamesCommand(){}
-private DataTransferObject data;
+    public ListGamesCommand(){}
+    private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

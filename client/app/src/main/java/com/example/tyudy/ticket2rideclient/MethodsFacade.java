@@ -1,12 +1,20 @@
 package com.example.tyudy.ticket2rideclient;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
+import com.example.tyudy.ticket2rideclient.fragments.RegisterFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
@@ -44,7 +52,7 @@ public class MethodsFacade {
      */
     public User loginUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
-        if(check(enteredName) && check(enteredPassword)){
+       /* if(check(enteredName) && check(enteredPassword)){
             DataTransferObject dto = new DataTransferObject();
             User user = new User();
             user.setUsername(enteredName);
@@ -73,6 +81,8 @@ public class MethodsFacade {
       }
 
         return null;
+        */
+        return null;
     }
 
     /**
@@ -90,20 +100,14 @@ public class MethodsFacade {
             user.setUsername(enteredName);
             user.setPassword(enteredPassword);
             String s = gson.toJson(user);
-            RegisterCommand newCommand = new RegisterCommand();
+            Command newCommand = new RegisterCommand();
             dto.setData(s);
             dto.setCommand("register");
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
-                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-                if(response.getErrorMsg().length()!=0){
-                  return null;
-                }
-                else{
-                  User registeredUser = (User) serializer.deserialize(response.getData());
-                  return registeredUser;
-                }
+                ClientCommunicator.getInstance().sendCommand(commandString);
+
             } catch (Exception e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
@@ -111,6 +115,23 @@ public class MethodsFacade {
             }
       }
         return null;
+    }
+
+    public void passBackDTO(DataTransferObject response, FragmentActivity contxt){
+        if(response.getErrorMsg().length()!=0){
+            Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+            try {
+                Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+                contxt.getFragmentManager().popBackStackImmediate();
+
+            } catch (Exception e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
+        }
     }
 
     public boolean check(String pass){
@@ -125,7 +146,7 @@ public class MethodsFacade {
       //   return true;
       // }
       else{
-        return false;
+        return true;
       }
 
     }
@@ -154,7 +175,7 @@ public class MethodsFacade {
      */
     public void createGame(){
         // User this curUser for any data that you may need (i.e. userName)
-        User user = ClientModelFacade.SINGLETON.getCurrentUser();
+       /* User user = ClientModelFacade.SINGLETON.getCurrentUser();
 
         if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
@@ -177,12 +198,12 @@ public class MethodsFacade {
                 e.printStackTrace();
                 Log.d("createGame", e.getMessage());
             }
-      }
+        }*/
     }
 
     public DataTransferObject getGameList(){
       //TODO how does he want the server to return the list of games?
-      DataTransferObject dto = new DataTransferObject();
+     /* DataTransferObject dto = new DataTransferObject();
       CreateGameCommand newCommand = new CreateGameCommand();
       dto.setCommand("gameList");
       newCommand.setData(dto);
@@ -200,7 +221,9 @@ public class MethodsFacade {
           e.printStackTrace();
           Log.d("createGame", e.getMessage());
           return null;
-      }
+      }*/
+        return null;
     }
+
 
 }

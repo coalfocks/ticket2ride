@@ -2,10 +2,12 @@ package com.example.tyudy.ticket2rideclient.common;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+
 /**
  * Created by colefox on 1/20/17.
  */
-public class DataTransferObject
+public class DataTransferObject implements Serializable
 {
     private int playerID;
     private String command;

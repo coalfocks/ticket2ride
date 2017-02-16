@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
@@ -76,7 +77,6 @@ public class MethodsFacade {
       //   return loggedInUser;
       // }
         if(response.getErrorMsg().length()!=0){
-            Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
             return;
         }
         else{
@@ -205,10 +205,10 @@ public class MethodsFacade {
     }
     public void passBackDTOCreate(DataTransferObject response, FragmentActivity contxt){
       if(response.getErrorMsg().length()!=0){
-        return;
+          Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
       }
       else{
-        return;
+          Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
       }
     }
 

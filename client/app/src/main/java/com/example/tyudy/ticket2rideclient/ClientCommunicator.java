@@ -159,7 +159,15 @@ public class ClientCommunicator {
        @Override
        protected void onPostExecute(Void aVoid) {
            super.onPostExecute(aVoid);
+           String comType = responseDTO.getCommand();
+           switch (comType){
+           case "register":
            MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
+           case "login":
+           MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
+           default:
+
+         }
        }
    }
 }

@@ -40,6 +40,7 @@ public class Poller
                 if (!= null)
                 {
                     // TODO this is where the gamelist has changed and needs to be updated
+                    ClientModelFacade.SINGLETON.addGames(dto.getData());
                 }
 
             }
@@ -66,7 +67,7 @@ public class Poller
     {
 
         DataTransferObject previousData = new DataTransferObject();
-        previousData.setData(gamesData);
+        previousData = gamesData;
 
 //TODO implement getGameData in the ClientCommunicator
 //getgamedata gets the current data from the server for the gameslist

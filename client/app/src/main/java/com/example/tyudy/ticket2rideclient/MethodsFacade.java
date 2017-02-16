@@ -140,10 +140,38 @@ public class MethodsFacade {
     /**
      * Called when the create game button is clicked in the GameSelectionFragment.
      * Creates a game based off of the current user and will add it to the games stored on the server.
+     probably needs a return type? IDK cause if it had one then we could see more effectively if the game was created correctly or not...
      */
     public void createGame(){
         // User this curUser for any data that you may need (i.e. userName)
-        User curUser = ClientModelFacade.SINGLETON.getCurrentUser();
+        User user = ClientModelFacade.SINGLETON.getCurrentUser();
+        if(check(enteredName) && check(enteredPassword)){
+            DataTransferObject dto = new DataTransferObject();
+            user.setUsername(enteredName);
+            user.setPassword(enteredPassword);
+            String s = gson.toJson(user);
+            RegisterCommand newCommand = new CreateGameCommand();
+            dto.setData(s);
+            dto.setCommand("createGame");
+            newCommand.setData(dto);
+            try {
+                String commandString = serializer.serialize(newCommand);
+                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+                if(response.getErrorMsg().length()!=0){
+                  return null;
+                }
+                else{
+                  User registeredUser = (User) serializer.deserialize(response.getData());
+                  return;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                Log.d("createGame", e.getMessage());
+                return;
+            }
+      }
+      Log.d("createGame", e.getMessage());
+        return;
         // ZAC, IMPLEMENT ME!
     }
 

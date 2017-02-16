@@ -164,7 +164,7 @@ public class ClientCommunicator {
            case "register":
            MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
            case "login":
-           MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
+           MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
            default:
 
          }

@@ -109,8 +109,16 @@ public class LoginFragment extends Fragment {
                 User user = MethodsFacade.SINGLETON.loginUser(userName, password);
                 // TODO: base the success variable off of what login returns;
                 if(user != null){
-                    // Go to waiting room
                     Toast.makeText(getContext() , "User Logged in successfully!", Toast.LENGTH_SHORT).show();
+
+                    // Go to the GameSelectionFragment
+                    Fragment gameSelectionFragment = new GameSelectionFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_container, gameSelectionFragment);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
                 } else {
                     // Display toast
                     Toast.makeText(getContext() , "Invalid user name or password", Toast.LENGTH_SHORT).show();
@@ -149,7 +157,7 @@ public class LoginFragment extends Fragment {
      * @return - true if set false if not
      */
     private boolean IpAddressIsSet(){
-        if (ipAddress.equals(null)){
+        if (ipAddress == null){
             Toast.makeText(getContext() , "Enter an IP Address!", Toast.LENGTH_SHORT).show();
             return false;
         } else {

@@ -22,6 +22,10 @@ public class ClientModelFacade implements IObservable {
 
     private ClientModelFacade(){
         // IMPLEMENT ME!
+        gameList = new ArrayList<>();
+        obsList = new ArrayList<>();
+        ipAddress = null;
+        currentUser = null;
     }
 
     /**

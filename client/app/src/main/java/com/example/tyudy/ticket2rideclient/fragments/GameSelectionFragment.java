@@ -42,8 +42,6 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         View v = inflater.inflate(R.layout.game_selection_fragment, container, false);
 
-        // TODO: Make this an observable
-
         mGameRecyclerView = (RecyclerView) v.findViewById(R.id.game_recycler_view);
         mGameRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         observe();

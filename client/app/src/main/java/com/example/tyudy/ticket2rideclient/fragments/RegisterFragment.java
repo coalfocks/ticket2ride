@@ -28,7 +28,6 @@ public class RegisterFragment extends Fragment {
     private String enteredName;
     private String enteredPassword;
 
-    //TODO: There should be a back arrow up top to allow the user to go back to the login screen
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -84,6 +83,8 @@ public class RegisterFragment extends Fragment {
 
                 if(user != null){
                     Toast.makeText(getContext() , "Register Successful!" , Toast.LENGTH_SHORT).show();
+                    getFragmentManager().popBackStack(); // Go back to login
+
                 } else {
                     Toast.makeText(getContext() , "Register Failed!" , Toast.LENGTH_SHORT).show();
                 }

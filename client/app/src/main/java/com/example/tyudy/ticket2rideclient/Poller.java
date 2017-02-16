@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
+import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +11,21 @@ import java.util.concurrent.TimeUnit;
  */
 public class Poller  implements Runnable
 {
-    private Poller(){}
+
+
+    private static Poller poller;
+    private DataTransferObject gamesData;
+    private boolean stop;
+    private int wait;
+
+
+    private Poller(){
+        poller = null;
+        gamesData = new DataTransferObject();
+        stop = false;
+        wait = 2;
+
+    }
 
     public static Poller getInstance()
     {
@@ -22,10 +37,7 @@ public class Poller  implements Runnable
         return poller;
     }
 
-    private static Poller poller = null;
-    private DataTransferObject gamesData = null;
-    private boolean stop = false;
-    private int wait = 2;           // default wait of 2 seconds
+    // default wait of 2 seconds
 
     public void run()
     {
@@ -67,17 +79,16 @@ public class Poller  implements Runnable
      */
     public DataTransferObject poll()
     {
+        if(ClientModelFacade.SINGLETON.getIpAddress() == null){
+            return null;
+        }
 
         DataTransferObject previousData = new DataTransferObject();
         previousData = gamesData;
 
-//TODO implement getGameData in the MethodsFacade
-//getgamedata gets the current data from the server for the gameslist
         gamesData = MethodsFacade.SINGLETON.getGameList();
 
-//I don't like this at all I think we should see if they have changed some other way. Like compare thej
-//should check if the data is null too
-//this sucks but I have no time
+
     if(gamesData != null){
       if(gamesData.getData() != null){
         if (gamesData.getData().equals(previousData.getData()) )

@@ -8,6 +8,7 @@ import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
@@ -213,32 +214,26 @@ public class MethodsFacade {
       }
     }
 
-    // public DataTransferObject getGameList(){
-    //   //TODO how does he want the server to return the list of games?
-    //   DataTransferObject dto = new DataTransferObject();
-    //   CreateGameCommand newCommand = new CreateGameCommand();
-    //   dto.setCommand("gameList");
-    //   newCommand.setData(dto);
-    //   try {
-    //       String commandString = serializer.serialize(newCommand);
-    //       DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-    //       if(response.getErrorMsg().length()!=0){
-    //         return null;
-    //       }
-    //       else{
-    //         DataTransferObject gameList = response;
-    //         return gameList;
-    //       }
-    //   } catch (Exception e){
-    //       e.printStackTrace();
-    //       Log.d("createGame", e.getMessage());
-    //       return null;
-    //   }
-    //     return null;
-    // }
-    // public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
-    //
-    // }
+     public DataTransferObject getGameList(){
+       //TODO how does he want the server to return the list of games?
+       DataTransferObject dto = new DataTransferObject();
+       Command newCommand = new ListGamesCommand();
+       dto.setCommand("gameList");
+       newCommand.setData(dto);
+       try {
+           String commandString = serializer.serialize(newCommand);
+           ClientCommunicator.getInstance().sendCommand(commandString);
+
+       } catch (Exception e){
+           e.printStackTrace();
+           Log.d("createGame", e.getMessage());
+           return null;
+       }
+         return null;
+     }
+     public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
+
+     }
 
 
 }

@@ -75,13 +75,20 @@ public class Poller
         gamesData = MethodsFacade.SINGLETON.getGameList();
 
 //I don't like this at all I think we should see if they have changed some other way. Like compare thej
+//should check if the data is null too
+//this sucks but I have no time
     if(gamesData != null){
+      if(gamesData.getData() != null){
         if (gamesData.getData().equals(previousData.getData()) )
         {
             return null;
         }
         return gamesData;
       }
+      else{
+        return null;
+      }
+    }
       else{
         return null;
       }

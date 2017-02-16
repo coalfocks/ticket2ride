@@ -146,12 +146,13 @@ public class MethodsFacade {
     public void createGame(){
         // User this curUser for any data that you may need (i.e. userName)
         User user = ClientModelFacade.SINGLETON.getCurrentUser();
-        if(check(enteredName) && check(enteredPassword)){
+
+        if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
             user.setUsername(enteredName);
             user.setPassword(enteredPassword);
             String s = gson.toJson(user);
-            RegisterCommand newCommand = new CreateGameCommand();
+            CreateGameCommand newCommand = new CreateGameCommand();
             dto.setData(s);
             dto.setCommand("createGame");
             newCommand.setData(dto);
@@ -179,8 +180,7 @@ public class MethodsFacade {
     public DataTransferObject getGameList(){
       //TODO how does he want the server to return the list of games?
       DataTransferObject dto = new DataTransferObject();
-      String s = gson.toJson(user);
-      RegisterCommand newCommand = new CreateGameCommand();
+      CreateGameCommand newCommand = new CreateGameCommand();
       dto.setData(s);
       dto.setCommand("gameList");
       newCommand.setData(dto);
@@ -191,7 +191,7 @@ public class MethodsFacade {
             return null;
           }
           else{
-            DataTransferObject gameList = (DataTransferObject) serializer.deserialize(response.getData());
+            DataTransferObject gameList = response;
             return gameList;
           }
       } catch (Exception e){

@@ -153,18 +153,22 @@ public class ClientCommunicator {
            String comType = responseDTO.getCommand();
            switch (comType){
            case "register":
-           MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
+               MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
+               break;
            case "login":
-           MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
+               MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
+               break;
            case "join":
            //MethodsFacade.SINGLETON.passBackDTOJoin(responseDTO, mContext);
            case "create":
-           //MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
+               MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
+               break;
            case "start":
            //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
            case "gamelist":
           // MethodsFacade.SINGLETON.updateGameList(responseDTO);
            default:
+               break;
 
          }
        }

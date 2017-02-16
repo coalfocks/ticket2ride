@@ -30,8 +30,7 @@ public class ClientCommunicator {
     private ClientCommunicator(){
         responseDTO = null;
         mContext = null;
-        // TODO: Uncomment this
-        // new Thread(Poller.getInstance()).start();
+        new Thread(Poller.getInstance()).start();
     }
 
     public static ClientCommunicator getInstance() {

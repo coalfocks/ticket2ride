@@ -62,6 +62,7 @@ public class MethodsFacade {
                 }
                 else{
                   User loggedInUser = (User) serializer.deserialize(response.getData());
+                  ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
                   return loggedInUser;
                 }
             } catch (Exception e){

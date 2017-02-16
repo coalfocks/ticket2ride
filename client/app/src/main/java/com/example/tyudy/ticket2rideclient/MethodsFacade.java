@@ -125,7 +125,7 @@ public class MethodsFacade {
         else{
             try {
                 Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
-                contxt.getFragmentManager().popBackStackImmediate();
+                contxt.getSupportFragmentManager().popBackStack();
 
             } catch (Exception e){
                 e.printStackTrace();

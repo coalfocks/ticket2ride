@@ -27,4 +27,5 @@ public class PreGameActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
 }

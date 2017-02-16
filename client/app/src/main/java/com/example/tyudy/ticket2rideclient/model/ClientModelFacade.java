@@ -18,6 +18,7 @@ public class ClientModelFacade implements IObservable {
     private ArrayList<IObserver> obsList;
     private String ipAddress;
     private User currentUser;
+    private Game currentGame;
 
 
     private ClientModelFacade(){
@@ -26,6 +27,7 @@ public class ClientModelFacade implements IObservable {
         obsList = new ArrayList<>();
         ipAddress = null;
         currentUser = null;
+        currentGame = null;
     }
 
     /**
@@ -76,12 +78,24 @@ public class ClientModelFacade implements IObservable {
         ipAddress = addressParam;
     }
 
+    public void setCurrentUser(User u){
+        currentUser = u;
+    }
+
+    public void setCurrentGame(Game g){
+        currentGame = g;
+    }
+
     public User getCurrentUser(){
         return currentUser;
     }
 
     public String getIpAddress(){
         return ipAddress;
+    }
+
+    public Game getCurrentGame(){
+        return currentGame;
     }
 
 }

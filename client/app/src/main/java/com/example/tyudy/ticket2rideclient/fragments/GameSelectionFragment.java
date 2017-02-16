@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.model.Game;
 
@@ -65,7 +67,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
     }
 
-    private class GameHolder extends RecyclerView.ViewHolder {
+    private class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mGameNumberTitle;
         private TextView mGameOwnerText;
@@ -75,6 +77,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         public GameHolder(View gameView){
             super(gameView);
+            gameView.setOnClickListener(this);
 
             mGameNumberTitle = (TextView) gameView.findViewById(R.id.game_number_title);
             mGameOwnerText = (TextView) gameView.findViewById(R.id.game_owner);
@@ -88,6 +91,14 @@ public class GameSelectionFragment extends Fragment implements IObserver {
             mGameNumberTitle.setText("Game #" + gameNumber);
             mGameOwnerText.setText("Owner: " + game.getOwnerUsername());
             mNumberOfPlayers.setText("Number of players: " + game.getNumPlayers());
+        }
+
+        @Override
+        public void onClick(View v){
+            // Launch game_board activity of specified game
+            ClientModelFacade.SINGLETON.setCurrentGame(mGame);
+            Intent i = new Intent(getContext(), GameBoardActivity.class);
+            startActivity(i);
         }
 
 

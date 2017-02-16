@@ -193,7 +193,7 @@ public class MethodsFacade {
             CreateGameCommand newCommand = new CreateGameCommand();
             dto.setData(s);
             dto.setPlayerID(user.getPlayerID());
-            dto.setCommand("createGame");
+            dto.setCommand("create");
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);

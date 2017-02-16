@@ -111,23 +111,9 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-                User user = MethodsFacade.SINGLETON.loginUser(userName, password);
+                MethodsFacade.SINGLETON.loginUser(userName, password);
                 // TODO: base the success variable off of what login returns;
-                if(user != null){
-                    Toast.makeText(getContext() , "User Logged in successfully!", Toast.LENGTH_SHORT).show();
 
-                    // Go to the GameSelectionFragment
-                    Fragment gameSelectionFragment = new GameSelectionFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_container, gameSelectionFragment);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-
-                } else {
-                    // Display toast
-                    Toast.makeText(getContext() , "Invalid user name or password", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 

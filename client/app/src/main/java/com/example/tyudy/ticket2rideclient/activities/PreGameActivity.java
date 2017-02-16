@@ -2,11 +2,15 @@ package com.example.tyudy.ticket2rideclient.activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.fragments.GameSelectionFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
+import com.example.tyudy.ticket2rideclient.model.User;
 
 public class PreGameActivity extends AppCompatActivity {
 
@@ -28,4 +32,7 @@ public class PreGameActivity extends AppCompatActivity {
         }
     }
 
+    public void onLogin(User user){
+        fm.beginTransaction().replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
+    }
 }

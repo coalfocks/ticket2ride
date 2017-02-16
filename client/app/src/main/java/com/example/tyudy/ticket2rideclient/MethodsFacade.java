@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
@@ -90,11 +91,10 @@ public class MethodsFacade {
         }
         else{
             try {
-              User loggedInUser = (User) serializer.deserialize(response.getData());
-              ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
-              //TODO whatever the heck we need to do when they logged in
-                Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
-                contxt.getFragmentManager().popBackStackImmediate();
+                User loggedInUser = (User) serializer.deserialize(response.getData());
+                ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
+                Toast.makeText(contxt, "Successful Login!", Toast.LENGTH_SHORT).show();
+                ((PreGameActivity) contxt).onLogin(loggedInUser);
 
             } catch (Exception e){
                 e.printStackTrace();

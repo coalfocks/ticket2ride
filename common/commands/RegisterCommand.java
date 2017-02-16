@@ -1,12 +1,9 @@
-package common.commands;
+package com.example.tyudy.ticket2rideclient.common.commands;
 
-import com.google.gson.JsonObject;
-import common.Command;
-import common.DataTransferObject;
-import common.iCommand;
-import server.Database.DAO;
-import server.TTRServerFacade;
-import server.User;
+import com.example.tyudy.ticket2rideclient.common.Command;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
 import java.io.Serializable;
 
@@ -15,41 +12,20 @@ import java.io.Serializable;
  */
 public class RegisterCommand extends Command implements iCommand, Serializable
 {
+  public RegisterCommand(){}
+private DataTransferObject data;
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.register(dto);
-//        DAO dao = DAO.getInstance();
-//        DataTransferObject returnObject = new DataTransferObject();
-//
-//        JsonObject obj = dto.getJsonObj();
-//        User user;
-//
-//        // Check JsonObject for new user data
-//        if (obj.has("userdata"))
-//        {
-//            user = new User();
-//            JsonObject userObj = obj.getAsJsonObject("userdata");
-//
-//            user.setUsername(userObj.get("username").getAsString());
-//            user.setPassword(userObj.get("password").getAsString());
-//            user.setPlayerID(userObj.get("playerId").getAsInt());
-//
-//            if (dao.addUser(user))
-//            {
-//                returnObject.setData("Success!");
-//            }
-//            else
-//            {
-//                returnObject.setErrorMsg("Couldn't register user.");
-//            }
-//        }
-//        else
-//        {
-//            returnObject.setErrorMsg("No user found in DTO JsonObject");
-//        }
-//
-//        return returnObject;
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.register(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

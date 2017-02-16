@@ -1,9 +1,9 @@
-package common.commands;
+package com.example.tyudy.ticket2rideclient.common.commands;
 
-import common.Command;
-import common.DataTransferObject;
-import common.iCommand;
-import server.TTRServerFacade;
+import com.example.tyudy.ticket2rideclient.common.Command;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
 import java.io.Serializable;
 
@@ -12,10 +12,20 @@ import java.io.Serializable;
  */
 public class JoinGameCommand extends Command implements iCommand, Serializable
 {
+  public JoinGameCommand(){}
+private DataTransferObject data;
+
     @Override
-    public DataTransferObject execute(DataTransferObject dto)
+    public DataTransferObject execute()
     {
-        TTRServerFacade serverFacade = new TTRServerFacade();
-        return serverFacade.joinGame(dto);
+        TTRServerFacade facade = new TTRServerFacade();
+        data = facade.joinGame(data);
+        return data;
+    }
+
+
+    public void setData(DataTransferObject d)
+    {
+        this.data = d;
     }
 }

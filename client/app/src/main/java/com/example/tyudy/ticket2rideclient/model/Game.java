@@ -48,6 +48,3 @@ public class Game implements Serializable
         this.players = players;
     }
 }
-
-
-}

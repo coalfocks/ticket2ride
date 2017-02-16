@@ -56,10 +56,6 @@ public class GameSelectionFragment extends Fragment implements IObserver {
             }
         });
 
-
-
-
-
         return v;
     }
 
@@ -71,7 +67,6 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
     }
 
-    // TODO: Implement this class
     private class GameHolder extends RecyclerView.ViewHolder {
 
         private TextView mGameNumberTitle;
@@ -89,11 +84,14 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         }
 
-        public void bindGame(Game game){
+        public void bindGame(Game game, int gameNumber){
             mGame = game;
 
-            mGameNumberTitle.setText(game.);
+            mGameNumberTitle.setText("Game #" + gameNumber);
+            mGameOwnerText.setText("Owner: " + game.getOwnerUsername());
+            mNumberOfPlayers.setText("Number of players: " + game.getNumPlayers());
         }
+
 
     }
 
@@ -116,6 +114,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         public void onBindViewHolder(GameHolder holder, int position) {
             Game game = mGameList.get(position);
             // Set fields of view according to this game
+            holder.bindGame(game, position);
         }
 
         @Override

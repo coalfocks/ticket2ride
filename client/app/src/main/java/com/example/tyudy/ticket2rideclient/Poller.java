@@ -6,7 +6,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 /**
  * Created by Trevor on 2/11/2017.
  */
-public class Poller
+public class Poller  implements Runnable
 {
     private Poller(){}
 
@@ -25,7 +25,6 @@ public class Poller
     private boolean stop = false;
     private int wait = 2;           // default wait of 2 seconds
 
-    //why is this called run?
     public void run()
     {
         DataTransferObject dto;

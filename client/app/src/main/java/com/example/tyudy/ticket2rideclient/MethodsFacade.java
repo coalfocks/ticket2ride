@@ -131,9 +131,10 @@ public class MethodsFacade {
      * Called by the Poller. Updates the game list stored in the model and notifies the observers that changes were made.
      * @param gameList - new game list from the server. (passed in by the Poller ).
      */
-    public void updateGameList(ArrayList<Game> gameList){
+    public void updateGameList(DataTransferObject gameList){
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
+        ArrayList<Game> gList = (ArrayList<Game>) serializer.deserialize(gameList.getData());
         ClientModelFacade.SINGLETON.addGames(gameList);
     }
 
@@ -158,7 +159,7 @@ public class MethodsFacade {
                 String commandString = serializer.serialize(newCommand);
                 DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
                 if(response.getErrorMsg().length()!=0){
-                  return null;
+                  return;
                 }
                 else{
                   User registeredUser = (User) serializer.deserialize(response.getData());
@@ -173,6 +174,31 @@ public class MethodsFacade {
       Log.d("createGame", e.getMessage());
         return;
         // ZAC, IMPLEMENT ME!
+    }
+
+    public DataTransferObject getGameList(){
+      //TODO how does he want the server to return the list of games?
+      DataTransferObject dto = new DataTransferObject();
+      String s = gson.toJson(user);
+      RegisterCommand newCommand = new CreateGameCommand();
+      dto.setData(s);
+      dto.setCommand("gameList");
+      newCommand.setData(dto);
+      try {
+          String commandString = serializer.serialize(newCommand);
+          DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
+          if(response.getErrorMsg().length()!=0){
+            return null;
+          }
+          else{
+            DataTransferObject gameList = (DataTransferObject) serializer.deserialize(response.getData());
+            return gameList;
+          }
+      } catch (Exception e){
+          e.printStackTrace();
+          Log.d("createGame", e.getMessage());
+          return null;
+      }
     }
 
 }

@@ -40,7 +40,8 @@ public class Poller
                 if (!= null)
                 {
                     // TODO this is where the gamelist has changed and needs to be updated
-                    ClientModelFacade.SINGLETON.addGames(dto.getData());
+
+                    MethodsFacade.SINGLETON.updateGameList(dto);
                 }
 
             }
@@ -69,17 +70,21 @@ public class Poller
         DataTransferObject previousData = new DataTransferObject();
         previousData = gamesData;
 
-//TODO implement getGameData in the ClientCommunicator
+//TODO implement getGameData in the MethodsFacade
 //getgamedata gets the current data from the server for the gameslist
-        gamesData = ClientCommunicator.getInstance().getGameData(previousData);
+        gamesData = MethodsFacade.SINGLETON.getGameList();
 
 //I don't like this at all I think we should see if they have changed some other way. Like compare thej
-        if (gamesData.getData().equals(previousData.getData()))
+    if(gamesData != null){
+        if (gamesData.getData().equals(previousData.getData()) )
         {
             return null;
         }
-
         return gamesData;
+      }
+      else{
+        return null;
+      }
     }
 
 }

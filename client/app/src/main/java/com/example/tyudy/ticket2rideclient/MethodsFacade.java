@@ -52,7 +52,7 @@ public class MethodsFacade {
      */
     public User loginUser(String enteredName, String enteredPassword){
         // IMPLEMENT ME!
-       /* if(check(enteredName) && check(enteredPassword)){
+        if(check(enteredName) && check(enteredPassword)){
             DataTransferObject dto = new DataTransferObject();
             User user = new User();
             user.setUsername(enteredName);
@@ -64,15 +64,7 @@ public class MethodsFacade {
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
-                DataTransferObject response = ClientCommunicator.getInstance().sendCommand(commandString);
-                if(response.getErrorMsg().length()!=0){
-                  return null;
-                }
-                else{
-                  User loggedInUser = (User) serializer.deserialize(response.getData());
-                  ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
-                  return loggedInUser;
-                }
+                ClientCommunicator.getInstance().sendCommand(commandString);
             } catch (Exception e){
                 e.printStackTrace();
                 Log.d("MethodsFacade", e.getMessage());
@@ -81,8 +73,35 @@ public class MethodsFacade {
       }
 
         return null;
-        */
+
         return null;
+    }
+    public void passBackDTOLogin(DataTransferObject response, FragmentActivity contxt){
+      // if(response.getErrorMsg().length()!=0){
+      //   return null;
+      // }
+      // else{
+      //   User loggedInUser = (User) serializer.deserialize(response.getData());
+      //   ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
+      //   return loggedInUser;
+      // }
+        if(response.getErrorMsg().length()!=0){
+            Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+            try {
+              User loggedInUser = (User) serializer.deserialize(response.getData());
+              ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
+              //TODO whatever the heck we need to do when they logged in
+                Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+                contxt.getFragmentManager().popBackStackImmediate();
+
+            } catch (Exception e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
+        }
     }
 
     /**

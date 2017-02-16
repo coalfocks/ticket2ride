@@ -117,7 +117,7 @@ public class MethodsFacade {
         return null;
     }
 
-    public void passBackDTO(DataTransferObject response, FragmentActivity contxt){
+    public void processRegister(DataTransferObject response, FragmentActivity contxt){
         if(response.getErrorMsg().length()!=0){
             Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
             return;

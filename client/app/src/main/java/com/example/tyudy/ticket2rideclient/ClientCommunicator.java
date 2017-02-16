@@ -159,7 +159,7 @@ public class ClientCommunicator {
        @Override
        protected void onPostExecute(Void aVoid) {
            super.onPostExecute(aVoid);
-           MethodsFacade.SINGLETON.passBackDTO(responseDTO, mContext);
+           MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
        }
    }
 }

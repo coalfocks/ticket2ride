@@ -88,11 +88,4 @@ public class RegisterFragment extends Fragment {
         return v;
     }
 
-    /**
-     * Function called by MethodsFacade when registration response comes back.
-     * @param jeffery - our dood
-     */
-    public static void popRegisterFragment(FragmentActivity jeffery){
-            jeffery.getFragmentManager().popBackStack(); // Go back to login
-    }
 }

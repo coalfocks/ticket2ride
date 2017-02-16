@@ -1,30 +1,20 @@
 package com.example.tyudy.ticket2rideclient;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
-import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
-import com.example.tyudy.ticket2rideclient.common.iCommand;
-import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
-import com.example.tyudy.ticket2rideclient.fragments.RegisterFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.model.Game;
-import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.model.User;
+import com.example.tyudy.ticket2rideclient.common.Game;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -176,6 +166,8 @@ public class MethodsFacade {
     public void updateGameList(DataTransferObject gameList){
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
+
+
         try {
             ArrayList<Game> gList = (ArrayList<Game>) serializer.deserialize(gameList.getData());
             ClientModelFacade.SINGLETON.addGames(gList);

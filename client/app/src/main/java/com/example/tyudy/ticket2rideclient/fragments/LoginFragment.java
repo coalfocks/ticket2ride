@@ -17,7 +17,6 @@ import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.model.User;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -83,7 +82,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        mPasswordField = (EditText) v.findViewById(R.id.user_name_field);
+        mPasswordField = (EditText) v.findViewById(R.id.password_field);
         mPasswordField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

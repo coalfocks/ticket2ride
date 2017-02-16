@@ -2,10 +2,10 @@ package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.IObservable;
 import com.example.tyudy.ticket2rideclient.IObserver;
+import com.example.tyudy.ticket2rideclient.common.Game;
+import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
 
 /**
  * Created by tyudy on 2/13/17.

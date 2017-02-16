@@ -16,10 +16,9 @@ import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.model.Game;
+import com.example.tyudy.ticket2rideclient.common.Game;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tyudy on 2/13/17.

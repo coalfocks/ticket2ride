@@ -1,26 +1,17 @@
 package com.example.tyudy.ticket2rideclient;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.model.User;
 import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The ClientCommunicator class implements Runnable so as
@@ -166,13 +157,13 @@ public class ClientCommunicator {
            case "login":
            MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
            case "join":
-           MethodsFacade.SINGLETON.passBackDTOJoin(responseDTO, mContext);
+           //MethodsFacade.SINGLETON.passBackDTOJoin(responseDTO, mContext);
            case "create":
-           MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
+           //MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
            case "start":
-           MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
+           //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
            case "gamelist":
-           MethodsFacade.SINGLETON.updateGameList(responseDTO);
+          // MethodsFacade.SINGLETON.updateGameList(responseDTO);
            default:
 
          }

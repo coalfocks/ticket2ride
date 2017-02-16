@@ -2,7 +2,7 @@ package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.IObservable;
 import com.example.tyudy.ticket2rideclient.IObserver;
-import com.example.tyudy.ticket2rideclient.common.Game;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
@@ -14,20 +14,20 @@ import java.util.ArrayList;
 public class ClientModelFacade implements IObservable {
 
     public static final ClientModelFacade SINGLETON = new ClientModelFacade();
-    private ArrayList<Game> gameList;
+    private ArrayList<TTRGame> mTTRGameList;
     private ArrayList<IObserver> obsList;
     private String ipAddress;
     private User currentUser;
-    private Game currentGame;
+    private TTRGame mCurrentTTRGame;
 
 
     private ClientModelFacade(){
         // IMPLEMENT ME!
-        gameList = new ArrayList<>();
+        mTTRGameList = new ArrayList<>();
         obsList = new ArrayList<>();
         ipAddress = null;
         currentUser = null;
-        currentGame = null;
+        mCurrentTTRGame = null;
     }
 
     /**
@@ -50,11 +50,11 @@ public class ClientModelFacade implements IObservable {
     }
 
     /**
-     * Add a game to the ClientModelFacade. (Stored in something like a GameList class or just a List<Game>)
-     * @param gameList - game to be added
+     * Add a game to the ClientModelFacade. (Stored in something like a GameList class or just a List<TTRGame>)
+     * @param TTRGameList - game to be added
      */
-    public void addGames(ArrayList<Game> gameList) {
-        this.gameList = gameList;
+    public void addGames(ArrayList<TTRGame> TTRGameList) {
+        this.mTTRGameList = TTRGameList;
         this.notifyObservers();
     }
 
@@ -62,15 +62,15 @@ public class ClientModelFacade implements IObservable {
      * return a game at the given index
      * @param index - location that the game is stored in the chosen data structure
      */
-    public Game getGameAtIndex(int index){
-        return gameList.get(index);
+    public TTRGame getGameAtIndex(int index){
+        return mTTRGameList.get(index);
     }
 
     /**
      * @return - a list of all the games that the ClientModelFacade is currently aware of.
      */
-    public ArrayList<Game> getGameList(){
-        return gameList;
+    public ArrayList<TTRGame> getTTRGameList(){
+        return mTTRGameList;
     }
 
 
@@ -82,8 +82,8 @@ public class ClientModelFacade implements IObservable {
         currentUser = u;
     }
 
-    public void setCurrentGame(Game g){
-        currentGame = g;
+    public void setCurrentTTRGame(TTRGame g){
+        mCurrentTTRGame = g;
     }
 
     public User getCurrentUser(){
@@ -94,8 +94,8 @@ public class ClientModelFacade implements IObservable {
         return ipAddress;
     }
 
-    public Game getCurrentGame(){
-        return currentGame;
+    public TTRGame getCurrentTTRGame(){
+        return mCurrentTTRGame;
     }
 
 }

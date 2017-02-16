@@ -7,12 +7,13 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.common.Game;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
@@ -69,14 +70,7 @@ public class MethodsFacade {
 
     }
     public void passBackDTOLogin(DataTransferObject response, FragmentActivity contxt){
-      // if(response.getErrorMsg().length()!=0){
-      //   return null;
-      // }
-      // else{
-      //   User loggedInUser = (User) serializer.deserialize(response.getData());
-      //   ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
-      //   return loggedInUser;
-      // }
+
         if(response.getErrorMsg().length()!=0){
             return;
         }
@@ -150,10 +144,7 @@ public class MethodsFacade {
       if(pass.length() > 10 || pass.length() < 2){
         return false;
       }
-      //find another way to check that it's alphanumeric this ways broke
-      // if(String.StringUtils.isAlphanumeric(pass)){
-      //   return true;
-      // }
+
       else{
         return true;
       }
@@ -165,12 +156,10 @@ public class MethodsFacade {
      * @param gameList - new game list from the server. (passed in by the Poller ).
      */
     public void updateGameList(DataTransferObject gameList){
-        // Update current game list with the new one
-        // notify the observers by calling notifyObservers on the ClientModelFacade
 
 
         try {
-            ArrayList<Game> gList = (ArrayList<Game>) serializer.deserialize(gameList.getData());
+            ArrayList<TTRGame> gList = (ArrayList<TTRGame>) serializer.deserialize(gameList.getData());
             ClientModelFacade.SINGLETON.addGames(gList);
         } catch (Exception e){
             Log.d("MethodsFacade", e.getMessage());
@@ -191,7 +180,7 @@ public class MethodsFacade {
         if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
             String s = gson.toJson(user);
-            CreateGameCommand newCommand = new CreateGameCommand();
+            Command newCommand = new CreateGameCommand();
             dto.setData(s);
             dto.setPlayerID(user.getPlayerID());
             dto.setCommand("create");
@@ -231,9 +220,45 @@ public class MethodsFacade {
        }
          return null;
      }
+
+
      public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
 
      }
+
+    /**
+     * Joins the currentUser into the game that was clicked on in the GameSelectionFragment.
+     * At this point currentUser has already been set (Done at login) as well as the currentGame (done when clicked on)
+     */
+    public void joinGame(){
+        TTRGame game = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+
+        if(game != null){
+            DataTransferObject dto = new DataTransferObject();
+            String s = gson.toJson(game);
+            Command newCommand = new JoinGameCommand();
+            dto.setData(s);
+            dto.setCommand("join");
+            newCommand.setData(dto);
+            try {
+                String commandString = serializer.serialize(newCommand);
+                ClientCommunicator.getInstance().sendCommand(commandString);
+            } catch (Exception e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
+        }
+    }
+
+    // TODO: (Zac) Check against current game
+    public void passBackDTOJoinGame(DataTransferObject response, FragmentActivity contxt){
+        if(response.getErrorMsg().length()!=0){
+            Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

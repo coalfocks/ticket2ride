@@ -43,55 +43,13 @@ public class ClientCommunicator {
 
     public void sendCommand(String command)
     {
-        /*DataTransferObject dto = null;
-        try
-        {
-            String ipAddress = ClientModelFacade.SINGLETON.getIpAddress();
-            String urlString = "http://" + ipAddress + ":8080/command";
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            connection.connect();
 
-            OutputStream requestBody = connection.getOutputStream();
-            requestBody.write(command.getBytes());
-            requestBody.flush();
-            requestBody.close();
-
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
-            {
-                InputStream responseBody = connection.getInputStream();
-                ByteArrayOutputStream bouts = new ByteArrayOutputStream();
-                byte [] buffer = new byte [1024];
-                int length = 0;
-                while ((length = responseBody.read(buffer)) != -1)
-                {
-                    bouts.write(buffer, 0, length);
-                }
-
-                String responseData = bouts.toString();
-                dto = gson.fromJson(responseData, DataTransferObject.class);
-            }
-            else
-            {
-                dto = new DataTransferObject("Error", "", "Could not connect!",null);
-                System.out.print(dto.getErrorMsg());
-            }
-
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return dto;
-        */
         try{
             SendCommandTask task = new SendCommandTask();
             task.execute(command);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
-
     }
 
     public void setContext(FragmentActivity context) {
@@ -158,14 +116,14 @@ public class ClientCommunicator {
                MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
                break;
            case "join":
-           //MethodsFacade.SINGLETON.passBackDTOJoin(responseDTO, mContext);
+                MethodsFacade.SINGLETON.passBackDTOJoinGame(responseDTO, mContext);
            case "create":
                MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
                break;
            case "start":
-           //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
-           case "gamelist":
-          MethodsFacade.SINGLETON.updateGameList(responseDTO);
+               //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
+           case "gameList":
+                MethodsFacade.SINGLETON.updateGameList(responseDTO);
            default:
                break;
 

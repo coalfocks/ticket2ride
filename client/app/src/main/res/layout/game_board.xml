@@ -15,7 +15,7 @@
         android:id="@+id/game_board_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to 'names' game!"
+        android:text="Welcome to 'names' TTRGame!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

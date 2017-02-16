@@ -15,8 +15,8 @@ import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
-import com.example.tyudy.ticket2rideclient.common.Game;
 
 import java.util.ArrayList;
 
@@ -61,7 +61,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
     @Override
     public void observe() {
         // Update the screen by reading from the model and presenting data to the view
-        mGameAdapter = new GameAdapter(ClientModelFacade.SINGLETON.getGameList());
+        mGameAdapter = new GameAdapter(ClientModelFacade.SINGLETON.getTTRGameList());
         mGameRecyclerView.setAdapter(mGameAdapter);
 
     }
@@ -71,7 +71,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         private TextView mGameNumberTitle;
         private TextView mGameOwnerText;
         private TextView mNumberOfPlayers;
-        private Game mGame;
+        private TTRGame mTTRGame;
 
 
         public GameHolder(View gameView){
@@ -84,18 +84,19 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         }
 
-        public void bindGame(Game game, int gameNumber){
-            mGame = game;
+        public void bindGame(TTRGame TTRGame, int gameNumber){
+            mTTRGame = TTRGame;
 
-            mGameNumberTitle.setText("Game #" + gameNumber);
-            mGameOwnerText.setText("Owner: " + game.getOwnerUsername());
-            mNumberOfPlayers.setText("Number of players: " + game.getNumPlayers());
+            mGameNumberTitle.setText("TTRGame #" + gameNumber);
+            mGameOwnerText.setText("Owner: " + TTRGame.getOwnerUsername());
+            mNumberOfPlayers.setText("Number of players: " + TTRGame.getNumPlayers());
         }
 
         @Override
         public void onClick(View v){
             // Launch game_board activity of specified game
-            ClientModelFacade.SINGLETON.setCurrentGame(mGame);
+            ClientModelFacade.SINGLETON.setCurrentTTRGame(mTTRGame);
+            MethodsFacade.SINGLETON.joinGame();
             Intent i = new Intent(getContext(), GameBoardActivity.class);
             startActivity(i);
         }
@@ -105,10 +106,10 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
     private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
 
-        private ArrayList<Game> mGameList;
+        private ArrayList<TTRGame> mTTRGameList;
 
-        public GameAdapter(ArrayList<Game> gameList){
-            mGameList = gameList;
+        public GameAdapter(ArrayList<TTRGame> TTRGameList){
+            mTTRGameList = TTRGameList;
         }
 
         @Override
@@ -120,14 +121,14 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         @Override
         public void onBindViewHolder(GameHolder holder, int position) {
-            Game game = mGameList.get(position);
-            // Set fields of view according to this game
-            holder.bindGame(game, position);
+            TTRGame TTRGame = mTTRGameList.get(position);
+            // Set fields of view according to this TTRGame
+            holder.bindGame(TTRGame, position);
         }
 
         @Override
         public int getItemCount() {
-            return mGameList.size();
+            return mTTRGameList.size();
         }
 
     }

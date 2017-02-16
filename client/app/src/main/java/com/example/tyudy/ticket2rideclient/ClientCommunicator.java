@@ -19,11 +19,13 @@ import java.util.concurrent.TimeUnit;
  * receives something from the server, the ClientCommunicator
  * will receive it and send it to the ClientModel.
  */
-public class ClientCommunicator implements Runnable
-{
+public class ClientCommunicator {
+
     private Gson gson = new Gson();
 
-    private ClientCommunicator(){ poller = Poller.getInstance(); }
+    private ClientCommunicator(){
+        new Thread(Poller.getInstance()).start();
+    }
 
     public static ClientCommunicator getInstance()
     {

@@ -10,9 +10,9 @@ import java.io.Serializable;
 /**
  * Created by Trevor on 2/11/2017.
  */
-public class StartGameCommand extends Command implements iCommand, Serializable
+public class ListGamesCommand extends Command implements iCommand, Serializable
 {
-  public StartGameCommand(){}
+  public ListGamesCommand(){}
 private DataTransferObject data;
 
     @Override

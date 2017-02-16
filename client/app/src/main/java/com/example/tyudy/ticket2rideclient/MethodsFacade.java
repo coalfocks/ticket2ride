@@ -1,8 +1,10 @@
 package com.example.tyudy.ticket2rideclient;
 
 import android.util.Log;
+import android.widget.ExpandableListView;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
@@ -134,8 +136,14 @@ public class MethodsFacade {
     public void updateGameList(DataTransferObject gameList){
         // Update current game list with the new one
         // notify the observers by calling notifyObservers on the ClientModelFacade
-        ArrayList<Game> gList = (ArrayList<Game>) serializer.deserialize(gameList.getData());
-        ClientModelFacade.SINGLETON.addGames(gameList);
+        try {
+            ArrayList<Game> gList = (ArrayList<Game>) serializer.deserialize(gameList.getData());
+            ClientModelFacade.SINGLETON.addGames(gList);
+        } catch (Exception e){
+            Log.d("MethodsFacade", e.getMessage());
+        }
+
+
     }
 
     /**
@@ -149,8 +157,6 @@ public class MethodsFacade {
 
         if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
-            user.setUsername(enteredName);
-            user.setPassword(enteredPassword);
             String s = gson.toJson(user);
             CreateGameCommand newCommand = new CreateGameCommand();
             dto.setData(s);
@@ -169,19 +175,14 @@ public class MethodsFacade {
             } catch (Exception e){
                 e.printStackTrace();
                 Log.d("createGame", e.getMessage());
-                return;
             }
       }
-      Log.d("createGame", e.getMessage());
-        return;
-        // ZAC, IMPLEMENT ME!
     }
 
     public DataTransferObject getGameList(){
       //TODO how does he want the server to return the list of games?
       DataTransferObject dto = new DataTransferObject();
       CreateGameCommand newCommand = new CreateGameCommand();
-      dto.setData(s);
       dto.setCommand("gameList");
       newCommand.setData(dto);
       try {

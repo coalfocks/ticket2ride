@@ -3,6 +3,8 @@ package com.example.tyudy.ticket2rideclient;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Trevor on 2/11/2017.
  */
@@ -36,7 +38,7 @@ public class Poller  implements Runnable
             {
                 TimeUnit.SECONDS.sleep(wait);
                 dto = poller.poll();
-                if (!= null)
+                if ( dto != null)
                 {
                     // TODO this is where the gamelist has changed and needs to be updated
 

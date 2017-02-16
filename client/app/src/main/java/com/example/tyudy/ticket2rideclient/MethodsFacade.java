@@ -192,6 +192,7 @@ public class MethodsFacade {
             String s = gson.toJson(user);
             CreateGameCommand newCommand = new CreateGameCommand();
             dto.setData(s);
+            dto.setPlayerID(user.getPlayerID());
             dto.setCommand("createGame");
             newCommand.setData(dto);
             try {

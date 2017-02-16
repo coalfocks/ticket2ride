@@ -218,6 +218,8 @@ public class MethodsFacade {
             }
         }*/
     }
+    public void passBackDTOCreate(DataTransferObject response, FragmentActivity contxt){
+    }
 
     public DataTransferObject getGameList(){
       //TODO how does he want the server to return the list of games?
@@ -241,6 +243,9 @@ public class MethodsFacade {
           return null;
       }*/
         return null;
+    }
+    public void passBackDTOGameList(DataTransferObject response, FragmentActivity contxt){
+
     }
 
 

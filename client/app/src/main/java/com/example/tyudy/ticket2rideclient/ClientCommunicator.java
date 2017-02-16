@@ -165,6 +165,14 @@ public class ClientCommunicator {
            MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
            case "login":
            MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
+           case "join":
+           MethodsFacade.SINGLETON.passBackDTOJoin(responseDTO, mContext);
+           case "create":
+           MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
+           case "start":
+           MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
+           case "gamelist":
+           MethodsFacade.SINGLETON.updateGameList(responseDTO);
            default:
 
          }

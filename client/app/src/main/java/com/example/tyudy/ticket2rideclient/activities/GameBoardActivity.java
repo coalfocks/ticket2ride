@@ -25,7 +25,13 @@ public class GameBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(ClientModelFacade.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModelFacade.SINGLETON.getCurrentUser().getPlayerID()) {
-                    MethodsFacade.SINGLETON.startGame();
+                    if (ClientModelFacade.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
+                        MethodsFacade.SINGLETON.startGame();
+                    }
+                    else {
+                        Toast.makeText(getBaseContext(), "You can't play by yourself!", Toast.LENGTH_LONG).show();
+
+                    }
                 } else {
                     Toast.makeText(getBaseContext(), "Who do you think you are to start someone elses game?!", Toast.LENGTH_LONG).show();
                 }

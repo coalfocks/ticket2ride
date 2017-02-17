@@ -5,7 +5,7 @@ import server.TTRServerFacade;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 1/21/2017.
+ * The main Command class which all the other command classes extend.
  */
 public class Command implements iCommand, Serializable
 {

@@ -8,7 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.iCommand;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/11/2017.
+ * The command to start a game.
  */
 public class StartGameCommand extends Command implements iCommand, Serializable
 {

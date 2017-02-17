@@ -8,6 +8,12 @@ import java.util.Base64;
  */
 public class Serializer
 {
+    /**
+     * The method to serialize an object
+     * @param o Serializable object
+     * @return The serialized object
+     * @throws IOException
+     */
     public static String serialize(Serializable o) throws IOException
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -17,6 +23,13 @@ public class Serializer
         return Base64.getEncoder().encodeToString(baos.toByteArray());
     }
 
+    /**
+     * The method to deserialize an object
+     * @param s The string to deserialize
+     * @return The deserialized object
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Object deserialize(String s) throws IOException, ClassNotFoundException
     {
         byte [] data = Base64.getDecoder().decode(s);

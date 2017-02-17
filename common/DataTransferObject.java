@@ -3,7 +3,7 @@ package common;
 import com.google.gson.JsonObject;
 
 /**
- * Created by colefox on 1/20/17.
+ * The object used to communicate between client and server.
  */
 public class DataTransferObject
 {

@@ -8,7 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/11/2017.
+ * The command to end a game.
  */
 public class EndGameCommand extends Command implements iCommand, Serializable
 {

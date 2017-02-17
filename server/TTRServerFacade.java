@@ -21,6 +21,11 @@ public class TTRServerFacade implements iTTRServer
     private TTRGameServer gameServer = TTRGameServer.getInstance();
     private Gson gson = new Gson();
 
+    /**
+     * The method called by the CreateGameCommand
+     * @param data Data needed to create a game
+     * @return Data about the new created game
+     */
     @Override
     public DataTransferObject createGame(DataTransferObject data)
     {
@@ -31,6 +36,11 @@ public class TTRServerFacade implements iTTRServer
 
     }
 
+    /**
+     * The method called by the StartGameCommand
+     * @param data Data needed to start the game
+     * @return Data about the attempted start
+     */
     @Override
     public DataTransferObject startGame(DataTransferObject data)
     {
@@ -53,6 +63,11 @@ public class TTRServerFacade implements iTTRServer
         return data;
     }
 
+    /**
+     * The method called by the EndGameCommand
+     * @param data Data needed to end the game
+     * @return Data about the state of the game
+     */
     @Override
     public DataTransferObject endGame(DataTransferObject data)
     {
@@ -73,6 +88,11 @@ public class TTRServerFacade implements iTTRServer
         return data;
     }
 
+    /**
+     * The method called by the JoinGameCommand
+     * @param data Data needed to join the particular game
+     * @return Data containing updated game information
+     */
     @Override
     public DataTransferObject joinGame(DataTransferObject data)
     {
@@ -90,6 +110,11 @@ public class TTRServerFacade implements iTTRServer
         return data;
     }
 
+    /**
+     * The method called by the LoginCommand
+     * @param data Data needed to login
+     * @return Data containing the things the server wanted to give
+     */
     @Override
     public DataTransferObject login(DataTransferObject data)
     {
@@ -116,6 +141,11 @@ public class TTRServerFacade implements iTTRServer
         return userInfo;
     }
 
+    /**
+     * The method called by the RegisterCommand
+     * @param data Data needed to register
+     * @return Data containing the newly registered user
+     */
     @Override
     public DataTransferObject register(DataTransferObject data)
     {

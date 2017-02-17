@@ -7,8 +7,8 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
 import java.io.Serializable;
 
-/**
- * Created by Trevor on 2/10/2017.
+/*
+  Created by Trevor on 2/10/2017.
  private DataTransferObject data;
 
 
@@ -26,6 +26,10 @@ import java.io.Serializable;
      data = facade.endGame(data);
      return data;
  }
+ */
+
+/**
+ * The command to create a game.
  */
 public class CreateGameCommand extends Command implements iCommand, Serializable
 {

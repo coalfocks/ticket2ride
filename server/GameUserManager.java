@@ -40,6 +40,12 @@ public class GameUserManager
         return user;
     }
 
+    /**
+     * The method to create a new user
+     * @param username The username of the new user
+     * @param password The password of the new user
+     * @return True if successful, false otherwise
+     */
     public boolean addUser(String username, String password)
     {
         try
@@ -57,6 +63,11 @@ public class GameUserManager
         return true;
     }
 
+    /**
+     * The method to create a new game
+     * @param ownerID The playerID of the user calling the method
+     * @return The unique gameID, or 0 if failure
+     */
     public int createGame(int ownerID)
     {
         try
@@ -75,6 +86,12 @@ public class GameUserManager
         return dao.getGames();
     }
 
+    /**
+     * The method to join a listed game
+     * @param gameID The ID of the game to join
+     * @param playerID The ID of the player joinging
+     * @return True if successful, false otherwise
+     */
     public boolean joinGame(int gameID, int playerID)
     {
         try

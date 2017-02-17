@@ -10,10 +10,14 @@ import java.io.Serializable;
 /**
  * Created by Trevor on 2/10/2017.
  */
+
+/**
+ * The Command to join a game.
+ */
 public class JoinGameCommand extends Command implements iCommand, Serializable
 {
-  public JoinGameCommand(){}
-private DataTransferObject data;
+    public JoinGameCommand(){}
+    private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()

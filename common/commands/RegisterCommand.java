@@ -8,7 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/10/2017.
+ * The command to register.
  */
 public class RegisterCommand extends Command implements iCommand, Serializable
 {

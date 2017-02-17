@@ -169,6 +169,11 @@ public class DAO
 
        }
 
+        /**
+         * The method to create a new game.
+         * @param ownerID The playerID of the one who created the game
+         * @return The unique gameID
+         */
        public int createGame(int ownerID)
        {
            int gameID = 0;
@@ -309,6 +314,12 @@ public class DAO
            }
        }
 
+        /**
+         * The method to update the players in a game
+         * @param gameID The game to update
+         * @param userID The playerID of the new player
+         * @return True if successful, false otherwise
+         */
        public boolean updatePlayerGame(int gameID, int userID)
        {
 
@@ -341,6 +352,12 @@ public class DAO
            return true;
        }
 
+        /**
+         * The method to add players to a game
+         * @param gameID The game to add to
+         * @param game String representation of the game
+         * @return True if successful, false otherwise
+         */
         public boolean addPlayerToGame(int gameID, String game)
         {
 
@@ -420,6 +437,11 @@ public class DAO
             return games;
         }
 
+        /**
+         * The method to tell the database that a game is beginning
+         * @param ownerID The playerID of the owner of the game
+         * @return True if successful, false otherwise
+         */
         public boolean startGame(int ownerID)
         {
 
@@ -451,6 +473,11 @@ public class DAO
             return true;
         }
 
+        /**
+         * The method to tell the database that a game is ending
+         * @param ownerID The playerID of the owner of the game
+         * @return True if successful, false otherwise
+         */
         public boolean endGame(int ownerID)
         {
 
@@ -482,6 +509,11 @@ public class DAO
             return true;
         }
 
+        /**
+         * The method to get the status of the game
+         * @param gameID The unique gameID
+         * @return The current integer status of the game
+         */
         public int getGameStatus(int gameID)
         {
             PreparedStatement stmt = null;

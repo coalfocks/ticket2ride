@@ -9,7 +9,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/10/2017.
+ * The login command.
  */
 public class LoginCommand extends Command implements iCommand, Serializable
 {

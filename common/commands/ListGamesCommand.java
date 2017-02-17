@@ -8,7 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.iCommand;
 import java.io.Serializable;
 
 /**
- * Created by Trevor on 2/11/2017.
+ * The command that gets the list of games.
  */
 public class ListGamesCommand extends Command implements iCommand, Serializable
 {

@@ -50,11 +50,15 @@ public class ClientModelFacade implements IObservable {
     }
 
     /**
-     * Add a game to the ClientModelFacade. (Stored in something like a GameList class or just a List<TTRGame>)
-     * @param TTRGameList - game to be added
+     * replace the gameList with the new one from the server.
+     * Also update the currentGame becuase it could have changed.
+     * @param TTRGameList - new games from the server
      */
-    public void addGames(ArrayList<TTRGame> TTRGameList) {
+    public void replaceGames(ArrayList<TTRGame> TTRGameList) {
         this.mTTRGameList = TTRGameList;
+        if(getCurrentTTRGame() != null){
+            this.mCurrentTTRGame = getTTRGameWithID(getCurrentTTRGame().getGameID());
+        }
         this.notifyObservers();
     }
 
@@ -95,6 +99,24 @@ public class ClientModelFacade implements IObservable {
     }
 
     public TTRGame getCurrentTTRGame(){
+        return mCurrentTTRGame;
+    }
+
+    /**
+     * @param ID - the unique game ID that we are a part of
+     * @return - the game that has the given ID, else mCurrentTTRGame
+     */
+    public TTRGame getTTRGameWithID(int ID){
+
+        if(ID == 0){
+            return null;
+        }
+
+        for(TTRGame game: mTTRGameList){
+            if(game.getGameID() == ID){
+                return game;
+            }
+        }
         return mCurrentTTRGame;
     }
 

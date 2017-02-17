@@ -20,12 +20,20 @@
         android:layout_marginBottom="20dp"
         />
 
-    <Button
-        android:id="@+id/create_game_button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/create_game_button"/>
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/create_game_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_game_button"/>
+
+    </LinearLayout>
 
 
 

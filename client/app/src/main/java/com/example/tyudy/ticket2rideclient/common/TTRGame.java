@@ -12,6 +12,7 @@ import java.util.TreeSet;
 public class TTRGame implements Serializable
 {
     private int inProgress;
+    private int gameID;
     private int ownerID;
     private String ownerUsername;
     private Set<Integer> players = new TreeSet<Integer>();
@@ -58,5 +59,13 @@ public class TTRGame implements Serializable
 
     public void setPlayers(Set<Integer> players) {
         this.players = players;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 }

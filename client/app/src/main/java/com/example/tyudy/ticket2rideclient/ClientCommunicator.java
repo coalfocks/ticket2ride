@@ -24,11 +24,9 @@ public class ClientCommunicator {
 
     private Gson gson = new Gson();
     private static ClientCommunicator communicator = null;
-    private DataTransferObject responseDTO;
     private FragmentActivity mContext;
 
     private ClientCommunicator(){
-        responseDTO = null;
         mContext = null;
         new Thread(Poller.getInstance()).start();
     }
@@ -57,6 +55,12 @@ public class ClientCommunicator {
     }
 
     private class SendCommandTask extends AsyncTask<String, Void, Void> {
+
+        private DataTransferObject responseDTO;
+
+        public SendCommandTask(){
+            responseDTO = new DataTransferObject();
+        }
 
        @Override
        protected Void doInBackground(String... params) {
@@ -88,7 +92,7 @@ public class ClientCommunicator {
                    }
 
                    String responseData = bouts.toString();
-                   dto = gson.fromJson(responseData, DataTransferObject.class);
+                   responseDTO = gson.fromJson(responseData, DataTransferObject.class);
                }
                else
                {
@@ -100,12 +104,11 @@ public class ClientCommunicator {
            {
                e.printStackTrace();
            }
-           responseDTO = dto;
            return null;
        }
 
        @Override
-       protected void onPostExecute(Void aVoid) {
+       protected void onPostExecute(Void aVoid){
            super.onPostExecute(aVoid);
            String comType = responseDTO.getCommand();
            switch (comType){
@@ -117,13 +120,16 @@ public class ClientCommunicator {
                break;
            case "join":
                 MethodsFacade.SINGLETON.passBackDTOJoinGame(responseDTO, mContext);
+                break;
            case "create":
                MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
                break;
            case "start":
                MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
+               break;
            case "gameList":
                 MethodsFacade.SINGLETON.updateGameList(responseDTO);
+                break;
            default:
                break;
 

@@ -13,6 +13,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
@@ -72,17 +73,21 @@ public class MethodsFacade {
     public void passBackDTOLogin(DataTransferObject response, FragmentActivity contxt){
 
         if(response.getErrorMsg().length()!=0){
+            Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
             return;
         }
         else{
             try {
                 User loggedInUser = (User) serializer.deserialize(response.getData());
                 ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
+                // I am such a boss programmer for this line ..... it sets the current game
+                ClientModelFacade.SINGLETON.setCurrentTTRGame(ClientModelFacade.SINGLETON.getTTRGameWithID(ClientModelFacade.SINGLETON.getCurrentUser().getInGame()));
                 Toast.makeText(contxt, "Successful Login!", Toast.LENGTH_SHORT).show();
                 ((PreGameActivity) contxt).onLogin(loggedInUser);
 
             } catch (Exception e){
                 e.printStackTrace();
+                Toast.makeText(contxt, "Invalid Login", Toast.LENGTH_SHORT).show();
                 Log.d("MethodsFacade", e.getMessage());
             }
         }
@@ -160,7 +165,7 @@ public class MethodsFacade {
 
         try {
             ArrayList<TTRGame> gList = (ArrayList<TTRGame>) serializer.deserialize(gameList.getData());
-            ClientModelFacade.SINGLETON.addGames(gList);
+            ClientModelFacade.SINGLETON.replaceGames(gList);
         } catch (Exception e){
             Log.d("MethodsFacade", e.getMessage());
         }
@@ -199,7 +204,12 @@ public class MethodsFacade {
           Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
       }
       else{
-          Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+          try {
+              ClientModelFacade.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
+              Toast.makeText(contxt, "Created and Joined Game Successfully!", Toast.LENGTH_SHORT).show();
+          } catch(Exception e){
+              e.printStackTrace();
+          }
       }
     }
 
@@ -212,7 +222,8 @@ public class MethodsFacade {
             String s = gson.toJson(game);
             Command newCommand = new StartGameCommand();
             dto.setData(s);
-            dto.setCommand("join");
+            dto.setPlayerID(ClientModelFacade.SINGLETON.getCurrentTTRGame().getOwnerID());
+            dto.setCommand("start");
             newCommand.setData(dto);
             try {
                 String commandString = serializer.serialize(newCommand);
@@ -228,7 +239,7 @@ public class MethodsFacade {
           Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
       }
       else{
-          Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+          Toast.makeText(contxt, "Game Started!", Toast.LENGTH_SHORT).show();
       }
     }
 
@@ -244,7 +255,7 @@ public class MethodsFacade {
 
        } catch (Exception e){
            e.printStackTrace();
-           Log.d("createGame", e.getMessage());
+           Log.d("MethodsFacade", e.getMessage());
            return null;
        }
          return null;
@@ -258,25 +269,27 @@ public class MethodsFacade {
     /**
      * Joins the currentUser into the game that was clicked on in the GameSelectionFragment.
      * At this point currentUser has already been set (Done at login) as well as the currentGame (done when clicked on)
+     * @param gameToJoin - game that the currentUser is going to join
      */
-    public void joinGame(){
-        TTRGame game = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+    public void joinGame(TTRGame gameToJoin){
 
-        if(game != null){
-            DataTransferObject dto = new DataTransferObject();
-            String s = gson.toJson(game);
+        DataTransferObject dto = new DataTransferObject();
+        try {
+            // This is commented temporarily but it should probably pass a game
+            //String s = serializer.serialize(gameToJoin);
+            String s = String.valueOf(gameToJoin.getGameID());
             Command newCommand = new JoinGameCommand();
             dto.setData(s);
+            dto.setPlayerID(ClientModelFacade.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("join");
             newCommand.setData(dto);
-            try {
-                String commandString = serializer.serialize(newCommand);
-                ClientCommunicator.getInstance().sendCommand(commandString);
-            } catch (Exception e){
-                e.printStackTrace();
-                Log.d("MethodsFacade", e.getMessage());
-            }
+            String commandString = serializer.serialize(newCommand);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.d("MethodsFacade", e.getMessage());
         }
+
     }
 
     // TODO: (Zac) Check against current game
@@ -285,7 +298,13 @@ public class MethodsFacade {
             Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+            try {
+                ClientModelFacade.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
+                Toast.makeText(contxt, "Joined Game Successfully!", Toast.LENGTH_SHORT).show();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
+import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
 
@@ -30,6 +32,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
     private GameAdapter mGameAdapter;
 
     private Button mCreateGameButton;
+    private Button mStartGameButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -51,7 +54,11 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MethodsFacade.SINGLETON.createGame();
+                if(ClientModelFacade.SINGLETON.getCurrentTTRGame() == null) {
+                    MethodsFacade.SINGLETON.createGame();
+                } else {
+                    Toast.makeText(getContext(), "Leave your current game before creating a new one!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -94,11 +101,25 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         @Override
         public void onClick(View v){
-            // Launch game_board activity of specified game
-            ClientModelFacade.SINGLETON.setCurrentTTRGame(mTTRGame);
-            MethodsFacade.SINGLETON.joinGame();
-            Intent i = new Intent(getContext(), GameBoardActivity.class);
-            startActivity(i);
+
+            boolean gameWasNotSet = (ClientModelFacade.SINGLETON.getCurrentTTRGame() == null);
+
+            TTRGame g = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+
+            // The current game is not null and it has also been changed
+            if(gameWasNotSet || mTTRGame.getGameID() == ClientModelFacade.SINGLETON.getCurrentTTRGame().getGameID()) {
+
+                // Only Join if user is not in a game
+                if(gameWasNotSet) {
+                    MethodsFacade.SINGLETON.joinGame(mTTRGame);
+                }
+
+                Intent i = new Intent(getContext(), GameBoardActivity.class);
+                startActivity(i);
+            } else {
+                Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
+            }
+
         }
 
 

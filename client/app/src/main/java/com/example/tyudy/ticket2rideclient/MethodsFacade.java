@@ -203,6 +203,35 @@ public class MethodsFacade {
       }
     }
 
+    public void startGame(){
+        // User this curUser for any data that you may need (i.e. userName)
+        TTRGame game = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+
+        if(game != null){
+            DataTransferObject dto = new DataTransferObject();
+            String s = gson.toJson(game);
+            Command newCommand = new StartGameCommand();
+            dto.setData(s);
+            dto.setCommand("join");
+            newCommand.setData(dto);
+            try {
+                String commandString = serializer.serialize(newCommand);
+                ClientCommunicator.getInstance().sendCommand(commandString);
+            } catch (Exception e){
+                e.printStackTrace();
+                Log.d("MethodsFacade", e.getMessage());
+            }
+        }
+    }
+    public void passBackDTOStart(DataTransferObject response, FragmentActivity contxt){
+      if(response.getErrorMsg().length()!=0){
+          Toast.makeText(contxt, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
+      }
+      else{
+          Toast.makeText(contxt, response.getData(), Toast.LENGTH_SHORT).show();
+      }
+    }
+
      public DataTransferObject getGameList(){
        //TODO how does he want the server to return the list of games?
        DataTransferObject dto = new DataTransferObject();

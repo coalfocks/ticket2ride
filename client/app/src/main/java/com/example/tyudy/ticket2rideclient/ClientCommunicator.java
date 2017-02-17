@@ -121,7 +121,7 @@ public class ClientCommunicator {
                MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
                break;
            case "start":
-               //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
+               MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
            case "gameList":
                 MethodsFacade.SINGLETON.updateGameList(responseDTO);
            default:

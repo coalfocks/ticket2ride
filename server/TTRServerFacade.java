@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by colefox on 2/5/17.
+ * The class to communicate with the game server
  */
 public class TTRServerFacade implements iTTRServer
 {
@@ -174,6 +174,11 @@ public class TTRServerFacade implements iTTRServer
         return userInfo;
     }
 
+    /**
+     * The method called to get the list of available games to join after logging in.
+     * @param data Data of the current state
+     * @return Data containing the updated list of games
+     */
     public DataTransferObject listGames(DataTransferObject data)
     {
         try

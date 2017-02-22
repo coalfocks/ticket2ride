@@ -70,6 +70,11 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mGameAdapter = new GameAdapter(ClientModel.SINGLETON.getTTRGameList());
         mGameRecyclerView.setAdapter(mGameAdapter);
 
+        if(ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1){
+            // Start new activity
+            ((GameLobbyActivity) getContext()).onStart();
+        }
+
     }
 
     private class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

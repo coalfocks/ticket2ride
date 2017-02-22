@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
-import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
+import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -113,7 +113,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
                     MethodsFacade.SINGLETON.joinGame(mTTRGame);
                 }
 
-                Intent i = new Intent(getContext(), GameBoardActivity.class);
+                Intent i = new Intent(getContext(), GameLobbyActivity.class);
                 startActivity(i);
             } else {
                 Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();

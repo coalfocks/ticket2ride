@@ -10,14 +10,14 @@ import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
-public class GameBoardActivity extends AppCompatActivity {
+public class GameLobbyActivity extends AppCompatActivity {
 
     private Button mStartGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_board);
+        setContentView(R.layout.game_lobby);
 
         mStartGameButton = (Button) findViewById(R.id.start_game_button);
         mStartGameButton.setOnClickListener(new View.OnClickListener() {

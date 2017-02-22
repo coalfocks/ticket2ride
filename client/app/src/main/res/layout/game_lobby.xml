@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.tyudy.ticket2rideclient.activities.GameBoardActivity">
+    tools:context="com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity">
 
     <TextView
         android:id="@+id/game_board_title"

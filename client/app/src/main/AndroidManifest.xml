@@ -3,6 +3,7 @@
           package="com.example.tyudy.ticket2rideclient">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.GameLobbyActivity">
+        </activity>
+        <activity android:name=".activities.GameBoard">
         </activity>
     </application>
 

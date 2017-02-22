@@ -16,9 +16,8 @@ import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
-import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
-import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        ClientModelFacade.SINGLETON.addObserver(this);
+        ClientModel.SINGLETON.addObserver(this);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ClientModelFacade.SINGLETON.getCurrentTTRGame() == null) {
+                if(ClientModel.SINGLETON.getCurrentTTRGame() == null) {
                     MethodsFacade.SINGLETON.createGame();
                 } else {
                     Toast.makeText(getContext(), "Leave your current game before creating a new one!", Toast.LENGTH_LONG).show();
@@ -68,7 +67,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
     @Override
     public void observe() {
         // Update the screen by reading from the model and presenting data to the view
-        mGameAdapter = new GameAdapter(ClientModelFacade.SINGLETON.getTTRGameList());
+        mGameAdapter = new GameAdapter(ClientModel.SINGLETON.getTTRGameList());
         mGameRecyclerView.setAdapter(mGameAdapter);
 
     }
@@ -102,12 +101,12 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         @Override
         public void onClick(View v){
 
-            boolean gameWasNotSet = (ClientModelFacade.SINGLETON.getCurrentTTRGame() == null);
+            boolean gameWasNotSet = (ClientModel.SINGLETON.getCurrentTTRGame() == null);
 
-            TTRGame g = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+            TTRGame g = ClientModel.SINGLETON.getCurrentTTRGame();
 
             // The current game is not null and it has also been changed
-            if(gameWasNotSet || mTTRGame.getGameID() == ClientModelFacade.SINGLETON.getCurrentTTRGame().getGameID()) {
+            if(gameWasNotSet || mTTRGame.getGameID() == ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) {
 
                 // Only Join if user is not in a game
                 if(gameWasNotSet) {

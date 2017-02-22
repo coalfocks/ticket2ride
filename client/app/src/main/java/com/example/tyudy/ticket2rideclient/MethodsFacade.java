@@ -14,7 +14,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
-import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
@@ -32,9 +32,8 @@ public class MethodsFacade {
     private Gson gson = new Gson();
 
     private MethodsFacade(){
-        // IMPLEMENT ME!
-    }
 
+    }
 
     /**
      * Function called by the LoginFragment when the Login button is clicked.
@@ -79,9 +78,9 @@ public class MethodsFacade {
         else{
             try {
                 User loggedInUser = (User) serializer.deserialize(response.getData());
-                ClientModelFacade.SINGLETON.setCurrentUser(loggedInUser);
+                ClientModel.SINGLETON.setCurrentUser(loggedInUser);
                 // I am such a boss programmer for this line ..... it sets the current game
-                ClientModelFacade.SINGLETON.setCurrentTTRGame(ClientModelFacade.SINGLETON.getTTRGameWithID(ClientModelFacade.SINGLETON.getCurrentUser().getInGame()));
+                ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
                 Toast.makeText(contxt, "Successful Login!", Toast.LENGTH_SHORT).show();
                 ((PreGameActivity) contxt).onLogin(loggedInUser);
 
@@ -165,7 +164,7 @@ public class MethodsFacade {
 
         try {
             ArrayList<TTRGame> gList = (ArrayList<TTRGame>) serializer.deserialize(gameList.getData());
-            ClientModelFacade.SINGLETON.replaceGames(gList);
+            ClientModel.SINGLETON.replaceGames(gList);
         } catch (Exception e){
             Log.d("MethodsFacade", e.getMessage());
         }
@@ -180,7 +179,7 @@ public class MethodsFacade {
      */
     public void createGame(){
         // User this curUser for any data that you may need (i.e. userName)
-        User user = ClientModelFacade.SINGLETON.getCurrentUser();
+        User user = ClientModel.SINGLETON.getCurrentUser();
 
         if(check(user.getUsername()) && check(user.getPassword())){
             DataTransferObject dto = new DataTransferObject();
@@ -205,7 +204,7 @@ public class MethodsFacade {
       }
       else{
           try {
-              ClientModelFacade.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
+              ClientModel.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
               Toast.makeText(contxt, "Created and Joined Game Successfully!", Toast.LENGTH_SHORT).show();
           } catch(Exception e){
               e.printStackTrace();
@@ -215,14 +214,14 @@ public class MethodsFacade {
 
     public void startGame(){
         // User this curUser for any data that you may need (i.e. userName)
-        TTRGame game = ClientModelFacade.SINGLETON.getCurrentTTRGame();
+        TTRGame game = ClientModel.SINGLETON.getCurrentTTRGame();
 
         if(game != null){
             DataTransferObject dto = new DataTransferObject();
             String s = gson.toJson(game);
             Command newCommand = new StartGameCommand();
             dto.setData(s);
-            dto.setPlayerID(ClientModelFacade.SINGLETON.getCurrentTTRGame().getOwnerID());
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID());
             dto.setCommand("start");
             newCommand.setData(dto);
             try {
@@ -280,7 +279,7 @@ public class MethodsFacade {
             String s = String.valueOf(gameToJoin.getGameID());
             Command newCommand = new JoinGameCommand();
             dto.setData(s);
-            dto.setPlayerID(ClientModelFacade.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("join");
             newCommand.setData(dto);
             String commandString = serializer.serialize(newCommand);
@@ -299,7 +298,7 @@ public class MethodsFacade {
         }
         else{
             try {
-                ClientModelFacade.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
+                ClientModel.SINGLETON.setCurrentTTRGame((TTRGame) serializer.deserialize(response.getData()));
                 Toast.makeText(contxt, "Joined Game Successfully!", Toast.LENGTH_SHORT).show();
             } catch(Exception e){
                 e.printStackTrace();

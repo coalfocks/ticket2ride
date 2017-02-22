@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * Created by tyudy on 2/13/17.
  */
 
-public class ClientModelFacade implements IObservable {
+public class ClientModel implements IObservable {
 
-    public static final ClientModelFacade SINGLETON = new ClientModelFacade();
+    public static final ClientModel SINGLETON = new ClientModel();
     private ArrayList<TTRGame> mTTRGameList;
     private ArrayList<IObserver> obsList;
     private String ipAddress;
@@ -21,8 +21,7 @@ public class ClientModelFacade implements IObservable {
     private TTRGame mCurrentTTRGame;
 
 
-    private ClientModelFacade(){
-        // IMPLEMENT ME!
+    private ClientModel(){
         mTTRGameList = new ArrayList<>();
         obsList = new ArrayList<>();
         ipAddress = null;
@@ -71,7 +70,7 @@ public class ClientModelFacade implements IObservable {
     }
 
     /**
-     * @return - a list of all the games that the ClientModelFacade is currently aware of.
+     * @return - a list of all the games that the ClientModel is currently aware of.
      */
     public ArrayList<TTRGame> getTTRGameList(){
         return mTTRGameList;

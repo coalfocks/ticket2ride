@@ -1,8 +1,7 @@
 package com.example.tyudy.ticket2rideclient;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
-import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
-import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -79,7 +78,7 @@ public class Poller  implements Runnable
      */
     public DataTransferObject poll()
     {
-        if(ClientModelFacade.SINGLETON.getIpAddress() == null){
+        if(ClientModel.SINGLETON.getIpAddress() == null){
             return null;
         }
 

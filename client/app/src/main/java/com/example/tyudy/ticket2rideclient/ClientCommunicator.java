@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
-import com.example.tyudy.ticket2rideclient.model.ClientModelFacade;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +67,7 @@ public class ClientCommunicator {
            DataTransferObject dto = null;
            try
            {
-               String ipAddress = ClientModelFacade.SINGLETON.getIpAddress();
+               String ipAddress = ClientModel.SINGLETON.getIpAddress();
                String urlString = "http://" + ipAddress + ":8080/command";
                URL url = new URL(urlString);
                HttpURLConnection connection = (HttpURLConnection) url.openConnection();

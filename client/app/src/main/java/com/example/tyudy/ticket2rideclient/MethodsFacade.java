@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
@@ -239,6 +240,7 @@ public class MethodsFacade {
       }
       else{
           Toast.makeText(contxt, "Game Started!", Toast.LENGTH_SHORT).show();
+          ((GameLobbyActivity) contxt).onStart();
       }
     }
 

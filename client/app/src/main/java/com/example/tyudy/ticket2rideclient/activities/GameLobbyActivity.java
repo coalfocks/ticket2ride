@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,5 +40,11 @@ public class GameLobbyActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void onStart(){
+        // Launch GameBoard Activity
+        Intent i = new Intent(this, GameBoard.class);
+        startActivity(i);
     }
 }

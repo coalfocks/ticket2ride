@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import java.sql.ClientInfoStatus;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -85,7 +86,10 @@ public class Poller  implements Runnable
         DataTransferObject previousData = new DataTransferObject();
         previousData = gamesData;
 
-        gamesData = MethodsFacade.SINGLETON.getGameList();
+        // Only pull new games if the client is not playing a game, if they are playing then stop polling for the game list
+        if (ClientModel.SINGLETON.getCurrentTTRGame() != null && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) {
+            gamesData = MethodsFacade.SINGLETON.getGameList();
+        }
 
 
     if(gamesData != null){

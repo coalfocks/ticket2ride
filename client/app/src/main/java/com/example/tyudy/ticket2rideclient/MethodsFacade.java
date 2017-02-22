@@ -162,7 +162,6 @@ public class MethodsFacade {
      */
     public void updateGameList(DataTransferObject gameList){
 
-
         try {
             ArrayList<TTRGame> gList = (ArrayList<TTRGame>) serializer.deserialize(gameList.getData());
             ClientModel.SINGLETON.replaceGames(gList);

@@ -239,7 +239,7 @@ public class MethodsFacade {
       }
       else{
           Toast.makeText(contxt, "Game Started!", Toast.LENGTH_SHORT).show();
-          ((GameLobbyActivity) contxt).onStart();
+          ((GameLobbyActivity) contxt).onStartGame();
       }
     }
 

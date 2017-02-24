@@ -71,7 +71,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mGameRecyclerView.setAdapter(mGameAdapter);
 
         if (ClientModel.SINGLETON.getCurrentTTRGame() != null && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
-            ((GameLobbyActivity) getContext()).onStart();      // Start new activity
+            ((GameLobbyActivity) getContext()).onStartGame();      // Start new activity
         }
 
     }

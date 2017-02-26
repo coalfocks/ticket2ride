@@ -25,7 +25,7 @@ public class GameLobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-                    if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
+                    if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 1/*TODO: change back to 2*/) {
                         MethodsFacade.SINGLETON.startGame();
                     }
                     else {
@@ -42,7 +42,7 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     }
 
-    public void onStart(){
+    public void onStartGame(){
         // Launch GameBoard Activity
         Intent i = new Intent(this, GameBoard.class);
         startActivity(i);

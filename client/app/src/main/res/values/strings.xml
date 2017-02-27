@@ -9,4 +9,7 @@
     <string name="create_game_button">Create Game</string>
     <string name="ip_address_label">IP Address</string>
     <string name="start_game_button">Start Game</string>
+    <string name="message_goes_here">HI GUYS LOL</string>
+    <stirng name="send">Send</stirng>
+
 </resources>

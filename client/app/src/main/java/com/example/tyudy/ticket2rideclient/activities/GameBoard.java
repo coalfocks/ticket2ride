@@ -3,10 +3,12 @@ package com.example.tyudy.ticket2rideclient.activities;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
@@ -39,5 +41,11 @@ public class GameBoard extends AppCompatActivity {
         mMyInfo = (ListView) findViewById(R.id.right_drawer);
 
         //set adapters
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        ClientCommunicator.getInstance().setContext(this);
     }
 }

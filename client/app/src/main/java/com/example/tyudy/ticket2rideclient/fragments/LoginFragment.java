@@ -38,7 +38,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        ClientCommunicator.getInstance().setContext((FragmentActivity) getActivity());
 
     }
 

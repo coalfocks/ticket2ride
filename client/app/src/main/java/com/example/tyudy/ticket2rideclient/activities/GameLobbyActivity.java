@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -33,13 +34,16 @@ public class GameLobbyActivity extends AppCompatActivity {
 
                     }
                 } else {
-                    Toast.makeText(getBaseContext(), "Who do you think you are to start someone elses game?!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Who do you think you are to start someone else's game?!", Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
 
-
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        ClientCommunicator.getInstance().setContext(this);
     }
 
     public void onStartGame(){

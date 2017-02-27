@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.IObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
@@ -38,6 +40,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
         super.onCreate(savedInstanceState);
         ClientModel.SINGLETON.addObserver(this);
+        ClientCommunicator.getInstance().setContext((FragmentActivity) getActivity());
     }
 
     @Override

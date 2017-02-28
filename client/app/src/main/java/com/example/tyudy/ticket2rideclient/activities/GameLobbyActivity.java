@@ -7,35 +7,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.presenters.GameLobbyPresenter;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 public class GameLobbyActivity extends AppCompatActivity {
 
     private Button mStartGameButton;
+    private GameLobbyPresenter mGameLobbyPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_lobby);
+        mGameLobbyPresenter = PresenterHolder.SINGLETON.getGameLobbyPresenter();
+        mGameLobbyPresenter.setGameLobbyActivity(this);
 
         mStartGameButton = (Button) findViewById(R.id.start_game_button);
         mStartGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-                    if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
-                        MethodsFacade.SINGLETON.startGame();
-                    }
-                    else {
-                        Toast.makeText(getBaseContext(), "You can't play by yourself!", Toast.LENGTH_LONG).show();
 
-                    }
-                } else {
-                    Toast.makeText(getBaseContext(), "Who do you think you are to start someone else's game?!", Toast.LENGTH_LONG).show();
-                }
+                mGameLobbyPresenter.startGameClicked();
             }
         });
     }
@@ -43,12 +38,12 @@ public class GameLobbyActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        ClientCommunicator.getInstance().setContext(this);
+        MethodsFacade.SINGLETON.setContext(this);
     }
 
     public void onStartGame(){
-        // Launch GameBoard Activity
-        Intent i = new Intent(this, GameBoard.class);
+        // Launch GameBoardActivity Activity
+        Intent i = new Intent(this, GameBoardActivity.class);
         startActivity(i);
     }
 }

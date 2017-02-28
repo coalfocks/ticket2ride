@@ -14,12 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
-import com.example.tyudy.ticket2rideclient.IObserver;
+import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.presenters.GameSelectionPresenter;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -27,20 +29,20 @@ import java.util.ArrayList;
  * Created by tyudy on 2/13/17.
  */
 
-public class GameSelectionFragment extends Fragment implements IObserver {
+public class GameSelectionFragment extends Fragment implements iObserver {
 
     private RecyclerView mGameRecyclerView;
     private GameAdapter mGameAdapter;
 
     private Button mCreateGameButton;
-    private Button mStartGameButton;
+    private GameSelectionPresenter mGameSelectionPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        ClientModel.SINGLETON.addObserver(this);
-        ClientCommunicator.getInstance().setContext((FragmentActivity) getActivity());
+        mGameSelectionPresenter = PresenterHolder.SINGLETON.getGameSelectionPresenter();
+        mGameSelectionPresenter.setGameSelectionFragment(this);
     }
 
     @Override
@@ -56,11 +58,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ClientModel.SINGLETON.getCurrentTTRGame() == null) {
-                    MethodsFacade.SINGLETON.createGame();
-                } else {
-                    Toast.makeText(getContext(), "Leave your current game before creating a new one!", Toast.LENGTH_LONG).show();
-                }
+                mGameSelectionPresenter.createGameClicked();
             }
         });
 
@@ -79,7 +77,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
     }
 
-    private class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mGameNumberTitle;
         private TextView mGameOwnerText;
@@ -131,7 +129,7 @@ public class GameSelectionFragment extends Fragment implements IObserver {
 
     }
 
-    private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
+    public class GameAdapter extends RecyclerView.Adapter<GameHolder> {
 
         private ArrayList<TTRGame> mTTRGameList;
 

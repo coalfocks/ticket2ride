@@ -165,6 +165,14 @@ public class MethodsFacade {
         try {
             ArrayList<TTRGame> gList = (ArrayList<TTRGame>) serializer.deserialize(gameList.getData());
             ClientModel.SINGLETON.replaceGames(gList);
+            if(ClientModel.SINGLETON.getCurrentTTRGame() == null && ClientModel.SINGLETON.getCurrentUser().getInGame() != 0) {
+                int gameNum = ClientModel.SINGLETON.getCurrentUser().getInGame();
+                for (TTRGame game : gList) {
+                    if (game.getGameID() == gameNum) {
+                        ClientModel.SINGLETON.setCurrentTTRGame(game);
+                    }
+                }
+            }
         } catch (Exception e){
             Log.d("MethodsFacade", e.getMessage());
         }

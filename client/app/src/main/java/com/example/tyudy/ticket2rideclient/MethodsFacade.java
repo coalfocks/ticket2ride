@@ -16,6 +16,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -136,8 +137,6 @@ public class MethodsFacade {
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("join");
         ServerProxy.SINGLETON.joinGame(dto);
-
-
     }
 
     public boolean checkPassword(String pass){
@@ -162,5 +161,8 @@ public class MethodsFacade {
         return mContext;
     }
 
-
+    public List<String> getChats(){
+        // TODO: Contact the server to get most recent chats
+        return null;
+    }
 }

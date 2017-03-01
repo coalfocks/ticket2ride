@@ -34,7 +34,7 @@ public class PointsFragment extends Fragment {
 
             player_points = (TextView) v.findViewById(R.id.player_points);
             player_points.setText(player.getPoints());
-            
+
             return v;
         }
         else

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 /**
@@ -18,7 +19,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 public class PointsFragment extends Fragment {
 
     private TextView player_points;
-    private User player = null;         // We should probably have a Player class somewhere?
+    private Player player = null;         // We should probably have a Player class somewhere?
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class PointsFragment extends Fragment {
      * This method must be called before viewing the fragment.
      * @param player The player associated with the points showing
      */
-    public void setPlayer(User player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 }

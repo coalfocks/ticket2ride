@@ -161,5 +161,11 @@ public class MethodsFacade {
         return mContext;
     }
 
+    public void reset() {
+        ClientModel.SINGLETON.setCurrentTTRGame(null);
+        ClientModel.SINGLETON.setCurrentUser(null);
+        ClientModel.SINGLETON.setObsList(null);
+    }
+
 
 }

@@ -43,6 +43,7 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         super.onCreate(savedInstanceState);
         mGameSelectionPresenter = PresenterHolder.SINGLETON.getGameSelectionPresenter();
         mGameSelectionPresenter.setGameSelectionFragment(this);
+        ClientModel.SINGLETON.addObserver(this);
     }
 
     @Override
@@ -59,6 +60,8 @@ public class GameSelectionFragment extends Fragment implements iObserver {
             @Override
             public void onClick(View v) {
                 mGameSelectionPresenter.createGameClicked();
+                Intent i = new Intent(getContext(), GameLobbyActivity.class);
+                startActivity(i);
             }
         });
 
@@ -74,7 +77,6 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         if (ClientModel.SINGLETON.getCurrentTTRGame() != null && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
             ((GameLobbyActivity) getContext()).onStartGame();      // Start new activity
         }
-
     }
 
     public class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

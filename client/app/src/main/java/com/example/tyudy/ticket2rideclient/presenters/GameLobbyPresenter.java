@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
+import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
+import com.example.tyudy.ticket2rideclient.fragments.GameSelectionFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 /**

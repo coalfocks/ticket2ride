@@ -11,8 +11,10 @@ import android.widget.ListView;
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.fragments.ChatFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
+import com.example.tyudy.ticket2rideclient.fragments.PointsFragment;
 import com.example.tyudy.ticket2rideclient.presenters.GameBoardPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
@@ -37,6 +39,7 @@ public class GameBoardActivity extends AppCompatActivity {
             fragment = new GameBoardFragment();
             fm.beginTransaction()
                     .add(R.id.activity_game_board, fragment)
+                    .add(R.id.points_holder, new ChatFragment())
                     .commit();
         }
 

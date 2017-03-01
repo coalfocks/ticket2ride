@@ -18,9 +18,10 @@ private DataTransferObject data;
     @Override
     public DataTransferObject execute()
     {
-        TTRServerFacade facade = new TTRServerFacade();
-        data = facade.endGame(data);
-        return data;
+//        TTRServerFacade facade = new TTRServerFacade();
+//        data = facade.endGame(data);
+//        return data;
+        return null;
     }
 
 

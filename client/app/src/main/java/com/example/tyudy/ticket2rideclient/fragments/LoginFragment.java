@@ -17,6 +17,8 @@ import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.presenters.LoginPresenter;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -31,13 +33,14 @@ public class LoginFragment extends Fragment {
     private Button mRegisterButton;
 
     private String ipAddress;
-    private String password;
-    private String userName;
+    private LoginPresenter mLoginPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+        mLoginPresenter = PresenterHolder.SINGLETON.getLoginPresenter();
+        mLoginPresenter.setLoginFragment(this); // Presenter needs to know this instance
 
     }
 
@@ -54,7 +57,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ipAddress = s.toString();
+                mLoginPresenter.ipAddressEntered(s.toString());
             }
 
             @Override
@@ -72,7 +75,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                userName = s.toString();
+                mLoginPresenter.userNameEntered(s.toString());
             }
 
             @Override
@@ -90,7 +93,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                password = s.toString();
+                mLoginPresenter.passwordEntered(s.toString());
             }
 
             @Override
@@ -103,15 +106,7 @@ public class LoginFragment extends Fragment {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                setIpAddress();
-                if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
-                    return;
-                }
-
-                MethodsFacade.SINGLETON.loginUser(userName, password);
-                // TODO: base the success variable off of what login returns;
-
+                mLoginPresenter.loginClicked();
             }
         });
 
@@ -119,45 +114,10 @@ public class LoginFragment extends Fragment {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                setIpAddress();
-                if(!IpAddressIsSet()){ // Do nothing if IP Address is not set
-                    return;
-                }
-                
-                // Go to register activity
-                Toast.makeText(getContext() , "Register a new user name and password!", Toast.LENGTH_SHORT).show();
-                Fragment registerFragment = new RegisterFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, registerFragment);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
+                mLoginPresenter.registerClicked();
             }
         });
 
-
-
         return v;
-    }
-
-    /**
-     * Checks to make sure the ipAddress has been set and notifies the user if it hasn't
-     * @return - true if set false if not
-     */
-    private boolean IpAddressIsSet(){
-        if (ipAddress == null){
-            Toast.makeText(getContext() , "Enter an IP Address!", Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Set the ip Address on the model so it can be used in different places
-     */
-    private void setIpAddress(){
-        ClientModel.SINGLETON.setIpAddress(ipAddress);
     }
 }

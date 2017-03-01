@@ -1,7 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
-import com.example.tyudy.ticket2rideclient.IObservable;
-import com.example.tyudy.ticket2rideclient.IObserver;
+import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
+import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * Created by tyudy on 2/13/17.
  */
 
-public class ClientModel implements IObservable {
+public class ClientModel implements iObservable {
 
     public static final ClientModel SINGLETON = new ClientModel();
     private ArrayList<TTRGame> mTTRGameList;
-    private ArrayList<IObserver> obsList;
+    private ArrayList<iObserver> obsList;
     private String ipAddress;
     private User currentUser;
     private TTRGame mCurrentTTRGame;
@@ -32,7 +32,7 @@ public class ClientModel implements IObservable {
     /**
      * Add an observer to the list of observers stored inside this observable
      */
-    public void addObserver(IObserver observer){
+    public void addObserver(iObserver observer){
         obsList.add(observer);
     }
 
@@ -42,7 +42,7 @@ public class ClientModel implements IObservable {
      */
     @Override
     public void notifyObservers(){
-        for (IObserver obs : obsList){
+        for (iObserver obs : obsList){
           obs.observe();
         }
         return;

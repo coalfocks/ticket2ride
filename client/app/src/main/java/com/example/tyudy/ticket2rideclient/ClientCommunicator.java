@@ -1,9 +1,16 @@
 package com.example.tyudy.ticket2rideclient;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.google.gson.Gson;
 
@@ -24,10 +31,8 @@ public class ClientCommunicator {
 
     private Gson gson = new Gson();
     private static ClientCommunicator communicator = null;
-    private FragmentActivity mContext;
 
     private ClientCommunicator(){
-        mContext = null;
         new Thread(Poller.getInstance()).start();
     }
 
@@ -48,10 +53,6 @@ public class ClientCommunicator {
         } catch (Exception e) {
 
         }
-    }
-
-    public void setContext(FragmentActivity context) {
-        mContext = context;
     }
 
     private class SendCommandTask extends AsyncTask<String, Void, Void> {
@@ -111,29 +112,52 @@ public class ClientCommunicator {
        protected void onPostExecute(Void aVoid){
            super.onPostExecute(aVoid);
            String comType = responseDTO.getCommand();
-           switch (comType){
-           case "register":
-               MethodsFacade.SINGLETON.processRegister(responseDTO, mContext);
-               break;
-           case "login":
-               MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO, mContext);
-               break;
-           case "join":
-                MethodsFacade.SINGLETON.passBackDTOJoinGame(responseDTO, mContext);
-                break;
-           case "create":
-               MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO, mContext);
-               break;
-           case "start":
-               MethodsFacade.SINGLETON.passBackDTOStart(responseDTO, mContext);
-               break;
-           case "gameList":
-                MethodsFacade.SINGLETON.updateGameList(responseDTO);
-                break;
-           default:
-               break;
+           try {
+               switch (comType) {
+                   case "register":
+                       //MethodsFacade.SINGLETON.processRegister(responseDTO);
+                       RegisterCommand registerCommand = new RegisterCommand();
+                       registerCommand.setData(responseDTO);
+                       registerCommand.execute();
+                       break;
+                   case "login":
+                      // MethodsFacade.SINGLETON.passBackDTOLogin(responseDTO);
+                       LoginCommand loginCommand = new LoginCommand();
+                       loginCommand.setData(responseDTO);
+                       loginCommand.execute();
+                       break;
+                   case "join":
+                       //MethodsFacade.SINGLETON.passBackDTOJoinGame(responseDTO);
+                       JoinGameCommand joinGameCommand = new JoinGameCommand();
+                       joinGameCommand.setData(responseDTO);
+                       joinGameCommand.execute();
+                       break;
+                   case "create":
+                      // MethodsFacade.SINGLETON.passBackDTOCreate(responseDTO);
+                       CreateGameCommand createGameCommand = new CreateGameCommand();
+                       createGameCommand.setData(responseDTO);
+                       createGameCommand.execute();
+                       break;
+                   case "start":
+                       //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO);
+                       StartGameCommand startGameCommand = new StartGameCommand();
+                       startGameCommand.setData(responseDTO);
+                       startGameCommand.execute();
+                       break;
+                   case "gameList":
+                      // MethodsFacade.SINGLETON.updateGameList(responseDTO);
+                       ListGamesCommand listGamesCommand = new ListGamesCommand();
+                       listGamesCommand.setData(responseDTO);
+                       listGamesCommand.execute();
+                       break;
+                   default:
+                       break;
+               }
 
-         }
+           } catch (Exception e) {
+                e.printStackTrace();
+                System.out.print("Error in the switch statement in ClientCommunicator");
+           }
        }
    }
 }

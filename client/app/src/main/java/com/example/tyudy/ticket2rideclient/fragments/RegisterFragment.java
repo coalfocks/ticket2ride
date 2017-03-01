@@ -14,6 +14,8 @@ import android.widget.EditText;
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
+import com.example.tyudy.ticket2rideclient.presenters.RegisterPresenter;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -25,14 +27,14 @@ public class RegisterFragment extends Fragment {
     private EditText mPassword;
     private Button mRegisterButton;
 
-    private String enteredName;
-    private String enteredPassword;
+    private RegisterPresenter mRegisterPresenter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
+        mRegisterPresenter = PresenterHolder.SINGLETON.getRegisterPresenter();
+        mRegisterPresenter.setRegisterFragment(this); // Presenter needs to know this instance
     }
 
     @Override
@@ -48,7 +50,7 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enteredName = s.toString();
+                mRegisterPresenter.userNameEntered(s.toString());
             }
 
             @Override
@@ -66,7 +68,7 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enteredPassword = s.toString();
+                mRegisterPresenter.passwordEntered(s.toString());
             }
 
             @Override
@@ -79,8 +81,7 @@ public class RegisterFragment extends Fragment {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Try to register the user
-                MethodsFacade.SINGLETON.registerUser(enteredName, enteredPassword);
+                mRegisterPresenter.registerClicked();
             }
         });
         return v;

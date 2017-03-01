@@ -45,7 +45,10 @@ public class Player {
     }
 
     public void setPoints(int newValue) {
-        points = newValue;
+        if (newValue > 0)
+            points = newValue;
+        else
+            points = 0;
     }
 
     public int getPoints() {

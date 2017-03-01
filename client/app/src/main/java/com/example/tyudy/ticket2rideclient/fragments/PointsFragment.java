@@ -19,7 +19,8 @@ import com.example.tyudy.ticket2rideclient.common.User;
 public class PointsFragment extends Fragment {
 
     private TextView player_points;
-    private Player player = null;         // We should probably have a Player class somewhere?
+    private Player player = null;
+    private boolean canDo = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,29 +29,30 @@ public class PointsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.points_fragment, container, false);
+        if (canDo) {
+            View v = inflater.inflate(R.layout.points_fragment, container, false);
 
-        player_points = (TextView)v.findViewById(R.id.player_points);
-
-        if (player == null)
-        {
-            Toast.makeText(this.getContext(), "You must set the appropriate player with setPlayer()", Toast.LENGTH_SHORT);
-            player_points.setText("Invalid!");
+            player_points = (TextView) v.findViewById(R.id.player_points);
+            player_points.setText(player.getPoints());
+            
+            return v;
         }
         else
         {
-            // Should have a player class that holds each person's points
-            //player_points.setText(player.getPoints());
+            Toast.makeText(this.getContext(), "You must set the appropriate player with setPlayer()", Toast.LENGTH_SHORT);
+            return super.onCreateView(inflater, container, savedInstanceState);
         }
-
-        return v;
     }
 
     /**
      * This method must be called before viewing the fragment.
-     * @param player The player associated with the points showing
+     * Calling this method will set canDo to true.
+     * @param player The player associated with the points showing (not null)
      */
     public void setPlayer(Player player) {
-        this.player = player;
+        if (player != null) {
+            this.player = player;
+            canDo = true;
+        }
     }
 }

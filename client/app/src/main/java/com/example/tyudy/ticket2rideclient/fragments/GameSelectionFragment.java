@@ -43,6 +43,8 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         super.onCreate(savedInstanceState);
         mGameSelectionPresenter = PresenterHolder.SINGLETON.getGameSelectionPresenter();
         mGameSelectionPresenter.setGameSelectionFragment(this);
+        ClientModel.SINGLETON.addObserver(this);
+
     }
 
     @Override

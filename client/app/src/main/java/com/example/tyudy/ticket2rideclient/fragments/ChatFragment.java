@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 
 /**
@@ -32,7 +33,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ClientCommunicator.getInstance().setContext(this.getActivity());
+        MethodsFacade.SINGLETON.setContext(this.getActivity());
     }
 
     @Override

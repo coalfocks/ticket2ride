@@ -77,6 +77,7 @@ public class MethodsFacade {
      * Replaces the current list of games in the model with the new one, called in the ListGamesCommand execute
      * @param gList - new list of games for the model
      */
+
     public void replaceModelsGames(ArrayList<TTRGame> gList){
         ClientModel.SINGLETON.replaceGames(gList);
     }

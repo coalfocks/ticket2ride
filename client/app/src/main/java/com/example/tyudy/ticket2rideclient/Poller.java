@@ -22,7 +22,6 @@ public class Poller  implements Runnable
         poller = null;
         stop = false;
         wait = 2;
-
     }
 
     public static Poller getInstance()
@@ -73,7 +72,9 @@ public class Poller  implements Runnable
 
         // Only pull new games if the client is not playing a game, if they are playing then stop polling for the game list
 
-        if (ClientModel.SINGLETON.getCurrentTTRGame() != null && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) {
+        if (ClientModel.SINGLETON.getCurrentTTRGame() != null &&
+            ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) {
+
             MethodsFacade.SINGLETON.getGameList();
         }
     }

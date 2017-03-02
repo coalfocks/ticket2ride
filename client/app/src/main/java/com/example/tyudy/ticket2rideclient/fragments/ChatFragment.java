@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ import java.util.List;
  * Created by Trevor on 2/23/2017.
  */
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements iObserver {
     private LinearLayoutManager llm;
     private Button send;
     private RecyclerView chat_recycler;
@@ -73,16 +75,19 @@ public class ChatFragment extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // We don't want to send an empty string to the server
                 if (!chat_message.equals("")) {
-                    // TODO Send chat message to server
+                    // Before sending to the server, patch on player's name before message
+                    String playerName = ClientModel.SINGLETON.getCurrentPlayer().getName();
+                    StringBuilder message =
+                            new StringBuilder(playerName + ": " + chat_message);
 
+                    // TODO send message to server
 
                     chat_message = ""; // Reset chat message
                 }
             }
         });
-
-        // TODO Receive messages from the server
 
         return v;
     }
@@ -94,6 +99,23 @@ public class ChatFragment extends Fragment {
     public void addChat(String chat)
     {
         adapter.addMessage(chat);
+    }
+
+    /**
+     * This is the method called when there's information to update.
+     * Implemented from iObserver
+     */
+    @Override
+    public void observe() {
+        List<String> chats = MethodsFacade.SINGLETON.getChats();
+        List<String> currList = adapter.getCurrentMessages();
+
+        for (String chat : chats)
+        {
+            // Don't duplicate chat messages
+            if (!currList.contains(chat))
+                addChat(chat);
+        }
     }
 
     public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -114,6 +136,10 @@ public class ChatFragment extends Fragment {
             }
             else
                 nextMsgPosition = 0;
+        }
+
+        public List<String> getCurrentMessages() {
+            return messages;
         }
 
         public void addMessage(String item) {

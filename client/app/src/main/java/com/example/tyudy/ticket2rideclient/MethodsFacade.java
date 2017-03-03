@@ -161,10 +161,10 @@ public class MethodsFacade {
         return mContext;
     }
 
-    public List<String> getChats(){
-        // TODO: Contact the server to get most recent chats
-        return null;
+    public void addChat(String chat){
+        ClientModel.SINGLETON.receiveNewChat(chat);
     }
+
     public void reset() {
         ClientModel.SINGLETON.setCurrentTTRGame(null);
         ClientModel.SINGLETON.setCurrentUser(null);

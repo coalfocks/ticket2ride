@@ -7,6 +7,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -17,6 +18,7 @@ public class ClientModel implements iObservable {
     public static final ClientModel SINGLETON = new ClientModel();
     private ArrayList<TTRGame> mTTRGameList;
     private ArrayList<iObserver> obsList;
+    private ArrayList<String> chatMsgs;
     private String ipAddress;
     private User currentUser;
     private Player currentPlayer;
@@ -26,6 +28,7 @@ public class ClientModel implements iObservable {
     private ClientModel(){
         mTTRGameList = new ArrayList<>();
         obsList = new ArrayList<>();
+        chatMsgs = new ArrayList<>();
         ipAddress = null;
         currentUser = null;
         mCurrentTTRGame = null;
@@ -114,6 +117,13 @@ public class ClientModel implements iObservable {
 
     public void setObsList(ArrayList<iObserver> list) {
         this.obsList = list;
+    }
+
+    public ArrayList<String> getChatMsgs() { return chatMsgs; }
+
+    public void receiveNewChat(String chat){
+        chatMsgs.add(chat);
+        this.notifyObservers();
     }
 
     /**

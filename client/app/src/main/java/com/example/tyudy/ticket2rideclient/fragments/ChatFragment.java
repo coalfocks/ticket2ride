@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,13 @@ import android.widget.TextView;
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -50,7 +55,7 @@ public class ChatFragment extends Fragment implements iObserver {
         chat_message = "";
 
         llm = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, true);
-        adapter = new RecyclerAdapter(MethodsFacade.SINGLETON.getChats(), llm.getLayoutDirection());
+        adapter = new RecyclerAdapter(ClientModel.SINGLETON.getChatMsgs(), llm.getLayoutDirection());
 
         send = (Button) v.findViewById(R.id.send_button);
         chat_box = (EditText) v.findViewById(R.id.chat_box);
@@ -86,7 +91,18 @@ public class ChatFragment extends Fragment implements iObserver {
                     StringBuilder message =
                             new StringBuilder(playerName + ": " + chat_message);
 
-                    // TODO send message to server
+                    SendChatCommand command = new SendChatCommand();
+                    DataTransferObject dto = new DataTransferObject();
+                    dto.setData(message.toString());
+                    command.setData(dto);
+
+                    try {
+                        ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                        Log.d("ChatFragment", e.getMessage());
+                    }
 
                     chat_message = ""; // Reset chat message
                 }
@@ -111,7 +127,7 @@ public class ChatFragment extends Fragment implements iObserver {
      */
     @Override
     public void observe() {
-        List<String> chats = MethodsFacade.SINGLETON.getChats();
+        List<String> chats = ClientModel.SINGLETON.getChatMsgs();
         List<String> currList = adapter.getCurrentMessages();
 
         for (String chat : chats)

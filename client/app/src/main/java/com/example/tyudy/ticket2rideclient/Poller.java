@@ -74,9 +74,6 @@ public class Poller  implements Runnable
         if ((ClientModel.SINGLETON.getCurrentTTRGame() != null &&
                 ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) ||
                 (ClientModel.SINGLETON.getCurrentUser() != null)) {
-
-        if (ClientModel.SINGLETON.getCurrentTTRGame() != null &&
-            ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) {
             MethodsFacade.SINGLETON.getGameList();
         }
     }

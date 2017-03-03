@@ -42,12 +42,6 @@ public class GameBoardActivity extends AppCompatActivity {
                     //.add(R.id.points_holder, new ChatFragment())
                     .commit();
         }
-
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.gameplay_layout);
-//        mPlayerScores = (ListView) findViewById(R.id.left_drawer);
-//        mMyInfo = (ListView) findViewById(R.id.right_drawer);
-
-        //set adapters
     }
 
     @Override

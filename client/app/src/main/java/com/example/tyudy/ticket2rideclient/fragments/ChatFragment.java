@@ -44,8 +44,8 @@ public class ChatFragment extends Fragment implements iObserver {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //ClientCommunicator.getInstance().setContext(this.getActivity());
         MethodsFacade.SINGLETON.setContext(this.getActivity());
+        ClientModel.SINGLETON.addObserver(this);
 
     }
 

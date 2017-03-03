@@ -23,9 +23,6 @@ private DataTransferObject data;
     @Override
     public DataTransferObject execute()
     {
-//      TTRServerFacade facade = new TTRServerFacade();
-//      data = facade.startGame(data);
-//      return data;
         FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
         if(data.getErrorMsg().length()!=0){
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();

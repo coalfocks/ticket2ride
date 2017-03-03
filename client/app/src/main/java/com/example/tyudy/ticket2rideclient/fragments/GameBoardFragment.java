@@ -56,6 +56,10 @@ public class GameBoardFragment extends Fragment implements iObserver
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.gameplay_fragment, container, false);
 
+        mDrawerLayout = (DrawerLayout) v.findViewById(R.id.gameplay_layout);
+        mPlayerScores = (ListView) v.findViewById(R.id.left_drawer);
+        mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
+
         return v;
     }
 

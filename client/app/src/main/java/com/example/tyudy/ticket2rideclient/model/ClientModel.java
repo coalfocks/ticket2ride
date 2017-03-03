@@ -112,6 +112,10 @@ public class ClientModel implements iObservable {
         return mCurrentTTRGame;
     }
 
+    public void setObsList(ArrayList<iObserver> list) {
+        this.obsList = list;
+    }
+
     /**
      * @param ID - the unique game ID that we are a part of
      * @return - the game that has the given ID, else mCurrentTTRGame

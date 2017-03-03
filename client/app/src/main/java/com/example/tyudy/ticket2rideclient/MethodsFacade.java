@@ -165,4 +165,9 @@ public class MethodsFacade {
         // TODO: Contact the server to get most recent chats
         return null;
     }
+    public void reset() {
+        ClientModel.SINGLETON.setCurrentTTRGame(null);
+        ClientModel.SINGLETON.setCurrentUser(null);
+        ClientModel.SINGLETON.setObsList(null);
+    }
 }

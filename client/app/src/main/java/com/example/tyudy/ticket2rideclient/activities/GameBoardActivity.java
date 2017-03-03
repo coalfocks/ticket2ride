@@ -39,13 +39,13 @@ public class GameBoardActivity extends AppCompatActivity {
             fragment = new GameBoardFragment();
             fm.beginTransaction()
                     .add(R.id.activity_game_board, fragment)
-                    .add(R.id.points_holder, new ChatFragment())
+                    //.add(R.id.points_holder, new ChatFragment())
                     .commit();
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.gameplay_layout);
-        mPlayerScores = (ListView) findViewById(R.id.left_drawer);
-        mMyInfo = (ListView) findViewById(R.id.right_drawer);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.gameplay_layout);
+//        mPlayerScores = (ListView) findViewById(R.id.left_drawer);
+//        mMyInfo = (ListView) findViewById(R.id.right_drawer);
 
         //set adapters
     }

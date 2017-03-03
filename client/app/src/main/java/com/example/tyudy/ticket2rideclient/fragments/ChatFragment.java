@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -37,7 +38,10 @@ public class ChatFragment extends Fragment implements iObserver {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //ClientCommunicator.getInstance().setContext(this.getActivity());
+        MethodsFacade.SINGLETON.setContext(this.getActivity());
+
     }
 
     @Override

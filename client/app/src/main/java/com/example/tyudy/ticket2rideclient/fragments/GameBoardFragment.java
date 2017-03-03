@@ -74,11 +74,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mPlayers.add(milo);
         mPlayers.add(golden);
 
-        mPlayerNames = new ArrayList<>();
-        for (User u : mPlayers)
-        {
-            mPlayerNames.add(u.getUsername());
-        }
+        
     }
 
     @Override

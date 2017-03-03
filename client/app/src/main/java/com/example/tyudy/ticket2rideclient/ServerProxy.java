@@ -123,4 +123,34 @@ public class ServerProxy implements iTTRServer {
         }
         return null;
     }
+
+    @Override
+    public DataTransferObject initializeTrainCards(DataTransferObject data) {
+        // NEEDS TO BE IMPLEMENTED STILL
+        return null;
+    }
+
+    @Override
+    public DataTransferObject initializeDestinationCards(DataTransferObject data) {
+        // NEEDS TO BE IMPLEMENTED STILL
+        return null;
+    }
+
+    @Override
+    public DataTransferObject initializeChatRoom(DataTransferObject data) {
+        // NEEDS TO BE IMPLEMENTED STILL
+        return null;
+    }
+
+    @Override
+    public DataTransferObject sendChatMessage(DataTransferObject data) {
+        // NEEDS TO BE IMPLEMENTED STILL
+        return null;
+    }
+
+    @Override
+    public DataTransferObject updateGameplay(DataTransferObject data) {
+        // NEEDS TO BE IMPLEMENTED STILL
+        return null;
+    }
 }

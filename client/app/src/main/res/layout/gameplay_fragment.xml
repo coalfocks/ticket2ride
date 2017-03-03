@@ -4,11 +4,22 @@
     android:id="@+id/gameplay_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <!-- The main content view -->
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <!-- The United States Image -->
+        <ImageView
+            android:id="@+id/UnitedStatesImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/united_states_image" />
+
+    </FrameLayout>
+
     <!-- The navigation drawer -->
     <ListView android:id="@+id/left_drawer"
               android:layout_width="240dp"

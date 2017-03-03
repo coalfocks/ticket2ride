@@ -1,8 +1,15 @@
 package com.example.tyudy.ticket2rideclient.common;
-
-/**
- * Created by zacheaton on 3/2/17.
+ /* Created by Trevor on 3/1/2017.
  */
+
 public enum Color {
-    YELLOW, ORANGE, BLUE, GREEN, RED, WHITE, BLACK, PURPLE, WILD
+    WHITE,
+    BLACK,
+    BLUE,
+    RED,
+    ORANGE,
+    YELLOW,
+    PURPLE,
+    GREEN,
+    WILD
 }

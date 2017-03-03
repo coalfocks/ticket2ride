@@ -22,7 +22,6 @@ public class Poller  implements Runnable
         poller = null;
         stop = false;
         wait = 2;
-
     }
 
     public static Poller getInstance()
@@ -76,6 +75,8 @@ public class Poller  implements Runnable
                 ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) ||
                 (ClientModel.SINGLETON.getCurrentUser() != null)) {
 
+        if (ClientModel.SINGLETON.getCurrentTTRGame() != null &&
+            ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) {
             MethodsFacade.SINGLETON.getGameList();
         }
     }

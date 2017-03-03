@@ -1,6 +1,10 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -13,7 +17,9 @@ public class User implements Serializable {
     private int inGame;
     private int color;
     private int points = 0;
-
+    private ArrayList<TrainCard> trainCards;
+    private ArrayList<DestinationCard> destinationCards;
+  
     public User()
     {
         username = "";
@@ -89,5 +95,13 @@ public class User implements Serializable {
 
     public void addPoints(int pointValue) {
         this.points += pointValue;
+    }
+  
+      public void giveTrainCard(TrainCard newCard){
+      this.trainCards.add(newCard);
+    }
+
+    public void giveDestinationCard(DestinationCard newCard){
+      this.destinationCards.add(newCard);
     }
 }

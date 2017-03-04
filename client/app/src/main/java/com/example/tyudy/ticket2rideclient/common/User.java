@@ -1,6 +1,9 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -13,6 +16,7 @@ public class User implements Serializable {
     private int inGame;
     private int color;
     private int points = 0;
+
 
     public User()
     {
@@ -31,6 +35,7 @@ public class User implements Serializable {
         this.playerID = playerID;
         this.inGame = inGame;
     }
+
 
     public String getPassword()
     {

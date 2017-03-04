@@ -1,5 +1,11 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Created by Trevor on 3/1/2017.
  */
@@ -9,6 +15,8 @@ public class Player {
     private int points;
     private Color color;
     private User associatedUser;
+    private Map<Color, Integer> colorCards;
+    private ArrayList<DestinationCard> destCards;
 
     public Player(User user, Color color) {
         this.associatedUser = user;
@@ -23,6 +31,18 @@ public class Player {
         this.name = playerName;
         points = 0;
     }
+
+    public boolean addDestinationCard(DestinationCard card){
+       return destCards.add(card);
+    }
+
+    //Cards stuff
+    public void addTrainCard(TrainCard card){
+        int i = colorCards.get(card.getColor());
+        i++;
+        colorCards.put(card.getColor(), i);
+    }
+
 
     public void setName(String newName){
         this.name = newName;

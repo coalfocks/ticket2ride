@@ -16,6 +16,7 @@ public class PresenterHolder {
     private GameSelectionPresenter mGameSelectionPresenter;
     private GameLobbyPresenter mGameLobbyPresenter;
     private GameBoardPresenter mGameBoardPresenter;
+    private ChatPresenter mChatPresenter;
 
     private PresenterHolder(){
         mLoginPresenter = new LoginPresenter();
@@ -23,6 +24,7 @@ public class PresenterHolder {
         mGameSelectionPresenter = new GameSelectionPresenter();
         mGameLobbyPresenter = new GameLobbyPresenter();
         mGameBoardPresenter = new GameBoardPresenter();
+        mChatPresenter = new ChatPresenter();
     }
 
     /*

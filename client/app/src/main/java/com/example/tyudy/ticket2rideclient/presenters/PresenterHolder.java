@@ -16,6 +16,7 @@ public class PresenterHolder {
     private GameSelectionPresenter mGameSelectionPresenter;
     private GameLobbyPresenter mGameLobbyPresenter;
     private GameBoardPresenter mGameBoardPresenter;
+    private ChatPresenter mChatPresenter;
 
     private PresenterHolder(){
         mLoginPresenter = new LoginPresenter();
@@ -47,6 +48,10 @@ public class PresenterHolder {
 
     public GameBoardPresenter getGameBoardPresenter() {
         return mGameBoardPresenter;
+    }
+
+    public ChatPresenter getChatPresenter(){
+        return mChatPresenter;
     }
 
 }

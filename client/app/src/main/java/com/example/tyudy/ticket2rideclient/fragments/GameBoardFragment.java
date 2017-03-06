@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.GameBoardPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private DrawerLayout mDrawerLayout;
     private ListView mPlayerScores;
     private ListView mMyInfo;
+    private SlidingUpPanelLayout mChat;
     private GameBoardPresenter mGameBoardPresenter;
     private ArrayList<User> mPlayers;
     private ArrayList<String> mPlayerNames;
@@ -98,6 +101,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.gameplay_layout);
         mPlayerScores = (ListView) v.findViewById(R.id.left_drawer);
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
+        mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener()
         {
@@ -128,13 +132,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
                 R.layout.points_fragment, mPlayers));
-
-//        for (int i = 0; i < mPlayers.length; i++)
-//        {
-//            TextView listItem = (TextView) mPlayerScores.getAdapter().getView(i, null, mPlayerScores);
-//            listItem.setBackgroundColor(mPlayers[i].getColor());
-//            listItem.setText(mPlayers[i].getUsername().toUpperCase());
-//        }
 
         return v;
     }

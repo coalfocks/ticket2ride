@@ -36,6 +36,8 @@ public class Player {
        return destCards.add(card);
     }
 
+    public ArrayList<DestinationCard> getDestCards() { return destCards; }
+
     //Cards stuff
     public void addTrainCard(TrainCard card){
         int i = colorCards.get(card.getColor());
@@ -43,6 +45,7 @@ public class Player {
         colorCards.put(card.getColor(), i);
     }
 
+    public Integer getNumCardsOfColor(Color c) { return colorCards.get(c); }
 
     public void setName(String newName){
         this.name = newName;
@@ -75,9 +78,11 @@ public class Player {
         return points;
     }
 
-    public Color getColor() {
+    public Color getColorEnum() {
         return color;
     }
+
+    public int getColor() { return associatedUser.getColor(); }
 
     public User getAssociatedUser() {
         return associatedUser;

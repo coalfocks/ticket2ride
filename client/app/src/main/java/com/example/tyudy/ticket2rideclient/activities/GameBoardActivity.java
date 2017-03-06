@@ -38,7 +38,8 @@ public class GameBoardActivity extends AppCompatActivity {
         {
             fragment = new GameBoardFragment();
             fm.beginTransaction()
-                    .add(R.id.activity_game_board, fragment)
+                    .add(R.id.gameplay_layout, new GameBoardFragment())
+                    //.add(R.id.activity_game_board, fragment)
                     //.add(R.id.points_holder, new ChatFragment())
                     .commit();
         }

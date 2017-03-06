@@ -2,22 +2,18 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
@@ -26,6 +22,11 @@ import com.example.tyudy.ticket2rideclient.presenters.GameBoardPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
+
+import static com.example.tyudy.ticket2rideclient.common.Color.BLUE;
+import static com.example.tyudy.ticket2rideclient.common.Color.PURPLE;
+import static com.example.tyudy.ticket2rideclient.common.Color.RED;
+import static com.example.tyudy.ticket2rideclient.common.Color.YELLOW;
 
 
 /**
@@ -37,8 +38,11 @@ public class GameBoardFragment extends Fragment implements iObserver
     private DrawerLayout mDrawerLayout;
     private ListView mPlayerScores;
     private ListView mMyInfo;
+    private ImageButton mDestCardsButton;
     private GameBoardPresenter mGameBoardPresenter;
-    private ArrayList<User> mPlayers;
+    private Player mThisPlayer;
+    private ArrayList<User> mUsers;
+    private ArrayList<Player> mPlayers;
     private ArrayList<String> mPlayerNames;
 
     @Override
@@ -51,30 +55,43 @@ public class GameBoardFragment extends Fragment implements iObserver
 
         User pug = new User();
         pug.setUsername("pug");
-        pug.setColor(Color.RED);
+        pug.setColor(RED);
         pug.addPoints(1000);
 
         User cat = new User();
         cat.setUsername("cat");
-        cat.setColor(Color.YELLOW);
+        cat.setColor(YELLOW);
 
         User milo = new User();
         milo.setUsername("milo");
-        milo.setColor(Color.BLUE);
+        milo.setColor(BLUE);
         milo.addPoints(100);
 
         User golden = new User();
         golden.setUsername("daisy");
-        golden.setColor(Color.MAGENTA);
+        golden.setColor(PURPLE);
         golden.addPoints(10000000);
 
-        mPlayers = new ArrayList<>();
-        mPlayers.add(pug);
-        mPlayers.add(cat);
-        mPlayers.add(milo);
-        mPlayers.add(golden);
+        // Testing using the Player class in lou of User class
+        Player p1 = new Player(pug, pug.getUsername(), pug.getColorEnum());
+        Player p2 = new Player(cat, cat.getUsername(), cat.getColorEnum());
+        Player p3 = new Player(milo, milo.getUsername(), milo.getColorEnum());
+        Player p4 = new Player(golden, golden.getUsername(), golden.getColorEnum());
+        // ---------------------------------------------------
 
-        
+        mUsers = new ArrayList<>();
+        mUsers.add(pug);
+        mUsers.add(cat);
+        mUsers.add(milo);
+        mUsers.add(golden);
+
+        mPlayers = new ArrayList<>();
+        mPlayers.add(p1);
+        mPlayers.add(p2);
+        mPlayers.add(p3);
+        mPlayers.add(p4);
+
+        mThisPlayer = p4;
     }
 
     @Override
@@ -98,6 +115,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.gameplay_layout);
         mPlayerScores = (ListView) v.findViewById(R.id.left_drawer);
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
+        mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener()
         {
@@ -126,14 +144,21 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
         });
 
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
-                R.layout.points_fragment, mPlayers));
+        mDestCardsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGameBoardPresenter.showDestCards();
+            }
+        });
 
-//        for (int i = 0; i < mPlayers.length; i++)
+        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
+                R.layout.points_fragment, mUsers));
+
+//        for (int i = 0; i < mUsers.length; i++)
 //        {
 //            TextView listItem = (TextView) mPlayerScores.getAdapter().getView(i, null, mPlayerScores);
-//            listItem.setBackgroundColor(mPlayers[i].getColor());
-//            listItem.setText(mPlayers[i].getUsername().toUpperCase());
+//            listItem.setBackgroundColor(mUsers[i].getColorEnum());
+//            listItem.setText(mUsers[i].getUsername().toUpperCase());
 //        }
 
         return v;
@@ -144,6 +169,8 @@ public class GameBoardFragment extends Fragment implements iObserver
     {
 
     }
+
+    public Player getCurrentPlayer() { return mThisPlayer; }
 
     private class PlayerAdapter extends ArrayAdapter<User> {
 

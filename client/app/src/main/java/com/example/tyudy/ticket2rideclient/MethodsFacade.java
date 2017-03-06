@@ -11,6 +11,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
+import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
@@ -166,8 +167,8 @@ public class MethodsFacade {
     }
 
     public void reset() {
-        ClientModel.SINGLETON.setCurrentTTRGame(null);
-        ClientModel.SINGLETON.setCurrentUser(null);
-        ClientModel.SINGLETON.setObsList(null);
+        ClientModel.SINGLETON.setCurrentTTRGame(new TTRGame());
+        ClientModel.SINGLETON.setCurrentUser(new User());
+        ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
 }

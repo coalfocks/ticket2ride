@@ -120,20 +120,20 @@ public class ChatFragment extends Fragment implements iObserver {
     public class ChatsAdapter extends RecyclerView.Adapter<ChatsViewHolder> {
 
         private List<String> messages;
-        private int nextMsgPosition;
-        private final int MAX_MESSAGES = 15;
+//        private int nextMsgPosition;
+//        private final int MAX_MESSAGES = 15;
 
         public ChatsAdapter(List<String> items) {
             this.messages = items;
 
-            if (items != null) {
-                nextMsgPosition = items.size();
-                if (nextMsgPosition > MAX_MESSAGES){
-                    nextMsgPosition = MAX_MESSAGES;
-                }
-            } else {
-                nextMsgPosition = 0;
-            }
+//            if (items != null) {
+//                nextMsgPosition = items.size();
+//                if (nextMsgPosition > MAX_MESSAGES){
+//                    nextMsgPosition = MAX_MESSAGES;
+//                }
+//            } else {
+//                nextMsgPosition = 0;
+//            }
         }
 
         @Override
@@ -161,7 +161,7 @@ public class ChatFragment extends Fragment implements iObserver {
 
         public ChatsViewHolder(View itemView) {
             super(itemView);
-            mChatText = (TextView) itemView.findViewById(R.id.text);
+            mChatText = (TextView) itemView.findViewById(R.id.message_holder_text);
         }
 
         public void bind(String s){

@@ -52,7 +52,7 @@ public class ClientCommunicator {
             SendCommandTask task = new SendCommandTask();
             task.execute(command);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 

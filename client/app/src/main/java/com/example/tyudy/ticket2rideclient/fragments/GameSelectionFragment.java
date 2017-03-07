@@ -61,9 +61,14 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGameSelectionPresenter.createGameClicked();
-                Intent i = new Intent(getContext(), GameLobbyActivity.class);
-                startActivity(i);
+                if(ClientModel.SINGLETON.getCurrentTTRGame() == null) {
+                    mGameSelectionPresenter.createGameClicked();
+                    Intent i = new Intent(getContext(), GameLobbyActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

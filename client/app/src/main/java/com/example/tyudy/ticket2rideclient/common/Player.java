@@ -6,6 +6,8 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
+
 /**
  * Created by Trevor on 3/1/2017.
  */
@@ -15,7 +17,7 @@ public class Player {
     private int points;
     private Color color;
     private User associatedUser;
-    private Map<Color, Integer> colorCards;
+    private Map<Color, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
 
     public Player(User user, Color color) {
@@ -42,9 +44,18 @@ public class Player {
 
     //Cards stuff
     public void addTrainCard(TrainCard card){
-        int i = colorCards.get(card.getColor());
-        i++;
-        colorCards.put(card.getColor(), i);
+        TrainCard c = colorCards.get(card.getColor());
+        if(c != null) {
+            c.incNum();
+            colorCards.put(card.getColor(), c);
+        }
+        else{
+            colorCards.put(card.getColor(), card);
+        }
+    }
+    public ArrayList<TrainCard> returnTrainCards(){
+        ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
+        return arrayOfCards;
     }
 
     public Integer getNumCardsOfColor(Color c) { return colorCards.get(c); }

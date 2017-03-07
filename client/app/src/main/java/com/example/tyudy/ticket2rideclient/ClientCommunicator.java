@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.google.gson.Gson;
@@ -51,7 +52,7 @@ public class ClientCommunicator {
             SendCommandTask task = new SendCommandTask();
             task.execute(command);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -150,6 +151,10 @@ public class ClientCommunicator {
                        listGamesCommand.setData(responseDTO);
                        listGamesCommand.execute();
                        break;
+                   case "sendChat":
+                       SendChatCommand sendChatCommand = new SendChatCommand();
+                       sendChatCommand.setData(responseDTO);
+                       sendChatCommand.execute();
                    default:
                        break;
                }

@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -28,6 +29,9 @@ import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
+
+import static com.example.tyudy.ticket2rideclient.R.color.yellow;
+import static com.example.tyudy.ticket2rideclient.common.Color.YELLOW;
 
 
 /**
@@ -43,6 +47,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private GameBoardPresenter mGameBoardPresenter;
     private ArrayList<User> mPlayers;
     private ArrayList<String> mPlayerNames;
+    private ArrayList<TrainCard> mCards;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -76,6 +81,15 @@ public class GameBoardFragment extends Fragment implements iObserver
         mPlayers.add(cat);
         mPlayers.add(milo);
         mPlayers.add(golden);
+
+//        mCards = ClientModel.SINGLETON.getCurrentPlayer().returnTrainCards();
+        mCards = new ArrayList<TrainCard>();
+        for(int i = 0; i < 10; i++){
+            TrainCard myCard = new TrainCard();
+            myCard.setColor(YELLOW);
+            myCard.setNum(i);
+            mCards.add(myCard);
+        }
 
         
     }
@@ -130,8 +144,8 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
         });
 
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
-                R.layout.points_fragment, mPlayers));
+        //observe function to make it change with updated info
+        this.observe();
 
         return v;
     }
@@ -139,6 +153,10 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
+        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
+                R.layout.points_fragment, mPlayers));
+        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+                R.layout.points_fragment, mCards));
 
     }
 
@@ -175,6 +193,49 @@ public class GameBoardFragment extends Fragment implements iObserver
             holder.mUsername.setText(user.getUsername().toUpperCase());
             holder.mUsername.setBackgroundColor(user.getColor());
             holder.mPoints.setText(String.valueOf(user.getPoints()));
+
+            return convertView;
+        }
+    }
+
+    private class CardsAdapter extends ArrayAdapter<TrainCard> {
+
+        private Context mContext;
+
+        public CardsAdapter(Context context, int resourceId, ArrayList<TrainCard> items) {
+            super(context, resourceId, items);
+            this.mContext = context;
+        }
+
+        /*private view holder class*/
+        private class ViewHolder {
+            TextView mUsername;
+            TextView mPoints;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            TrainCard myCard = getItem(position);
+
+            LayoutInflater mInflater = (LayoutInflater) mContext
+                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.points_fragment, null);
+                holder = new ViewHolder();
+                holder.mUsername = (TextView) convertView.findViewById(R.id.player_username);
+                holder.mPoints = (TextView) convertView.findViewById(R.id.player_points);
+                convertView.setTag(holder);
+            } else
+                holder = (ViewHolder) convertView.getTag();
+                holder.mUsername.setText(String.valueOf(myCard.getNum()));
+                switch( myCard.getColor()) {
+                    case YELLOW:
+                        holder.mUsername.setBackgroundColor(Color.YELLOW);
+                        break;
+                    default:
+                        holder.mUsername.setBackgroundColor(Color.BLACK);
+                        break;
+                }
 
             return convertView;
         }

@@ -13,8 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.common.Destination;
 import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -77,6 +79,10 @@ public class GameBoardFragment extends Fragment implements iObserver
         Player p2 = new Player(cat, cat.getUsername(), cat.getColorEnum());
         Player p3 = new Player(milo, milo.getUsername(), milo.getColorEnum());
         Player p4 = new Player(golden, golden.getUsername(), golden.getColorEnum());
+
+        Destination d = new Destination(1, 2); // from source: 1 to dest: 2
+        DestinationCard card = new DestinationCard(d, 5); // 5 points
+        p4.addDestinationCard(card);
         // ---------------------------------------------------
 
         mUsers = new ArrayList<>();
@@ -91,7 +97,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mPlayers.add(p3);
         mPlayers.add(p4);
 
-        mThisPlayer = p4;
+        mThisPlayer = p4;   // set current player
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Player {
         this.color = color;
         name = user.getUsername();
         points = 0;
+        destCards = new ArrayList<>();
     }
 
     public Player(User user, String playerName, Color color) {
@@ -30,6 +31,7 @@ public class Player {
         this.color = color;
         this.name = playerName;
         points = 0;
+        destCards = new ArrayList<>();
     }
 
     public boolean addDestinationCard(DestinationCard card){

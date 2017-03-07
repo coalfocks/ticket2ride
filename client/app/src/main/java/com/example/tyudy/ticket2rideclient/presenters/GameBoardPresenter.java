@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
+import android.app.FragmentManager;
 import android.view.View;
 
 import com.example.tyudy.ticket2rideclient.common.Player;
@@ -27,6 +28,7 @@ public class GameBoardPresenter {
         Player player = mGameBoardFragment.getCurrentPlayer();
         mDialogFragment = new DisplayDestCardsDialogFragment();
         mDialogFragment.setCardList(player.getDestCards());
+        mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
 
         mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
     }

@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.cities;
 
+import android.graphics.PointF;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +15,25 @@ public class City {
      * A map of the cities this city is connected to, with the
      * values being the class Path
      */
+    private String mCityName;
     private Map<City, Path> mConnectedCities;
+    private PointF mCoordinates;
 
-    City(Map<City, Path> connectedCities) { mConnectedCities = connectedCities; }
+    public City(String cityName, Map<City, Path> connectedCities) {
+        mConnectedCities = connectedCities;
+        mCityName = cityName;
+    }
+
+    public City(String cityName) {
+        mConnectedCities = null;
+        mCityName = cityName;
+
+    }
+
+    public void setCoordinate(PointF coordinate) { mCoordinates = coordinate; }
+    public PointF getCoordinates() { return mCoordinates; }
+
+    public void setConnectedCities(Map<City, Path> cc) { mConnectedCities = cc; }
 
     /**
      * A function to find if a city is connected to another

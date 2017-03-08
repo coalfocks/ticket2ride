@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.Player;
+import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
@@ -144,6 +145,76 @@ public class ClientModel implements iObservable {
             }
         }
         return mCurrentTTRGame;
+    }
+
+    /**
+     * This method doesn't necessarily need to be in the ClientModel,
+     * but I didn't have anywhere else to put it. So for now, it sits here
+     */
+    public void initCities(){
+        /*
+         * List of cities:
+         * Atlanta
+         * Boston
+         * Calgary
+         * Charleston
+         * Chicago
+         * Dallas
+         * Denver
+         * Duluth
+         * El Paso
+         * Helena
+         * Houston
+         * Kansas City
+         * Las Vegas
+         * Little Rock
+         * LA
+         * Miami
+         * Monreal
+         * Nashville
+         * New Orleans
+         * New York
+         * Oklahoma City
+         * Omaha
+         * Phoenix
+         * Pittsburgh
+         * Portland
+         * Raleigh
+         * St Louis
+         * Salt Lake
+         * San Fran
+         * Santa Fe
+         * Sault St. Marie
+         * Seattle
+         * Toronto
+         * Vancouver
+         * Washington DC
+         * Winnipeg
+         */
+
+        // Create All Cities
+        City Atlanta = new City("Atlanta");
+        City Boston = new City("Boston");
+        City Calgary = new City("Calgary");
+        City Charleston = new City("Charleston");
+        City Chicago = new City("Chicago");
+        City Dallas = new City("Dallas");
+        City Denver = new City("Denver");
+        City Duluth = new City("Duluth");
+        City El_Paso = new City("El Paso");
+        City Helena = new City("Helena");
+        City Houston = new City("Houston");
+        City Kansas_City = new City("Kansas City");
+        City Las_Vegas = new City("Las Vegas");
+        City Little_Rock = new City("Little Rock");
+        City Los_Angeles = new City("Los Angeles");
+        City Miami = new City("Miami");
+        City Montreal = new City("Montreal");
+        City Nashville = new City("Nashville");
+        City New_Orleans = new City("New Orleans");
+
+
+
     }
 
 }

@@ -16,57 +16,58 @@ public class City {
      * values being the class Path
      */
     private String mCityName;
-    private Map<City, Path> mConnectedCities;
+    private ArrayList<Path> mPaths;
     private PointF mCoordinates;
 
-    public City(String cityName, Map<City, Path> connectedCities) {
-        mConnectedCities = connectedCities;
-        mCityName = cityName;
-    }
-
     public City(String cityName) {
-        mConnectedCities = null;
+        //mConnectedCities = null;
         mCityName = cityName;
 
     }
 
     public void setCoordinate(PointF coordinate) { mCoordinates = coordinate; }
     public PointF getCoordinates() { return mCoordinates; }
+    public String getCityName() { return mCityName; }
 
-    public void setConnectedCities(Map<City, Path> cc) { mConnectedCities = cc; }
+    public void setPaths(ArrayList<Path> paths) { this.mPaths = paths; }
+    public ArrayList<Path> getPaths() { return mPaths; }
 
     /**
-     * A function to find if a city is connected to another
+     * A function to findif a city is connected to another
      * @param city The city the question is about
      * @return True if the two are connected, false otherwise
      */
     public boolean isConnectedTo(City city) {
-        if (mConnectedCities.containsKey(city))
+        if (city.equals(this))
             return true;
+
+        for (Path path : mPaths)
+        {
+            if (path.containsCity(city))
+                return true;
+        }
 
         return false;
     }
 
     /**
-     * A function to find the path length between 2 cities
-     * @param city The connected city to find length to
-     * @return Distance to city, if connected. -1 if no connection exists
-     */
-    public int getDistTo(City city) {
-        if (isConnectedTo(city))
-            return mConnectedCities.get(city).distance;
-
-        return -1;
-    }
-
-    /**
      * Getter function to return the path between the two cities
      * @param city The connected city to get the path to
-     * @return Path to the given city, if connected. Null if no connection exists
+     * @return Path to the given city, if connected. Null if no connection exists,
+     *  or if the given city is the current city
      */
     public Path getPathTo(City city) {
+        if (city.equals(this))
+            return null;
+
         if (isConnectedTo(city))
-            return mConnectedCities.get(city);
+        {
+            for (Path path : mPaths)
+            {
+                if (path.containsCity(city))
+                    return path;
+            }
+        }
 
         return null;
     }
@@ -76,7 +77,7 @@ public class City {
         if (!(obj instanceof City)) return false;
 
         City city = (City) obj;
-        if (!city.mConnectedCities.equals(this.mConnectedCities)) return false;
+        if (!city.mPaths.equals(this.mPaths)) return false;
 
         return super.equals(obj);
     }

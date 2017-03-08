@@ -15,7 +15,7 @@ public class Path {
     public Pair<City, City> connectedCities;
     private Player owner;
 
-    Path(Color c, int dist, City city1, City city2) {
+    public Path(Color c, int dist, City city1, City city2) {
         pathColor = c;
         distance = dist;
         connectedCities = new Pair<>(city1, city2);
@@ -24,4 +24,17 @@ public class Path {
 
     public void setOwner(Player p) { owner = p; }
     public Player getOwner() { return owner; }
+
+    /**
+     * A method to find if a path contains the given city
+     * @param city The desired city
+     * @return True if path is connected to city, false otherwise
+     */
+    public boolean containsCity(City city) {
+        if (connectedCities.first.equals(city) ||
+            connectedCities.second.equals(city))
+            return true;
+
+        return false;
+    }
 }

@@ -85,6 +85,8 @@ public class GameBoardFragment extends Fragment implements iObserver
         Destination d = new Destination(1, 2); // from source: 1 to dest: 2
         DestinationCard card = new DestinationCard(d, 5); // 5 points
         p4.addDestinationCard(card);
+        p4.addDestinationCard(new DestinationCard(new Destination(55, 3), 16));
+        p4.addDestinationCard(new DestinationCard(new Destination(32, 9), 8));
         // ---------------------------------------------------
 
         mUsers = new ArrayList<>();
@@ -101,7 +103,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 
         mThisPlayer = p4;   // set current player
 
-        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
+//        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
         //mCards = new ArrayList<TrainCard>();
 //        for(int i = 0; i < 10; i++){
 //            TrainCard myCard = new TrainCard();
@@ -182,8 +184,8 @@ public class GameBoardFragment extends Fragment implements iObserver
     public void observe()
     {
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
-        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
-                R.layout.points_fragment, mCards));
+//        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+//                R.layout.points_fragment, mCards));
 
     }
 

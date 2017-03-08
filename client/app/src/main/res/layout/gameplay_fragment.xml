@@ -32,12 +32,13 @@
 
             <ImageButton
                 android:id="@+id/dest_cards_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="135dp"
+                android:layout_height="143dp"
+                android:scaleType="fitCenter"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="10dp"
                 android:backgroundTint="?attr/colorAccent"
-                android:src="@drawable/ic_dest_cards"/>
+                android:src="@drawable/dest_cards_icon"/>
 
         </FrameLayout>
 

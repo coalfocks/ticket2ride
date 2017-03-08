@@ -1,43 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <TextView
-        android:text="TextView"
+        android:text="@string/placeholder"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:gravity="center_vertical"
         android:id="@+id/destCard_source"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="10dp"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_below="@id/destCard_source"
         android:background="#AAAAAA"/>
 
     <TextView
-        android:text="TextView"
+        android:text="@string/placeholder"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:gravity="center_vertical"
+        android:layout_below="@id/destCard_source"
         android:id="@+id/destCard_dest"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_below="@id/destCard_dest"
+        android:background="#AAAAAA"/>
+
+    <TextView
+        android:text="@string/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_below="@id/destCard_dest"
+        android:id="@+id/destCard_points"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"/>
+
+    <CheckBox
+        android:id="@+id/completed_dest_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:checked="false"
+        android:layout_below="@+id/destCard_points"
+        android:layout_alignLeft="@+id/destCard_points"
+        android:layout_alignStart="@+id/destCard_points"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completed"
+        android:layout_alignBaseline="@id/completed_dest_checkbox"
+        android:layout_alignBottom="@id/completed_dest_checkbox"
+        android:layout_toRightOf="@id/completed_dest_checkbox"
+        android:layout_toEndOf="@id/completed_dest_checkbox"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="#AAAAAA"/>
+        android:layout_below="@id/completed_dest_checkbox"
+        android:background="#e79537"/>
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center_vertical"
-        android:id="@+id/destCard_points"
-        android:layout_marginLeft="10dp"/>
-</LinearLayout>
+</RelativeLayout>

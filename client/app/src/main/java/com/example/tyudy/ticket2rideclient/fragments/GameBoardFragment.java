@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +126,14 @@ public class GameBoardFragment extends Fragment implements iObserver
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
+
+//        FragmentManager fm = getFragmentManager();
+//        FragmentTransaction ft = fm.beginTransaction();
+//
+//        fm.beginTransaction();
+//        Fragment chat = new ChatFragment();
+//        ft.add(R.id.chat_container, chat);
+//        ft.commit();
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener()
         {

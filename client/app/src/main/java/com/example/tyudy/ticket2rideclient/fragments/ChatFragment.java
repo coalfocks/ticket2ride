@@ -53,7 +53,7 @@ public class ChatFragment extends Fragment {
         View v = inflater.inflate(R.layout.chat_fragment, container, false);
 
         llm = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, true);
-        adapter = new RecyclerAdapter(ClientModel.SINGLETON.getChatMsgs(), llm.getLayoutDirection());
+        adapter = new RecyclerAdapter(ClientModel.SINGLETON.getChatMsgs(), LinearLayoutManager.VERTICAL);
 
         send = (Button) v.findViewById(R.id.send_button);
         chat_box = (EditText) v.findViewById(R.id.chat_box);

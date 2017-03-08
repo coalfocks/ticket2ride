@@ -121,6 +121,8 @@ public class ClientModel implements iObservable {
 
     public ArrayList<String> getChatMsgs() { return chatMsgs; }
 
+    public String getMostRecentMessage() { return chatMsgs.get(chatMsgs.size() - 1); }
+
     public void receiveNewChat(String chat){
         chatMsgs.add(chat);
         this.notifyObservers();

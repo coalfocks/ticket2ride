@@ -5,6 +5,7 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
 
@@ -25,6 +26,8 @@ public class Player {
         this.color = color;
         name = user.getUsername();
         points = 0;
+        destCards = new ArrayList<>();
+        colorCards = new TreeMap<>();
     }
 
     public Player(User user, String playerName, Color color) {
@@ -32,11 +35,15 @@ public class Player {
         this.color = color;
         this.name = playerName;
         points = 0;
+        destCards = new ArrayList<>();
+        colorCards = new TreeMap<>();
     }
 
     public boolean addDestinationCard(DestinationCard card){
        return destCards.add(card);
     }
+
+    public ArrayList<DestinationCard> getDestCards() { return destCards; }
 
     //Cards stuff
     public void addTrainCard(TrainCard card){
@@ -49,11 +56,12 @@ public class Player {
             colorCards.put(card.getColor(), card);
         }
     }
-    public ArrayList<TrainCard> returnTrainCards(){
+    public ArrayList<TrainCard> getTrainCards(){
         ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
         return arrayOfCards;
     }
 
+    public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
 
     public void setName(String newName){
         this.name = newName;
@@ -86,9 +94,11 @@ public class Player {
         return points;
     }
 
-    public Color getColor() {
+    public Color getColorEnum() {
         return color;
     }
+
+    public int getColor() { return associatedUser.getColor(); }
 
     public User getAssociatedUser() {
         return associatedUser;

@@ -153,7 +153,6 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
-        //        mCards = ClientModel.SINGLETON.getCurrentPlayer().returnTrainCards();
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
                 R.layout.points_fragment, mPlayers));
         mMyInfo.setAdapter(new CardsAdapter(this.getContext(),

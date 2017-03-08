@@ -56,6 +56,5 @@ public class PreGameActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         MethodsFacade.SINGLETON.setContext(this);
-        MethodsFacade.SINGLETON.reset();
     }
 }

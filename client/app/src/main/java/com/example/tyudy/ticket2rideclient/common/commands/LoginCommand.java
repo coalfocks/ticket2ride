@@ -17,6 +17,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by Trevor on 2/10/2017.
@@ -36,6 +37,7 @@ public class LoginCommand extends Command implements iCommand, Serializable
             return null;
         } else {
             try {
+                MethodsFacade.SINGLETON.reset();
                 User loggedInUser = (User) Serializer.deserialize(data.getData());
                 ClientModel.SINGLETON.setCurrentUser(loggedInUser);
                 // I am such a boss programmer for this line ..... it sets the current game

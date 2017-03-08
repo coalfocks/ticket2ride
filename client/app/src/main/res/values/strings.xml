@@ -11,5 +11,9 @@
     <string name="start_game_button">Start Game</string>
     <string name="message_goes_here">HI GUYS LOL</string>
     <string name="send">Send</string>
+    <string name="dest_cards">Your Destination Cards</string>
+    <string name="ok">OK</string>
+    <string name="placeholder">IM A PLACEHLODER TETXS</string>
+    <string name="completed">Completed</string>
 
 </resources>

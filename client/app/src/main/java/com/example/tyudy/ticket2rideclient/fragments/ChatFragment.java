@@ -23,6 +23,7 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.presenters.ChatPresenter;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,31 +32,28 @@ import java.util.List;
  * Created by Trevor on 2/23/2017.
  */
 
-public class ChatFragment extends Fragment implements iObserver {
+public class ChatFragment extends Fragment {
     private LinearLayoutManager llm;
     private Button send;
     private RecyclerView chat_recycler;
     private EditText chat_box;
     private RecyclerAdapter adapter;
-    private String chat_message;
-
+    private ChatPresenter chatPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        chatPresenter = new ChatPresenter();
 
-        MethodsFacade.SINGLETON.setContext(this.getActivity());
-        ClientModel.SINGLETON.addObserver(this);
-
+        chatPresenter.setChatFragment(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.chat_fragment, container, false);
-        chat_message = "";
 
         llm = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, true);
-        adapter = new RecyclerAdapter(ClientModel.SINGLETON.getChatMsgs(), llm.getLayoutDirection());
+        adapter = new RecyclerAdapter(ClientModel.SINGLETON.getChatMsgs(), LinearLayoutManager.VERTICAL);
 
         send = (Button) v.findViewById(R.id.send_button);
         chat_box = (EditText) v.findViewById(R.id.chat_box);
@@ -64,15 +62,16 @@ public class ChatFragment extends Fragment implements iObserver {
         chat_recycler.setLayoutManager(llm);
         chat_recycler.setAdapter(adapter);
 
+        // ChatPresenter handles these onClick events --------
         chat_box.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-                chat_box.setText(""); // Automatically remove current text
+                // Nothing
             }
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                chat_message = s.toString();
+                chatPresenter.setMessage(s.toString());
             }
 
             @Override
@@ -80,41 +79,20 @@ public class ChatFragment extends Fragment implements iObserver {
                 // Nothing
             }
         });
-
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // We don't want to send an empty string to the server
-                if (!chat_message.equals("")) {
-                    // Before sending to the server, patch on player's name before message
-                    String playerName = ClientModel.SINGLETON.getCurrentPlayer().getName();
-                    StringBuilder message =
-                            new StringBuilder(playerName + ": " + chat_message);
-
-                    SendChatCommand command = new SendChatCommand();
-                    DataTransferObject dto = new DataTransferObject();
-                    dto.setData(message.toString());
-                    command.setData(dto);
-
-                    try {
-                        ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                        Log.d("ChatFragment", e.getMessage());
-                    }
-
-                    chat_message = ""; // Reset chat message
-                }
+            chatPresenter.send(chat_box);
             }
         });
+        // ---------------------------------------------------
 
         return v;
     }
 
     /**
      * Call this function to add a chat to the RecyclerView
-     * @param chat
+     * @param chat The string message to add
      */
     public void addChat(String chat)
     {
@@ -122,22 +100,9 @@ public class ChatFragment extends Fragment implements iObserver {
     }
 
     /**
-     * This is the method called when there's information to update.
-     * Implemented from iObserver
+     * This is the RecyclerViewAdapter class
+     * Necessary for binding the ViewHolder to the RecyclerView
      */
-    @Override
-    public void observe() {
-        List<String> chats = ClientModel.SINGLETON.getChatMsgs();
-        List<String> currList = adapter.getCurrentMessages();
-
-        for (String chat : chats)
-        {
-            // Don't duplicate chat messages
-            if (!currList.contains(chat))
-                addChat(chat);
-        }
-    }
-
     public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
         private List<String> messages;

@@ -24,6 +24,10 @@ public class GameBoardPresenter {
         mGameBoardFragment = gameBoardFragment;
     }
 
+    /**
+     * Method called when the button is pressed to show the current user
+     * his/her destination cards
+     */
     public void showDestCards(){
         Player player = mGameBoardFragment.getCurrentPlayer();
         mDialogFragment = new DisplayDestCardsDialogFragment();

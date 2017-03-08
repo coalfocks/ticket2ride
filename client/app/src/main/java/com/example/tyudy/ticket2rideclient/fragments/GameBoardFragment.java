@@ -44,8 +44,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     
     private GameBoardPresenter mGameBoardPresenter;
     private Player mThisPlayer;
-    private ArrayList<User> mUsers;
-    private ArrayList<Player> mPlayers;
+    private ArrayList<User> mPlayers;
     private ArrayList<String> mPlayerNames;
     private ArrayList<TrainCard> mCards;
 
@@ -57,43 +56,39 @@ public class GameBoardFragment extends Fragment implements iObserver
         mGameBoardPresenter.setGameBoardFragment(this);
         ClientModel.SINGLETON.addObserver(this);
 
-        User pug = new User();
-        pug.setUsername("pug");
-        pug.setColor(Color.RED);
-        pug.addPoints(1000);
+//        User pug = new User();
+//        pug.setUsername("pug");
+//        pug.setColor(Color.RED);
+//        pug.addPoints(1000);
+//
+//        User cat = new User();
+//        cat.setUsername("cat");
+//        cat.setColor(Color.YELLOW);
+//
+//        User milo = new User();
+//        milo.setUsername("milo");
+//        milo.setColor(Color.BLUE);
+//        milo.addPoints(100);
+//
+//        User golden = new User();
+//        golden.setUsername("daisy");
+//        golden.setColor(Color.MAGENTA);
+//        golden.addPoints(10000000);
 
-        User cat = new User();
-        cat.setUsername("cat");
-        cat.setColor(Color.YELLOW);
+        mPlayers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getPlayers());
+//        mPlayers.add(pug);
+//        mPlayers.add(cat);
+//        mPlayers.add(milo);
+//        mPlayers.add(golden);
 
-        User milo = new User();
-        milo.setUsername("milo");
-        milo.setColor(Color.BLUE);
-        milo.addPoints(100);
-
-        User golden = new User();
-        golden.setUsername("daisy");
-        golden.setColor(Color.PURPLE);
-        golden.addPoints(10000000);
-
-        // Testing using the Player class in lou of User class
-        Player p1 = new Player(pug, pug.getUsername(), pug.getColorEnum());
-        Player p2 = new Player(cat, cat.getUsername(), cat.getColorEnum());
-        Player p3 = new Player(milo, milo.getUsername(), milo.getColorEnum());
-        Player p4 = new Player(golden, golden.getUsername(), golden.getColorEnum());
-
-        Destination d = new Destination(1, 2); // from source: 1 to dest: 2
-        DestinationCard card = new DestinationCard(d, 5); // 5 points
-        p4.addDestinationCard(card);
-        p4.addDestinationCard(new DestinationCard(new Destination(55, 3), 16));
-        p4.addDestinationCard(new DestinationCard(new Destination(32, 9), 8));
-        // ---------------------------------------------------
-
-        mUsers = new ArrayList<>();
-        mUsers.add(pug);
-        mUsers.add(cat);
-        mUsers.add(milo);
-        mUsers.add(golden);
+//        mCards = ClientModel.SINGLETON.getCurrentPlayer().returnTrainCards();
+        mCards = new ArrayList<TrainCard>();
+        for(int i = 0; i < 10; i++){
+            TrainCard myCard = new TrainCard();
+            myCard.setColor(YELLOW);
+            myCard.setNum(i);
+            mCards.add(myCard);
+        }
 
         mPlayers = new ArrayList<>();
         mPlayers.add(p1);
@@ -172,7 +167,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         });
 
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
-                R.layout.points_fragment, mUsers));
+                R.layout.points_fragment, mPlayers));
 
         //observe function to make it change with updated info
         this.observe();
@@ -183,7 +178,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
+        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mPlayers));
 //        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
 //                R.layout.points_fragment, mCards));
 

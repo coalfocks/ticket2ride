@@ -1,11 +1,13 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
@@ -55,6 +57,8 @@ private DataTransferObject data;
         else{
             try {
                 ClientModel.SINGLETON.setCurrentTTRGame((TTRGame) Serializer.deserialize(data.getData()));
+                Intent i = new Intent(jeffery, GameLobbyActivity.class);
+                jeffery.startActivity(i);
                 Toast.makeText(jeffery, "Created and Joined Game Successfully!", Toast.LENGTH_SHORT).show();
             } catch(Exception e){
                 e.printStackTrace();

@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by tyudy on 2/7/17.
  */
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
     private String username;
     private String password;
     private int playerID;
@@ -126,5 +126,17 @@ public class User implements Serializable {
 
     public void addPoints(int pointValue) {
         this.points += pointValue;
+    }
+
+    @Override
+    public int compareTo(User o)
+    {
+        if(this.playerID > o.getPlayerID()) {
+            return 1;
+        }
+        else if (this.playerID < o.getPlayerID()) {
+            return -1;
+        }
+        return 0;
     }
 }

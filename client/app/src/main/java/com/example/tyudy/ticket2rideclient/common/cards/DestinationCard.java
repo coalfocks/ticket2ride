@@ -18,8 +18,9 @@ public class DestinationCard {
         return pointValue;
     }
 
-    public DestinationCard() {
-
+    public DestinationCard(Destination d, int points) {
+        destination = d;
+        pointValue = points;
     }
 
 }

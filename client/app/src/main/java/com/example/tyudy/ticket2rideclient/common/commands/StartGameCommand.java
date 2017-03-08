@@ -8,9 +8,12 @@ import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by Trevor on 2/11/2017.
@@ -30,6 +33,12 @@ private DataTransferObject data;
         else{
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
             ((GameLobbyActivity) jeffery).onStartGame();
+        }
+        Set<User> players = ClientModel.SINGLETON.getCurrentTTRGame().getPlayers();
+        for (User u : players) {
+            if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                ClientModel.SINGLETON.getCurrentUser().setColor(u.getColor());
+            }
         }
         return null;
     }

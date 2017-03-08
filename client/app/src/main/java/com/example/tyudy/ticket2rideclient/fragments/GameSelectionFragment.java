@@ -44,8 +44,6 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         mGameSelectionPresenter = PresenterHolder.SINGLETON.getGameSelectionPresenter();
         mGameSelectionPresenter.setGameSelectionFragment(this);
         ClientModel.SINGLETON.addObserver(this);
-
-
     }
 
     @Override
@@ -61,10 +59,8 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ClientModel.SINGLETON.getCurrentTTRGame() == null) {
+                if(ClientModel.SINGLETON.getCurrentUser().getInGame() == 0) {
                     mGameSelectionPresenter.createGameClicked();
-                    Intent i = new Intent(getContext(), GameLobbyActivity.class);
-                    startActivity(i);
                 }
                 else{
                     Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
@@ -120,15 +116,17 @@ public class GameSelectionFragment extends Fragment implements iObserver {
             TTRGame g = ClientModel.SINGLETON.getCurrentTTRGame();
 
             // The current game is not null and it has also been changed
-            if(gameWasNotSet || mTTRGame.getGameID() == ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) {
+            if(gameWasNotSet || mTTRGame.getGameID() == ClientModel.SINGLETON.getCurrentUser().getInGame()) {
 
                 // Only Join if user is not in a game
                 if(gameWasNotSet) {
                     MethodsFacade.SINGLETON.joinGame(mTTRGame);
                 }
+                else {
+                    Intent i = new Intent(getContext(), GameLobbyActivity.class);
+                    getContext().startActivity(i);
+                }
 
-                Intent i = new Intent(getContext(), GameLobbyActivity.class);
-                startActivity(i);
             } else {
                 Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
             }

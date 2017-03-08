@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
@@ -17,6 +18,7 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     private Button mStartGameButton;
     private GameLobbyPresenter mGameLobbyPresenter;
+    private TextView mWelcomeMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,9 @@ public class GameLobbyActivity extends AppCompatActivity {
                 mGameLobbyPresenter.startGameClicked();
             }
         });
+
+        mWelcomeMsg = (TextView) findViewById(R.id.game_board_title);
+        mWelcomeMsg.setText("Welcome to " + ClientModel.SINGLETON.getCurrentTTRGame().getOwnerUsername() + "'s game!");
     }
 
     @Override

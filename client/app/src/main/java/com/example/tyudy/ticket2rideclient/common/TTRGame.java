@@ -1,6 +1,5 @@
 package com.example.tyudy.ticket2rideclient.common;
 
-import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -15,57 +14,69 @@ public class TTRGame implements Serializable
     private int gameID;
     private int ownerID;
     private String ownerUsername;
-    private Set<Integer> players = new TreeSet<Integer>();
+    private Set<User> players = new TreeSet<User>();
 
     public TTRGame()
     {
     }
 
-    public int getInProgress() {
+    public int getInProgress()
+    {
         return inProgress;
     }
 
-    public void setInProgress(int inProgress) {
+    public void setInProgress(int inProgress)
+    {
         this.inProgress = inProgress;
     }
 
-    public int getOwnerID() {
+    public int getOwnerID()
+    {
         return ownerID;
     }
 
-    public void setOwnerID(int ownerID) {
+    public void setOwnerID(int ownerID)
+    {
         this.ownerID = ownerID;
     }
 
-    public void addPlayer(int playerID) {
-        players.add(playerID);
+    public void addPlayer(User player)
+    {
+        players.add(player);
     }
 
-    public int getNumPlayers(){
+    public int getNumPlayers()
+    {
         return players.size();
     }
 
-    public String getOwnerUsername() {
+    public String getOwnerUsername()
+    {
         return ownerUsername;
     }
 
-    public void setOwnerUsername(String ownerUsername) {
+    public void setOwnerUsername(String ownerUsername)
+    {
         this.ownerUsername = ownerUsername;
     }
 
-    public Set<Integer> getPlayers() {
+    public Set<User> getPlayers()
+    {
         return players;
     }
 
-    public void setPlayers(Set<Integer> players) {
+    public void setPlayers(Set<User> players)
+    {
         this.players = players;
     }
 
-    public int getGameID() {
+    public int getGameID()
+    {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(int gameID)
+    {
         this.gameID = gameID;
     }
 }

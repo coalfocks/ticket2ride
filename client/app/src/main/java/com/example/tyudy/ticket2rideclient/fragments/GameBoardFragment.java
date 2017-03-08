@@ -46,7 +46,6 @@ public class GameBoardFragment extends Fragment implements iObserver
     private SlidingUpPanelLayout mChat;
     private GameBoardPresenter mGameBoardPresenter;
     private ArrayList<User> mPlayers;
-    private ArrayList<String> mPlayerNames;
     private ArrayList<TrainCard> mCards;
 
     @Override
@@ -57,30 +56,30 @@ public class GameBoardFragment extends Fragment implements iObserver
         mGameBoardPresenter.setGameBoardFragment(this);
         ClientModel.SINGLETON.addObserver(this);
 
-        User pug = new User();
-        pug.setUsername("pug");
-        pug.setColor(Color.RED);
-        pug.addPoints(1000);
+//        User pug = new User();
+//        pug.setUsername("pug");
+//        pug.setColor(Color.RED);
+//        pug.addPoints(1000);
+//
+//        User cat = new User();
+//        cat.setUsername("cat");
+//        cat.setColor(Color.YELLOW);
+//
+//        User milo = new User();
+//        milo.setUsername("milo");
+//        milo.setColor(Color.BLUE);
+//        milo.addPoints(100);
+//
+//        User golden = new User();
+//        golden.setUsername("daisy");
+//        golden.setColor(Color.MAGENTA);
+//        golden.addPoints(10000000);
 
-        User cat = new User();
-        cat.setUsername("cat");
-        cat.setColor(Color.YELLOW);
-
-        User milo = new User();
-        milo.setUsername("milo");
-        milo.setColor(Color.BLUE);
-        milo.addPoints(100);
-
-        User golden = new User();
-        golden.setUsername("daisy");
-        golden.setColor(Color.MAGENTA);
-        golden.addPoints(10000000);
-
-        mPlayers = new ArrayList<>();
-        mPlayers.add(pug);
-        mPlayers.add(cat);
-        mPlayers.add(milo);
-        mPlayers.add(golden);
+        mPlayers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getPlayers());
+//        mPlayers.add(pug);
+//        mPlayers.add(cat);
+//        mPlayers.add(milo);
+//        mPlayers.add(golden);
 
 //        mCards = ClientModel.SINGLETON.getCurrentPlayer().returnTrainCards();
         mCards = new ArrayList<TrainCard>();

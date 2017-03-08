@@ -14,7 +14,7 @@ public class User implements Serializable, Comparable<User> {
     private String password;
     private int playerID;
     private int inGame;
-    private Color color;
+    private int color;
     private int points = 0;
 
 
@@ -25,7 +25,7 @@ public class User implements Serializable, Comparable<User> {
         playerID = 0;
         inGame = 0;
         points = 0;
-        color = Color.BLACK;
+        color = 0;
     }
 
     public User(String username, String password, int playerID, int inGame)
@@ -77,44 +77,12 @@ public class User implements Serializable, Comparable<User> {
         this.username = username;
     }
 
-    public Color getColorEnum()
+    public int getColor()
     {
         return color;
     }
 
-    public int getColor() {
-        switch(color)
-        {
-            case BLACK:
-                return android.graphics.Color.BLACK;
-
-            case WHITE:
-                return android.graphics.Color.WHITE;
-
-            case RED:
-                return android.graphics.Color.RED;
-
-            case BLUE:
-                return android.graphics.Color.BLUE;
-
-            case GREEN:
-                return android.graphics.Color.GREEN;
-
-            case PURPLE:
-                return android.graphics.Color.MAGENTA;
-
-            case YELLOW:
-                return android.graphics.Color.YELLOW;
-
-            case ORANGE:
-                return android.graphics.Color.rgb(239, 163, 33); // Trust me this is orange XD
-
-            default:
-                return android.graphics.Color.TRANSPARENT;
-        }
-    }
-
-    public void setColor(Color color)
+    public void setColor(int color)
     {
         this.color = color;
     }

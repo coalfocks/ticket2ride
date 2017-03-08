@@ -82,21 +82,14 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        mPlayers.add(golden);
 
 //        mCards = ClientModel.SINGLETON.getCurrentPlayer().returnTrainCards();
-        mCards = new ArrayList<TrainCard>();
-        for(int i = 0; i < 10; i++){
-            TrainCard myCard = new TrainCard();
-            myCard.setColor(YELLOW);
-            myCard.setNum(i);
-            mCards.add(myCard);
-        }
-
-        mPlayers = new ArrayList<>();
-        mPlayers.add(p1);
-        mPlayers.add(p2);
-        mPlayers.add(p3);
-        mPlayers.add(p4);
-
-        mThisPlayer = p4;   // set current player
+//        mCards = new ArrayList<TrainCard>();
+//        for(int i = 0; i < 10; i++){
+//            TrainCard myCard = new TrainCard();
+//            myCard.setColor(YELLOW);
+//            myCard.setNum(i);
+//            mCards.add(myCard);
+//        }
+        // set current player
 
 //        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
         //mCards = new ArrayList<TrainCard>();

@@ -1,21 +1,25 @@
 package com.example.tyudy.ticket2rideclient.common.cards;
 
-
 import com.example.tyudy.ticket2rideclient.common.Color;
 
 /**
  * Created by zacheaton on 3/2/17.
  */
 
-public class TrainCard {
+/**
+ * this class is more of a train card stack of specific colors rather than a single card
+ * the num corresponds to how many of the specific color you have
+ *
+ */
+public class TrainCard implements iCard{
     public Color color;
     public int num;
-   public TrainCard(Color color){
+    public TrainCard(Color color){
         this.num = 0;
         this.color = color;
     }
 
-   public TrainCard(){
+    public TrainCard(){
         this.num = 0;
         this.color = color;
     }

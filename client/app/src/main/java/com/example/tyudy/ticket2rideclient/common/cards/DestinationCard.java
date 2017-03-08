@@ -6,7 +6,7 @@ import com.example.tyudy.ticket2rideclient.common.Destination;
  * Created by zacheaton on 3/2/17.
  */
 
-public class DestinationCard {
+public class DestinationCard implements iCard{
     Destination destination;
     int pointValue;
 
@@ -23,3 +23,4 @@ public class DestinationCard {
     }
 
 }
+

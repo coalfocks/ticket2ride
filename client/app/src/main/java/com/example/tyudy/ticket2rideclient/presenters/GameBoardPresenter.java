@@ -1,11 +1,9 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
-import android.app.FragmentManager;
-import android.view.View;
-
-import com.example.tyudy.ticket2rideclient.common.Player;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.fragments.DisplayDestCardsDialogFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 /**
  * Created by tyudy on 2/24/17.
@@ -25,9 +23,10 @@ public class GameBoardPresenter {
     }
 
     public void showDestCards(){
-        Player player = mGameBoardFragment.getCurrentPlayer();
+//        Player player = mGameBoardFragment.getCurrentPlayer();
+        User user = ClientModel.SINGLETON.getCurrentUser();
         mDialogFragment = new DisplayDestCardsDialogFragment();
-        mDialogFragment.setCardList(player.getDestCards());
+        mDialogFragment.setCardList(user.getDestCards());
         mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
 
         mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");

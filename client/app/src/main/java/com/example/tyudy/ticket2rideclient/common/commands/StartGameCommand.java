@@ -34,7 +34,7 @@ private DataTransferObject data;
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
             ((GameLobbyActivity) jeffery).onStartGame();
         }
-        Set<User> players = ClientModel.SINGLETON.getCurrentTTRGame().getPlayers();
+        Set<User> players = ClientModel.SINGLETON.getCurrentTTRGame().getUsers();
         for (User u : players) {
             if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                 ClientModel.SINGLETON.getCurrentUser().setColor(u.getColor());

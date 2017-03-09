@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
     private ArrayList<DestinationCard> destinationCards;
     private Activity gameBoardActivity;
     private ListView allCardsView;
+    private DisplayCardsAdapter adapter;
 
     public DisplayDestCardsDialogFragment(){
         destinationCards = new ArrayList<>();
@@ -48,9 +50,11 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(gameBoardActivity);
         View v = gameBoardActivity.getLayoutInflater().inflate(R.layout.scroll_view, null);
 
+        adapter = new DisplayCardsAdapter(gameBoardActivity.getBaseContext(),
+                R.layout.display_destination_cards, destinationCards);
+
         allCardsView = (ListView) v.findViewById(R.id.genericScrollViewContainer);
-        allCardsView.setAdapter(new DisplayCardsAdapter(gameBoardActivity.getBaseContext(),
-                R.layout.display_destination_cards, destinationCards));
+        allCardsView.setAdapter(adapter);
 
         builder.setTitle(R.string.dest_cards).
                 setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -88,30 +92,40 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             ViewHolder holder;
             DestinationCard card = getItem(position);
 
-            String src = "From:   " + card.getDestination().getSource();
-            String dst = "To:       " + card.getDestination().getDest();
-            String pts = "Points: " + card.getPointValue();
+            if (card != null) {
+                String src = "From:   " + card.getDestination().getSource().getCityName();
+                String dst = "To:     " + card.getDestination().getDest().getCityName();
+                String pts = "Points: " + card.getPointValue();
 
-            LayoutInflater mInflater = (LayoutInflater) mContext
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater mInflater = (LayoutInflater) mContext
+                        .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.display_destination_cards, null);
+                if (convertView == null) {
+                    convertView = mInflater.inflate(R.layout.display_destination_cards, null);
 
-                holder = new ViewHolder();
-                holder.source = (TextView) convertView.findViewById(R.id.destCard_source);
-                holder.dest = (TextView) convertView.findViewById(R.id.destCard_dest);
-                holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
-                holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
+                    holder = new ViewHolder();
+                    holder.source = (TextView) convertView.findViewById(R.id.destCard_source);
+                    holder.dest = (TextView) convertView.findViewById(R.id.destCard_dest);
+                    holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
+                    holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
 
-                convertView.setTag(holder);
+                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+                        holder.checkBox.setChecked(true);
+                    else
+                        holder.checkBox.setChecked(false);
+
+                    convertView.setTag(holder);
+                } else
+                    holder = (ViewHolder) convertView.getTag();
+
+                holder.source.setText(src);
+                holder.dest.setText(dst);
+                holder.points.setText(pts);
+                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+                    holder.checkBox.setChecked(true);
+                else
+                    holder.checkBox.setChecked(false);
             }
-            else
-                holder = (ViewHolder) convertView.getTag();
-
-            holder.source.setText(src);
-            holder.dest.setText(dst);
-            holder.points.setText(pts);
 
             return convertView;
         }

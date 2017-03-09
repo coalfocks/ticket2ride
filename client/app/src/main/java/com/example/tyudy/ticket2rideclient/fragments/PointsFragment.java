@@ -38,7 +38,7 @@ public class PointsFragment extends Fragment {
         }
         else
         {
-            Toast.makeText(this.getContext(), "You must set the appropriate player with setPlayer()", Toast.LENGTH_SHORT);
+            Toast.makeText(this.getContext(), "You must set the appropriate player with setUser()", Toast.LENGTH_SHORT);
             return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
@@ -51,6 +51,7 @@ public class PointsFragment extends Fragment {
     public void setPlayer(User user) {
         if (user != null) {
             this.user = user;
+
             canDo = true;
         }
     }

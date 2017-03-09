@@ -34,6 +34,11 @@ public class ChatPresenter {
         mChatMessage = chat;
     }
 
+    /**
+     * This method is called when the Send button is pressed in the ChatFragment.
+     * If the string in the chat box is not empty, the message is sent to the
+     * server.
+     */
     public void sendClicked(){
         MethodsFacade.SINGLETON.sendChatMessage(mChatMessage);
     }

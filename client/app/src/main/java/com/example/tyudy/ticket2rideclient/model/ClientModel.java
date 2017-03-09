@@ -1,13 +1,11 @@
 package com.example.tyudy.ticket2rideclient.model;
 
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -21,7 +19,6 @@ public class ClientModel implements iObservable {
     private ArrayList<String> chatMsgs;
     private String ipAddress;
     private User currentUser;
-    private Player currentPlayer;
     private TTRGame mCurrentTTRGame;
 
 
@@ -32,7 +29,6 @@ public class ClientModel implements iObservable {
         ipAddress = null;
         currentUser = null;
         mCurrentTTRGame = null;
-        currentPlayer = null;
     }
 
     /**
@@ -91,9 +87,6 @@ public class ClientModel implements iObservable {
         currentUser = u;
     }
 
-    public void setCurrentPlayer(Player p) {
-        currentPlayer = p;
-    }
 
     public void setCurrentTTRGame(TTRGame g){
         mCurrentTTRGame = g;
@@ -103,9 +96,6 @@ public class ClientModel implements iObservable {
         return currentUser;
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
 
     public String getIpAddress(){
         return ipAddress;

@@ -1,9 +1,16 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
+import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
+import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -14,8 +21,12 @@ public class User implements Serializable, Comparable<User> {
     private String password;
     private int playerID;
     private int inGame;
-    private int color;
     private int points = 0;
+
+    private Color color;
+    private User associatedUser;
+    private Map<Color, TrainCard> colorCards = new HashMap<Color, TrainCard>();;
+    private ArrayList<DestinationCard> destCards;
 
 
     public User()
@@ -25,7 +36,9 @@ public class User implements Serializable, Comparable<User> {
         playerID = 0;
         inGame = 0;
         points = 0;
-        color = 0;
+        destCards = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+        this.color = BLACK;
     }
 
     public User(String username, String password, int playerID, int inGame)
@@ -34,6 +47,12 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
+        TrainCard myCard = new TrainCard();
+        myCard.setColor(WHITE);
+        this.addTrainCard(myCard);
+        destCards = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+        this.color = BLACK;
     }
 
 
@@ -77,15 +96,6 @@ public class User implements Serializable, Comparable<User> {
         this.username = username;
     }
 
-    public int getColor()
-    {
-        return color;
-    }
-
-    public void setColor(int color)
-    {
-        this.color = color;
-    }
 
     public int getPoints()
     {
@@ -107,4 +117,59 @@ public class User implements Serializable, Comparable<User> {
         }
         return 0;
     }
+
+    public boolean addDestinationCard(DestinationCard card){
+        return destCards.add(card);
+    }
+
+    public ArrayList<DestinationCard> getDestCards() { return destCards; }
+
+    //Cards stuff
+    public void addTrainCard(TrainCard card){
+        TrainCard c = colorCards.get(card.getColor());
+        if(c != null) {
+            c.incNum();
+            colorCards.put(card.getColor(), c);
+        }
+        else{
+            colorCards.put(card.getColor(), card);
+        }
+    }
+    public ArrayList<TrainCard> getTrainCards(){
+        ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
+        return arrayOfCards;
+    }
+
+    public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
+    
+
+    public void increasePoints(int addPoints) {
+        points += Math.abs(addPoints);
+    }
+
+    public void decreasePoints(int subtractPoints) {
+        points -= Math.abs(subtractPoints);
+
+        // Can't go less than 0 points
+        if (points < 0)
+            points = 0;
+    }
+
+    public void setPoints(int newValue) {
+        if (newValue > 0)
+            points = newValue;
+        else
+            points = 0;
+    }
+
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+
 }

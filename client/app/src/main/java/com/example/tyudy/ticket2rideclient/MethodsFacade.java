@@ -123,8 +123,14 @@ public class MethodsFacade {
          DataTransferObject dto = new DataTransferObject();
          dto.setCommand("gameList");
          ServerProxy.SINGLETON.listGames(dto);
-
      }
+
+    public void getCommands(int index) {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setCommand(("getCommands"));
+        dto.setData(Integer.toString(index));
+        ServerProxy.SINGLETON.getCommands(dto);
+    }
 
     /**
      * Joins the currentUser into the game that was clicked on in the GameSelectionFragment.

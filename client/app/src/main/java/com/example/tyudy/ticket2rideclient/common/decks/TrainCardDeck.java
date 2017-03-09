@@ -4,12 +4,18 @@ import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by zacheaton on 3/7/17.
  */
-public class TrainCardDeck implements iDeck {
+public class TrainCardDeck implements iDeck, Serializable
+{
+
+    List<iCard> cards = new ArrayList<iCard>();
 
     //initialize the deck
     public TrainCardDeck(){
@@ -24,25 +30,17 @@ public class TrainCardDeck implements iDeck {
         this.addCard(newWild);
         this.shuffle();
     }
-
-    @Override
-    public void shuffle()
-    {
+    public void shuffle(){
         Collections.shuffle(this.cards);
-    }
+    };
 
-    @Override
-    public void addCard(iCard card)
-    {
+    public  void addCard(iCard card){
         this.cards.add(card);
     }
-
-    @Override
-    public iCard getCard()
-    {
+    public  iCard getCard(){
         if(cards.size()>0) {
-            iCard myCard = cards.get(cards.size());
-            cards.remove(cards.size());
+            iCard myCard = cards.get(cards.size() - 1);
+            cards.remove(cards.size() - 1);
             return myCard;
         }
         else{

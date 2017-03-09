@@ -2,11 +2,13 @@ package com.example.tyudy.ticket2rideclient.common.cards;
 
 import com.example.tyudy.ticket2rideclient.common.Destination;
 
+import java.io.Serializable;
+
 /**
  * Created by zacheaton on 3/2/17.
  */
 
-public class DestinationCard implements iCard{
+public class DestinationCard implements iCard, Serializable {
     Destination destination;
     int pointValue;
 
@@ -18,9 +20,8 @@ public class DestinationCard implements iCard{
         return pointValue;
     }
 
-    public DestinationCard(Destination d, int points) {
-        destination = d;
-        pointValue = points;
+    public DestinationCard() {
+
     }
 
 }

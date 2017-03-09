@@ -110,13 +110,13 @@ public class TTRGame implements Serializable
 
     }
     public void dealDestCard(User u){
-        DestinationCard myCard = (DestinationCard)  getMyDestDeck().getCard();
+        DestinationCard myCard = (DestinationCard) getMyDestDeck().getCard();
         u.addDestinationCard(myCard);
 
     }
 
 
-    public void setUsers(ArrayList<User> users) {
-        this.players = (Set<User>) users;
+    public void setUsers(Set<User> users) {
+        this.players = users;
     }
 }

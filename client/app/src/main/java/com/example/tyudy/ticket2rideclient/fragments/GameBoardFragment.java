@@ -184,10 +184,12 @@ public class GameBoardFragment extends Fragment implements iObserver
     private class PlayerAdapter extends ArrayAdapter<User> {
 
         private Context mContext;
+        private ArrayList<User> users;
 
         public PlayerAdapter(Context context, int resourceId, ArrayList<User> items) {
             super(context, resourceId, items);
             this.mContext = context;
+            this.users = items;
         }
 
         /*private view holder class*/
@@ -196,7 +198,6 @@ public class GameBoardFragment extends Fragment implements iObserver
             TextView mPoints;
             TextView mTrains;
             TextView mDest;
-
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {

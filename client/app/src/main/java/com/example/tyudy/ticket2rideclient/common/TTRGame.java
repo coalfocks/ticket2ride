@@ -4,6 +4,7 @@ import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -81,7 +82,7 @@ public class TTRGame implements Serializable
         this.ownerUsername = ownerUsername;
     }
 
-    public Set<User> getPlayers()
+    public Set<User> getUsers()
     {
         return players;
     }
@@ -100,4 +101,6 @@ public class TTRGame implements Serializable
     {
         this.gameID = gameID;
     }
+
+
 }

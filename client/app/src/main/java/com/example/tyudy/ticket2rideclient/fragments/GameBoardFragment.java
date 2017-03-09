@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.tyudy.ticket2rideclient.common.Color;
-import com.example.tyudy.ticket2rideclient.common.Destination;
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
-import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
@@ -43,12 +37,10 @@ public class GameBoardFragment extends Fragment implements iObserver
 
     private ImageButton mDestCardsButton;
     private SlidingUpPanelLayout mChat;
+
+    private ArrayList<User> mUsers;
     
     private GameBoardPresenter mGameBoardPresenter;
-    private Player mThisPlayer;
-    private ArrayList<User> mPlayers;
-    private ArrayList<String> mPlayerNames;
-    private ArrayList<TrainCard> mCards;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -76,8 +68,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        golden.setUsername("daisy");
 //        golden.setColor(Color.MAGENTA);
 //        golden.addPoints(10000000);
-
-        mPlayers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getPlayers());
 //        mPlayers.add(pug);
 //        mPlayers.add(cat);
 //        mPlayers.add(milo);
@@ -92,6 +82,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 //            mCards.add(myCard);
 //        }
         // set current player
+        mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
 
 //        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
         //mCards = new ArrayList<TrainCard>();
@@ -170,7 +161,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         });
 
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
-                R.layout.points_fragment, mPlayers));
+                R.layout.points_fragment, mUsers));
 
         //observe function to make it change with updated info
         this.observe();
@@ -181,13 +172,12 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mPlayers));
+        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
 //        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
 //                R.layout.points_fragment, mCards));
 
     }
 
-    public Player getCurrentPlayer() { return mThisPlayer; }
 
     private class PlayerAdapter extends ArrayAdapter<User> {
 
@@ -220,7 +210,35 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = (ViewHolder) convertView.getTag();
 
             holder.mUsername.setText(user.getUsername().toUpperCase());
-            holder.mUsername.setBackgroundColor(user.getColor());
+            switch( user.getColor()) {
+                case YELLOW:
+                    holder.mUsername.setBackgroundColor(YELLOW);
+                    break;
+                case PURPLE:
+                    holder.mUsername.setBackgroundColor(PURPLE);
+                    break;
+                case BLACK:
+                    holder.mUsername.setBackgroundColor(BLACK);
+                    break;
+                case WHITE:
+                    holder.mUsername.setBackgroundColor(WHITE);
+                    break;
+                case GREEN:
+                    holder.mUsername.setBackgroundColor(GREEN);
+                    break;
+                case ORANGE:
+                    holder.mUsername.setBackgroundColor(ORANGE);
+                    break;
+                case BLUE:
+                    holder.mUsername.setBackgroundColor(BLUE);
+                    break;
+                case RED:
+                    holder.mUsername.setBackgroundColor(RED);
+                    break;
+                default:
+                    holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
+                    break;
+            }
             holder.mPoints.setText(String.valueOf(user.getPoints()));
 
             return convertView;

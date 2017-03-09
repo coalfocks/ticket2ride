@@ -1,21 +1,20 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
-import android.util.Log;
-
-import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 
 /**
- * Created by tyudy on 3/3/17.
+ * Created by colefox on 3/3/17.
  */
-
-public class InitializeChatRoomCommand extends Command implements iCommand, Serializable {
-
+public class GetCommandsCommand extends Command implements iCommand, Serializable {
     private DataTransferObject data;
 
     @Override
@@ -25,7 +24,15 @@ public class InitializeChatRoomCommand extends Command implements iCommand, Seri
 
     @Override
     public DataTransferObject execute() {
-        // Tell the MethodsFacade to update the model accordingly
+        try {
+            ArrayList<Command> commands = (ArrayList<Command>) Serializer.deserialize(data.getData());
+            for (Command c : commands) {
+                c.execute();
+                Poller.getInstance().incIndex();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

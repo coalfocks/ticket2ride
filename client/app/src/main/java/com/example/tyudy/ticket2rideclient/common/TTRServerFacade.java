@@ -40,4 +40,6 @@ public class TTRServerFacade
         return null;
     }
 
+    public DataTransferObject getCommands(DataTransferObject data) {return null; }
+
 }

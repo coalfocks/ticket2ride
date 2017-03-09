@@ -39,9 +39,10 @@ public class GameBoardActivity extends AppCompatActivity {
         if(fragment == null)
         {
             fragment = new GameBoardFragment();
+            Fragment chat = new ChatFragment();
             fm.beginTransaction()
                     .add(R.id.activity_game_board, fragment)
-                    //.add(R.id.points_holder, new ChatFragment())
+                    .add(R.id.chat_container, new ChatFragment())
                     .commit();
         }
     }

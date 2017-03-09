@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Stack;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
+import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
+
 
 /**
  * Created by tyudy on 2/7/17.
@@ -21,12 +28,12 @@ public class User implements Serializable, Comparable<User> {
     private int playerID;
     private int inGame;
     private int points = 0;
-
     private Color color;
+    private User associatedUser;
+  
+    private ArrayList<Path> claimedPaths;    
     private Map<Color, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
-    private ArrayList<Path> claimedPaths;
-
 
     public User()
     {
@@ -37,6 +44,8 @@ public class User implements Serializable, Comparable<User> {
         points = 0;
         destCards = new ArrayList<>();
         claimedPaths = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+        this.color = BLACK;
     }
 
     public User(String username, String password, int playerID, int inGame)
@@ -45,8 +54,16 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
+      
         destCards = new ArrayList<>();
         claimedPaths = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+      
+        TrainCard myCard = new TrainCard();
+        myCard.setColor(WHITE);
+        this.addTrainCard(myCard);
+        
+        this.color = BLACK;
     }
 
 
@@ -99,7 +116,7 @@ public class User implements Serializable, Comparable<User> {
     public void addPoints(int pointValue) {
         this.points += pointValue;
     }
-
+  
     @Override
     public int compareTo(User o)
     {
@@ -224,4 +241,6 @@ public class User implements Serializable, Comparable<User> {
 
         return false;
     }
+
+
 }

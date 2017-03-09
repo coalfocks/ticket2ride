@@ -1,8 +1,12 @@
 package com.example.tyudy.ticket2rideclient.common;
 
-import java.util.ArrayList;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
+import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
+
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,57 +19,104 @@ public class TTRGame implements Serializable
     private int gameID;
     private int ownerID;
     private String ownerUsername;
-    private Set<Integer> players = new TreeSet<Integer>();
+    private Set<User> players = new TreeSet<User>();
+
+    private TrainCardDeck myTrainDeck;
+    private DestinationCardDeck myDestDeck;
 
     public TTRGame()
     {
     }
 
-    public int getInProgress() {
+    public void setMyTrainDeck(TrainCardDeck myTrainDeck) {
+        this.myTrainDeck = myTrainDeck;
+    }
+
+    public void setMyDestDeck(DestinationCardDeck myDestDeck) {
+        this.myDestDeck = myDestDeck;
+    }
+
+    public TrainCardDeck getMyTrainDeck() {
+        return myTrainDeck;
+    }
+
+    public DestinationCardDeck getMyDestDeck() {
+        return myDestDeck;
+    }
+
+    public int getInProgress()
+    {
         return inProgress;
     }
 
-    public void setInProgress(int inProgress) {
+    public void setInProgress(int inProgress)
+    {
         this.inProgress = inProgress;
     }
 
-    public int getOwnerID() {
+    public int getOwnerID()
+    {
         return ownerID;
     }
 
-    public void setOwnerID(int ownerID) {
+    public void setOwnerID(int ownerID)
+    {
         this.ownerID = ownerID;
     }
 
-    public void addPlayer(int playerID) {
-        players.add(playerID);
+    public void addPlayer(User player)
+    {
+        players.add(player);
     }
 
-    public int getNumPlayers(){
+    public int getNumPlayers()
+    {
         return players.size();
     }
 
-    public String getOwnerUsername() {
+    public String getOwnerUsername()
+    {
         return ownerUsername;
     }
 
-    public void setOwnerUsername(String ownerUsername) {
+    public void setOwnerUsername(String ownerUsername)
+    {
         this.ownerUsername = ownerUsername;
     }
 
-    public Set<Integer> getPlayers() {
+    public Set<User> getUsers()
+    {
         return players;
     }
 
-    public void setPlayers(Set<Integer> players) {
+    public void setPlayers(Set<User> players)
+    {
         this.players = players;
     }
 
-    public int getGameID() {
+    public int getGameID()
+    {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(int gameID)
+    {
         this.gameID = gameID;
+    }
+
+    public void dealTrainCard(User u){
+        TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
+        u.addTrainCard(myCard);
+
+    }
+    public void dealDestCard(User u){
+        DestinationCard myCard = (DestinationCard) getMyDestDeck().getCard();
+        u.addDestinationCard(myCard);
+
+    }
+
+
+    public void setUsers(Set<User> users) {
+        this.players = users;
     }
 }

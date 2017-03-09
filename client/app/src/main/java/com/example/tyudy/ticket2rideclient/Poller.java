@@ -16,12 +16,14 @@ public class Poller  implements Runnable
     private static Poller poller;
     private boolean stop;
     private int wait;
+    private int queueIndex;
 
 
     private Poller(){
         poller = null;
         stop = false;
         wait = 2;
+        queueIndex = 0;
     }
 
     public static Poller getInstance()
@@ -62,6 +64,10 @@ public class Poller  implements Runnable
         wait = seconds;
     }
 
+    public void incIndex () {
+        this.queueIndex++;
+    }
+
     /**
      * Poll method, called every [amount of time] by ClientCommunicator
      */
@@ -75,6 +81,10 @@ public class Poller  implements Runnable
                 ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) ||
                 (ClientModel.SINGLETON.getCurrentUser() != null)) {
             MethodsFacade.SINGLETON.getGameList();
+        }
+        if (ClientModel.SINGLETON.getCurrentTTRGame() != null  &&
+            ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+            MethodsFacade.SINGLETON.getCommands(queueIndex);
         }
     }
 

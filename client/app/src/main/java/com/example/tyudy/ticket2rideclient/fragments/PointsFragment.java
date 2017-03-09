@@ -46,11 +46,12 @@ public class PointsFragment extends Fragment {
     /**
      * This method must be called before viewing the fragment.
      * Calling this method will set canDo to true.
-     * @param player The player associated with the points showing (not null)
+     * @param user The player associated with the points showing (not null)
      */
-    public void setUser(User player) {
-        if (player != null) {
-            this.user = player;
+    public void setPlayer(User user) {
+        if (user != null) {
+            this.user = user;
+
             canDo = true;
         }
     }

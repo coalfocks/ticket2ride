@@ -39,6 +39,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private SlidingUpPanelLayout mChat;
 
     private ArrayList<User> mUsers;
+    private ArrayList<TrainCard> mCards;
     
     private GameBoardPresenter mGameBoardPresenter;
 
@@ -84,7 +85,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         // set current player
         mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
 
-//        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
+        mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
         //mCards = new ArrayList<TrainCard>();
 //        for(int i = 0; i < 10; i++){
 //            TrainCard myCard = new TrainCard();
@@ -173,8 +174,8 @@ public class GameBoardFragment extends Fragment implements iObserver
     public void observe()
     {
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
-//        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
-//                R.layout.points_fragment, mCards));
+        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+                R.layout.points_fragment, mCards));
 
     }
 
@@ -192,6 +193,9 @@ public class GameBoardFragment extends Fragment implements iObserver
         private class ViewHolder {
             TextView mUsername;
             TextView mPoints;
+            TextView mTrains;
+            TextView mDest;
+
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -205,6 +209,8 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = new ViewHolder();
                 holder.mUsername = (TextView) convertView.findViewById(R.id.player_username);
                 holder.mPoints = (TextView) convertView.findViewById(R.id.player_points);
+                holder.mTrains = (TextView) convertView.findViewById(R.id.train_cards);
+                holder.mDest = (TextView) convertView.findViewById(R.id.dest_cards);
                 convertView.setTag(holder);
             } else
                 holder = (ViewHolder) convertView.getTag();
@@ -240,6 +246,10 @@ public class GameBoardFragment extends Fragment implements iObserver
                     break;
             }
             holder.mPoints.setText(String.valueOf(user.getPoints()));
+            String trains = "Train Cards: " + String.valueOf(user.getTrainCards().size());
+            holder.mTrains.setText(trains);
+            String dest = "Dest Cards: " + String.valueOf(user.getDestCards().size());
+            holder.mDest.setText(dest);
 
             return convertView;
         }

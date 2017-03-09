@@ -5,7 +5,12 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
+import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
+import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -20,7 +25,7 @@ public class User implements Serializable, Comparable<User> {
 
     private Color color;
     private User associatedUser;
-    private Map<Color, TrainCard> colorCards;
+    private Map<Color, TrainCard> colorCards = new HashMap<Color, TrainCard>();;
     private ArrayList<DestinationCard> destCards;
 
 
@@ -31,6 +36,9 @@ public class User implements Serializable, Comparable<User> {
         playerID = 0;
         inGame = 0;
         points = 0;
+        destCards = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+        this.color = BLACK;
     }
 
     public User(String username, String password, int playerID, int inGame)
@@ -39,6 +47,12 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
+        TrainCard myCard = new TrainCard();
+        myCard.setColor(WHITE);
+        this.addTrainCard(myCard);
+        destCards = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+        this.color = BLACK;
     }
 
 

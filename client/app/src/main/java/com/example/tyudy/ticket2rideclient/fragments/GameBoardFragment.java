@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -216,7 +217,12 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = (ViewHolder) convertView.getTag();
 
             holder.mUsername.setText(user.getUsername().toUpperCase());
-            switch( user.getColor()) {
+            Color color = user.getColor();
+            if(color == null){
+                holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
+            }
+            else{
+            switch( color) {
                 case YELLOW:
                     holder.mUsername.setBackgroundColor(YELLOW);
                     break;
@@ -244,6 +250,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                 default:
                     holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
                     break;
+            }
             }
             holder.mPoints.setText(String.valueOf(user.getPoints()));
             String trains = "Train Cards: " + String.valueOf(user.getTrainCards().size());

@@ -24,4 +24,12 @@ public class Path {
 
     public void setOwner(Player p) { owner = p; }
     public Player getOwner() { return owner; }
+
+    /**
+     * Draws the path on screen between the two connected cities
+     * @param c - The color that we want to draw the path
+     */
+    public void draw(Color c){
+        // I'll implement this soon - Ty
+    }
 }

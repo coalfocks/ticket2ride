@@ -21,14 +21,14 @@
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:background="@drawable/blue_usa">
 
             <!-- The United States Image -->
-            <ImageView
-                android:id="@+id/UnitedStatesImage"
+            <View
+                android:id="@+id/custom_view_holder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/blue_usa" />
+                android:layout_height="wrap_content"/>
 
             <ImageButton
                 android:id="@+id/dest_cards_button"

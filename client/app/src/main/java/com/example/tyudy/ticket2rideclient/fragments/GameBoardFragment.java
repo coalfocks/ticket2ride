@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,6 +41,7 @@ import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.GameBoardPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
+import com.example.tyudy.ticket2rideclient.views.MapView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
@@ -57,6 +59,9 @@ public class GameBoardFragment extends Fragment implements iObserver
 
     private ImageButton mDestCardsButton;
     private ImageView mUnitedStatesImage;
+    private FrameLayout mMapHolderFL;
+    private MapView mMapView;
+
     private SlidingUpPanelLayout mChat;
     
     private GameBoardPresenter mGameBoardPresenter;
@@ -154,13 +159,15 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
         });
 
-        mUnitedStatesImage = (ImageView) v.findViewById(R.id.UnitedStatesImage);
+//        mUnitedStatesImage = (ImageView) v.findViewById(R.id.UnitedStatesImage);
+        mMapHolderFL = (FrameLayout) v.findViewById(R.id.content_frame);
+        mMapView = new MapView(getContext());
+        mMapHolderFL.addView(mMapView);
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.gameplay_layout);
         mPlayerScores = (ListView) v.findViewById(R.id.left_drawer);
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
-        initializeDrawingHelper();
 
 
 //        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
@@ -179,7 +186,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 
 
         // Listener to print coordinates when the image is clicked on
-        mUnitedStatesImage.setOnTouchListener(new View.OnTouchListener() {
+        mMapView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 Display display = mWindowManager.getDefaultDisplay();
@@ -195,10 +202,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                     Toast.makeText(getContext(), "x: " + x + " y: " + y +
                             "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
 
-                    PointF start = new PointF(300, 300);
-                    PointF stop = new PointF(500, 300);
-
-                    DrawingHelper.drawLine(start, stop, android.graphics.Color.BLUE);
+                    mMapView.reDraw();
                 }
                 return true;
             }
@@ -232,24 +236,24 @@ public class GameBoardFragment extends Fragment implements iObserver
 
     }
 
-    /**
-     * This must be called before any drawing is done
-     */
-    public void initializeDrawingHelper(){
-        // Tell the DrawingHelper the size of the game so we can draw
-        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = mWindowManager.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        DrawingHelper.setViewWidth(size.x);
-        DrawingHelper.setViewHeight(size.y);
-
-        // Set the canvas in the Drawing Helper so that we are all ready to draw
-        Bitmap workingBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.united_states_image);
-        Bitmap mutableBitmap = workingBitMap.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvas = new Canvas(mutableBitmap);
-        DrawingHelper.setCanvas(canvas);
-    }
+//    /**
+//     * This must be called before any drawing is done
+//     */
+//    public void initializeDrawingHelper(){
+//        // Tell the DrawingHelper the size of the game so we can draw
+//        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//        Display display = mWindowManager.getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        DrawingHelper.setViewWidth(size.x);
+//        DrawingHelper.setViewHeight(size.y);
+//
+//        // Set the canvas in the Drawing Helper so that we are all ready to draw
+//        Bitmap workingBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.united_states_image);
+//        Bitmap mutableBitmap = workingBitMap.copy(Bitmap.Config.ARGB_8888, true);
+//        Canvas canvas = new Canvas(mutableBitmap);
+//        DrawingHelper.setCanvas(canvas);
+//    }
 
     public Player getCurrentPlayer() { return mThisPlayer; }
 

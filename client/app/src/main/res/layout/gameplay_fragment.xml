@@ -14,7 +14,7 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/gameplay_layout"
         android:layout_width="match_parent"
-        android:background="@color/black"
+        android:background="#FFFFFF"
         android:layout_height="match_parent">
 
         <!-- The main content view -->
@@ -28,12 +28,12 @@
                 android:id="@+id/UnitedStatesImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/united_states_image" />
+                android:src="@drawable/blue_usa" />
 
             <ImageButton
                 android:id="@+id/dest_cards_button"
-                android:layout_width="135dp"
-                android:layout_height="143dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:scaleType="fitCenter"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="10dp"

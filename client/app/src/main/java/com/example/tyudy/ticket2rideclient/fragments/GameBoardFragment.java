@@ -2,18 +2,31 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.Destination;
@@ -21,6 +34,7 @@ import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -42,6 +56,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private ListView mMyInfo;
 
     private ImageButton mDestCardsButton;
+    private ImageView mUnitedStatesImage;
     private SlidingUpPanelLayout mChat;
     
     private GameBoardPresenter mGameBoardPresenter;
@@ -57,6 +72,8 @@ public class GameBoardFragment extends Fragment implements iObserver
         mGameBoardPresenter = PresenterHolder.SINGLETON.getGameBoardPresenter();
         mGameBoardPresenter.setGameBoardFragment(this);
         ClientModel.SINGLETON.addObserver(this);
+
+
 
 //        User pug = new User();
 //        pug.setUsername("pug");
@@ -109,58 +126,85 @@ public class GameBoardFragment extends Fragment implements iObserver
         super.onResume();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState)
     {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.gameplay_fragment, container, false);
 
+        // Tester listener to print coordinates when they are clicked on for city location finding
+        v.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                Display display = mWindowManager.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int maxX = size.x;
+                int maxY = size.y;
+
+                // Display display =  getWindowManager().getDefaultDisplay();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int x = (int) event.getX();
+                    int y = (int) event.getY();
+                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
+                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+
+        mUnitedStatesImage = (ImageView) v.findViewById(R.id.UnitedStatesImage);
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.gameplay_layout);
         mPlayerScores = (ListView) v.findViewById(R.id.left_drawer);
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
+        initializeDrawingHelper();
 
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//
-//        fm.beginTransaction();
-//        Fragment chat = new ChatFragment();
-//        ft.add(R.id.chat_container, chat);
-//        ft.commit();
 
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener()
-        {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset)
-            {
+//        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
+//        usaViewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                mUnitedStatesImage.getViewTreeObserver().removeOnPreDrawListener(this);
+//                int height = mUnitedStatesImage.getMeasuredHeight();
+//                int width = mUnitedStatesImage.getMeasuredWidth();
+//                initializeDrawingHelper(height, width);
+//                return true;
+//            }
+//        });
 
-            }
 
-            @Override
-            public void onDrawerOpened(View drawerView)
-            {
 
-            }
 
-            @Override
-            public void onDrawerClosed(View drawerView)
-            {
+        // Listener to print coordinates when the image is clicked on
+        mUnitedStatesImage.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                Display display = mWindowManager.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int maxX = size.x;
+                int maxY = size.y;
 
-            }
+                // Display display =  getWindowManager().getDefaultDisplay();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int x = (int) event.getX();
+                    int y = (int) event.getY();
+                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
+                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onDrawerStateChanged(int newState)
-            {
+                    PointF start = new PointF(300, 300);
+                    PointF stop = new PointF(500, 300);
 
+                    DrawingHelper.drawLine(start, stop, android.graphics.Color.BLUE);
+                }
+                return true;
             }
         });
+
+
 
         mDestCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +222,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         return v;
     }
 
+
     @Override
     public void observe()
     {
@@ -185,6 +230,25 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
 //                R.layout.points_fragment, mCards));
 
+    }
+
+    /**
+     * This must be called before any drawing is done
+     */
+    public void initializeDrawingHelper(){
+        // Tell the DrawingHelper the size of the game so we can draw
+        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = mWindowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        DrawingHelper.setViewWidth(size.x);
+        DrawingHelper.setViewHeight(size.y);
+
+        // Set the canvas in the Drawing Helper so that we are all ready to draw
+        Bitmap workingBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.united_states_image);
+        Bitmap mutableBitmap = workingBitMap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mutableBitmap);
+        DrawingHelper.setCanvas(canvas);
     }
 
     public Player getCurrentPlayer() { return mThisPlayer; }
@@ -289,6 +353,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 
             return convertView;
         }
+
     }
 
     private final int YELLOW = android.graphics.Color.YELLOW;

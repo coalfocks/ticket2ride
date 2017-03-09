@@ -18,7 +18,6 @@ public class User implements Serializable, Comparable<User> {
     private int inGame;
     private int points = 0;
 
-    private String name;
     private Color color;
     private User associatedUser;
     private Map<Color, TrainCard> colorCards;
@@ -128,14 +127,7 @@ public class User implements Serializable, Comparable<User> {
     }
 
     public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
-
-    public void setName(String newName){
-        this.name = newName;
-    }
-
-    public String getName() {
-        return name;
-    }
+    
 
     public void increasePoints(int addPoints) {
         points += Math.abs(addPoints);

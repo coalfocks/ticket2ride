@@ -50,7 +50,7 @@ public class ChatPresenter implements iObserver {
         if (!mChatMessage.equals(""))
         {
             // Before sending to the server, patch on player's name before message
-            String playerName = ClientModel.SINGLETON.getCurrentPlayer().getName();
+            String playerName = ClientModel.SINGLETON.getCurrentUser().getUsername();
             StringBuilder message =
                     new StringBuilder(playerName + ": " + mChatMessage);
 

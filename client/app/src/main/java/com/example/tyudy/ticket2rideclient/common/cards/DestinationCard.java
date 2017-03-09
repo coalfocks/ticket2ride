@@ -7,8 +7,8 @@ import com.example.tyudy.ticket2rideclient.common.Destination;
  */
 
 public class DestinationCard {
-    Destination destination;
-    int pointValue;
+    private Destination destination;
+    private int pointValue;
 
     public Destination getDestination() {
         return destination;
@@ -23,4 +23,8 @@ public class DestinationCard {
         pointValue = points;
     }
 
+    @Override
+    public String toString() {
+        return destination.toString() + " Point Value: " + pointValue;
+    }
 }

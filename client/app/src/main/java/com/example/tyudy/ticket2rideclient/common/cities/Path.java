@@ -1,10 +1,8 @@
 package com.example.tyudy.ticket2rideclient.common.cities;
 
 import android.util.Pair;
-import android.util.StringBuilderPrinter;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 /**
@@ -46,7 +44,7 @@ public class Path {
         String color = "Color: " + pathColor.toString();
         String length = ", Length: " + distance;
         String cities = ", Cities: " + connectedCities.first.getCityName()
-                + " | " + connectedCities.second.getCityName();
+                + " <-> " + connectedCities.second.getCityName();
         String ownr = "\nOwner: ";
 
         if (owner != null)

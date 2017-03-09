@@ -35,7 +35,8 @@ public class City {
 
     public City(String cityName) {
         mCityName = cityName;
-
+        mPaths = new ArrayList<>();
+        mCoordinates = null;
     }
 
     public void setCoordinate(PointF coordinate) { mCoordinates = coordinate; }
@@ -87,6 +88,7 @@ public class City {
 
     /**
      * Needs to be called during game set-up
+     * Todo: Still need to get points attached to cities
      */
     public static void initAllCities() {
         TreeMap<String, City> cities = new TreeMap<>();
@@ -260,6 +262,12 @@ public class City {
         cityPaths.add(oklahoma_santafe);
         cityPaths.add(phoenix_santafe);
         Santa_Fe.setPaths(new ArrayList<Path>(cityPaths));
+        cityPaths.clear();
+
+        // LAS VEGAS
+        cityPaths.add(lasvegas_la);
+        cityPaths.add(lasvegas_slc);
+        Las_Vegas.setPaths(new ArrayList<Path>(cityPaths));
         cityPaths.clear();
 
         Path elpaso_oklahoma = new Path(YELLOW, 5, El_Paso, Oklahoma_City);
@@ -583,6 +591,9 @@ public class City {
 
         City city = (City) obj;
         if (!city.mPaths.equals(this.mPaths)) return false;
+        if (!city.mCityName.equals(this.mCityName)) return false;
+        if (city.mCoordinates != null && this.mCoordinates != null)
+            if (!city.mCoordinates.equals(this.mCoordinates)) return false;
 
         return super.equals(obj);
     }

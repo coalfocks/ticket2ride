@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.Destination;
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -45,9 +45,8 @@ public class GameBoardFragment extends Fragment implements iObserver
     private SlidingUpPanelLayout mChat;
     
     private GameBoardPresenter mGameBoardPresenter;
-    private Player mThisPlayer;
+    private User mThisUser;
     private ArrayList<User> mUsers;
-    private ArrayList<Player> mPlayers;
     private ArrayList<String> mPlayerNames;
     private ArrayList<TrainCard> mCards;
 
@@ -89,17 +88,35 @@ public class GameBoardFragment extends Fragment implements iObserver
         golden.setColor(Color.PURPLE);
         golden.addPoints(10000000);
 
-        // Testing using the Player class in lou of User class
-        Player p1 = new Player(pug, pug.getUsername(), pug.getColorEnum());
-        Player p2 = new Player(cat, cat.getUsername(), cat.getColorEnum());
-        Player p3 = new Player(milo, milo.getUsername(), milo.getColorEnum());
-        Player p4 = new Player(golden, golden.getUsername(), golden.getColorEnum());
+        Destination d = new Destination(ClientModel.SINGLETON.getCityByName("Atlanta"),
+                                        ClientModel.SINGLETON.getCityByName("St. Louis"));
+        DestinationCard card = new DestinationCard(d, 5);
+        milo.addDestinationCard(card);
+        milo.addDestinationCard(new DestinationCard(new
+                Destination(ClientModel.SINGLETON.getCityByName("Montreal"),
+                ClientModel.SINGLETON.getCityByName("Los Angeles")), 16));
 
-        Destination d = new Destination(1, 2); // from source: 1 to dest: 2
-        DestinationCard card = new DestinationCard(d, 5); // 5 points
-        p4.addDestinationCard(card);
-        p4.addDestinationCard(new DestinationCard(new Destination(55, 3), 16));
-        p4.addDestinationCard(new DestinationCard(new Destination(32, 9), 8));
+        milo.addDestinationCard(new DestinationCard(new
+                Destination(ClientModel.SINGLETON.getCityByName("Washington DC"),
+                ClientModel.SINGLETON.getCityByName("Nashville")), 8));
+
+        Path p1 = ClientModel.SINGLETON.getCityByName("Atlanta").getPathTo(
+                ClientModel.SINGLETON.getCityByName("Nashville")
+        );
+        Path p2 = ClientModel.SINGLETON.getCityByName("Nashville").getPathTo(
+                ClientModel.SINGLETON.getCityByName("St. Louis")
+        );
+        Path p3 = ClientModel.SINGLETON.getCityByName("Nashville").getPathTo(
+                ClientModel.SINGLETON.getCityByName("Pittsburgh")
+        );
+        Path p4 = ClientModel.SINGLETON.getCityByName("Pittsburgh").getPathTo(
+                ClientModel.SINGLETON.getCityByName("Washington DC")
+        );
+        milo.claimPath(p1);
+        milo.claimPath(p2);
+        milo.claimPath(p3);
+        milo.claimPath(p4);
+
         // ---------------------------------------------------
 
         mUsers = new ArrayList<>();
@@ -108,23 +125,11 @@ public class GameBoardFragment extends Fragment implements iObserver
         mUsers.add(milo);
         mUsers.add(golden);
 
-        mPlayers = new ArrayList<>();
-        mPlayers.add(p1);
-        mPlayers.add(p2);
-        mPlayers.add(p3);
-        mPlayers.add(p4);
-
-        mThisPlayer = p4;   // set current player
-
-//        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
-        //mCards = new ArrayList<TrainCard>();
-//        for(int i = 0; i < 10; i++){
-//            TrainCard myCard = new TrainCard();
-//            myCard.setColor(Color.YELLOW);
-//            myCard.setNum(i);
-//            mCards.add(myCard);
-//        }
+        mThisUser = milo;   // set current player (FOR TESTING)
+        ClientModel.SINGLETON.setCurrentUser(mThisUser);
     }
+
+    public User getCurrentUser() { return mThisUser; }
 
     @Override
     public void onResume()
@@ -202,8 +207,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 
     }
 
-    public Player getCurrentPlayer() { return mThisPlayer; }
-
     private class PlayerAdapter extends ArrayAdapter<User> {
 
         private Context mContext;
@@ -235,7 +238,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = (ViewHolder) convertView.getTag();
 
             holder.mUsername.setText(user.getUsername().toUpperCase());
-            holder.mUsername.setBackgroundColor(user.getColor());
+            //holder.mUsername.setBackgroundColor(user.getColorEnum());
             holder.mPoints.setText(String.valueOf(user.getPoints()));
 
             return convertView;

@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.cities;
 
 import android.graphics.PointF;
+import android.util.Pair;
 
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -33,7 +34,6 @@ public class City {
     private PointF mCoordinates;
 
     public City(String cityName) {
-        //mConnectedCities = null;
         mCityName = cityName;
 
     }
@@ -585,5 +585,25 @@ public class City {
         if (!city.mPaths.equals(this.mPaths)) return false;
 
         return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String name = mCityName.toUpperCase() + " | Connected Cities:";
+        sb.append(name);
+
+        for (Path path : mPaths)
+        {
+            sb.append("\n");
+            Pair<City, City> pair = path.getCities();
+
+            if (pair.first.equals(this))
+                sb.append(pair.second.mCityName);
+            else
+                sb.append(pair.first.mCityName);
+        }
+
+        return sb.toString();
     }
 }

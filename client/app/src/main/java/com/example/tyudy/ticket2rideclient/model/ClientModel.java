@@ -163,4 +163,6 @@ public class ClientModel implements iObservable {
         mCities = cities;
     }
 
+    public City getCityByName(String name) { return mCities.get(name); }
+
 }

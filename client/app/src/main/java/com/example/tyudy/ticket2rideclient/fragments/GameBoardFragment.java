@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.Destination;
@@ -19,6 +20,7 @@ import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -56,6 +58,17 @@ public class GameBoardFragment extends Fragment implements iObserver
         mGameBoardPresenter = PresenterHolder.SINGLETON.getGameBoardPresenter();
         mGameBoardPresenter.setGameBoardFragment(this);
         ClientModel.SINGLETON.addObserver(this);
+
+        City.initAllCities();
+
+        // TEST PURPOSES ----------------------
+//        Toast.makeText(getContext(), "Cities Initialized", Toast.LENGTH_SHORT).show();
+//
+//        Toast.makeText(getContext(), ClientModel.SINGLETON.getCityByName("Atlanta").toString(),
+//                Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), ClientModel.SINGLETON.getCityByName("Duluth").toString(),
+//                Toast.LENGTH_LONG).show();
+        // ------------------------------------
 
         User pug = new User();
         pug.setUsername("pug");

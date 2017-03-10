@@ -177,41 +177,6 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
 
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//
-//        fm.beginTransaction();
-//        Fragment chat = new ChatFragment();
-//        ft.add(R.id.chat_container, chat);
-//        ft.commit();
-
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener()
-        {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset)
-            {
-
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView)
-            {
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView)
-            {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState)
-            {
-
-            }
-        });
-
         mDestCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -312,9 +277,9 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
             
             holder.mPoints.setText(String.valueOf(user.getPoints()));
-            String trains = "Train Cards: " + String.valueOf(user.getTrainCards().size());
+            String trains = "Train: " + String.valueOf(user.getTrainCards().size());
             holder.mTrains.setText(trains);
-            String dest = "Dest Cards: " + String.valueOf(user.getDestCards().size());
+            String dest = "Dest: " + String.valueOf(user.getDestCards().size());
             holder.mDest.setText(dest);
 
             return convertView;
@@ -350,8 +315,9 @@ public class GameBoardFragment extends Fragment implements iObserver
                 convertView.setTag(holder);
             } else
                 holder = (ViewHolder) convertView.getTag();
-                holder.mUsername.setText(String.valueOf(myCard.getNum()));
-                switch(myCard.getColor()) {
+                holder.mUsername.setText(String.valueOf(myCard.getNum() + 1));
+                switch( myCard.getColor()) {
+
                     case YELLOW:
                         holder.mUsername.setBackgroundColor(YELLOW);
                         break;

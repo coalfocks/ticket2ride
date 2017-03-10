@@ -20,7 +20,17 @@ public class InitializeGameCommand extends Command implements iCommand, Serializ
 
     @Override
     public DataTransferObject execute() {
-        //update the current player
+        try {
+            TTRGame game = (TTRGame) Serializer.deserialize(data.getData());
+            ClientModel.SINGLETON.setCurrentTTRGame(game);
+            for (User u : game.getUsers()) {
+                if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                    ClientModel.SINGLETON.setCurrentUser(u);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

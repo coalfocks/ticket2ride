@@ -4,9 +4,11 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
@@ -31,14 +33,19 @@ private DataTransferObject data;
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         else{
+            try {
+                TTRGame game = (TTRGame) Serializer.deserialize(data.getData());
+                ClientModel.SINGLETON.setCurrentTTRGame(game);
+                for (User u : game.getUsers()) {
+                    if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                        ClientModel.SINGLETON.setCurrentUser(u);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
             ((GameLobbyActivity) jeffery).onStartGame();
-        }
-        Set<User> players = ClientModel.SINGLETON.getCurrentTTRGame().getUsers();
-        for (User u : players) {
-            if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-                ClientModel.SINGLETON.getCurrentUser().setColor(u.getColor());
-            }
         }
         return null;
     }

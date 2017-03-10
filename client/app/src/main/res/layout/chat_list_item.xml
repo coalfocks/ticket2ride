@@ -5,8 +5,9 @@
               android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="28dp"
         android:textSize="18dp"
+        android:gravity="top"
         android:id="@+id/chat_message"/>
 
 </LinearLayout>

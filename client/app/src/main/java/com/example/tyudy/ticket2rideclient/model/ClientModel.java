@@ -274,7 +274,6 @@ public class ClientModel implements iObservable {
         allCities.add(Washington_DC);
         allCities.add(Winnipeg);
 
-
         //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order-------------------------------
         Path Calgary_to_Vancouver = new Path(Color.COLORLESS, 3, Calgary, Vancouver);
         Path Calgary_to_Winnipeg = new Path(Color.WHITE, 6, Calgary, Winnipeg);
@@ -428,8 +427,7 @@ public class ClientModel implements iObservable {
         allPaths.add(Raleigh_to_Washington);
         allPaths.add(Sault_St_Marie_to_Winnipeg);
         allPaths.add(Toronto_to_Sault_St_Marie);
-
-
+      
         // Add all of the Paths to the array list of paths
 
 
@@ -454,6 +452,11 @@ public class ClientModel implements iObservable {
     }
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
+
+    public void claimRoute(Path path) {
+        this.getCurrentTTRGame().claimPath(path);
+        notifyObservers();
+    }
 
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+
 /**
  * Created by Trevor on 3/8/2017.
  */
@@ -88,16 +89,16 @@ public class City implements Serializable {
      */
     public int getDistTo(City city) {
         if (isConnectedTo(city))
-            return mConnectedCities.get(city).distance;
+            return mConnectedCities.get(city).getPoints();
 
         return -1;
     }
 
-     /* Getter function to return the path between the two cities
-     * @param city The connected city to get the path to
-     * @return Path to the given city, if connected. Null if no connection exists,
-     *  or if the given city is the current city
-     */
+    /* Getter function to return the path between the two cities
+    * @param city The connected city to get the path to
+    * @return Path to the given city, if connected. Null if no connection exists,
+    *  or if the given city is the current city
+    */
     public Path getPathTo(City city) {
         if (city.equals(this))
             return null;
@@ -649,3 +650,4 @@ public class City implements Serializable {
         return "";
     }
 }
+

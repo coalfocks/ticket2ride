@@ -2,8 +2,10 @@ package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class TTRGame implements Serializable
     private int mTurnIndex = 0;
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
+    private Set<Path> paths = new TreeSet<>();
 
     public TTRGame()
     {
@@ -112,6 +115,19 @@ public class TTRGame implements Serializable
     public void setmTurnIndex(int mTurnIndex)
     {
         this.mTurnIndex = mTurnIndex;
+    }
+
+    public void claimPath(Path path) {
+        for (Path p : this.paths) {
+            if (p.getCities().equals(path.getCities())) {
+                p.setOwner(path.getOwner());
+                for (User u : this.getUsers()) {
+                    if (u.getPlayerID() == path.getOwner().getPlayerID()) {
+                        u.addPoints(path.getPoints());
+                    }
+                }
+            }
+        }
     }
 
     public void dealTrainCard(User u){

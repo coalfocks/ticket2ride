@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
@@ -34,8 +35,8 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
         } else {
             try {
                 Path path = (Path) Serializer.deserialize(data.getData());
-                ClientModel.SINGLETON.getCurrentTTRGame().claimPath(path);
-                Toast.makeText(jeffery, "Route Claimed", Toast.LENGTH_LONG).show();
+                ClientModel.SINGLETON.claimRoute(path);
+                Toast.makeText(jeffery, "Route Claimed" + Poller.getInstance().getQueueIndex(), Toast.LENGTH_SHORT).show();
             } catch(Exception e){
                 e.printStackTrace();
             }

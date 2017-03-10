@@ -1,6 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common.cards;
 
-import com.example.tyudy.ticket2rideclient.common.Color;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 
 import java.io.Serializable;
 
@@ -14,9 +14,9 @@ import java.io.Serializable;
  *
  */
 public class TrainCard implements iCard, Serializable {
-    public Color color;
+    public ColorENUM color;
     public int num;
-    public TrainCard(Color color){
+    public TrainCard(ColorENUM color){
         this.num = 0;
         this.color = color;
     }
@@ -33,11 +33,11 @@ public class TrainCard implements iCard, Serializable {
         return num;
     }
 
-    public void setColor(Color color) {
+    public void setColor(ColorENUM color) {
         this.color = color;
     }
 
-    public Color getColor() {
+    public ColorENUM getColor() {
         return color;
     }
 

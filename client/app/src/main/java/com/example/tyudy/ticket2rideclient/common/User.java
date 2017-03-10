@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Stack;
 
-import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
-import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLACK;
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.WHITE;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -26,10 +26,10 @@ public class User implements Serializable, Comparable<User> {
     private int inGame;
     private int points = 0;
 
-    private Color color;
+    private ColorENUM color;
 
     private ArrayList<Path> claimedPaths;
-    private Map<Color, TrainCard> colorCards;
+    private Map<ColorENUM, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
 
 
@@ -41,7 +41,7 @@ public class User implements Serializable, Comparable<User> {
         inGame = 0;
         points = 0;
         destCards = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
+        colorCards = new HashMap<ColorENUM, TrainCard>();
         claimedPaths = new ArrayList<>();
         this.color = BLACK;
     }
@@ -56,13 +56,13 @@ public class User implements Serializable, Comparable<User> {
       
         destCards = new ArrayList<>();
         //claimedPaths = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
+        colorCards = new HashMap<ColorENUM, TrainCard>();
       
         TrainCard myCard = new TrainCard();
         myCard.setColor(WHITE);
         this.addTrainCard(myCard);
         destCards = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
+        colorCards = new HashMap<ColorENUM, TrainCard>();
         this.color = BLACK;
     }
 
@@ -151,7 +151,7 @@ public class User implements Serializable, Comparable<User> {
         return arrayOfCards;
     }
 
-    public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
+    public TrainCard getNumCardsOfColor(ColorENUM c) { return colorCards.get(c); }
 
     public void increasePoints(int addPoints) {
         points += Math.abs(addPoints);
@@ -173,11 +173,11 @@ public class User implements Serializable, Comparable<User> {
     }
 
 
-    public Color getColor() {
+    public ColorENUM getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(ColorENUM color) {
         this.color = color;
     }
 

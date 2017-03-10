@@ -64,9 +64,11 @@ public class Poller  implements Runnable
         wait = seconds;
     }
 
-    public void incIndex () {
-        this.queueIndex++;
+    public void incIndex (int amt) {
+        this.queueIndex += amt;
     }
+
+    public int getQueueIndex() { return this.queueIndex; }
 
     /**
      * Poll method, called every [amount of time] by ClientCommunicator

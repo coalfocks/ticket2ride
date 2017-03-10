@@ -1,6 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common.decks;
 
-import com.example.tyudy.ticket2rideclient.common.Color;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
 
@@ -19,13 +19,13 @@ public class TrainCardDeck implements iDeck, Serializable
 
     //initialize the deck
     public TrainCardDeck(){
-        for (Color c : Color.values()){
+        for (ColorENUM c : ColorENUM.values()){
             for(int i = 0; i < 12; i++){
                 TrainCard newCard = new TrainCard(c);
                 this.addCard(newCard);
             }
         }
-        TrainCard newWild = new TrainCard(Color.COLORLESS);
+        TrainCard newWild = new TrainCard(ColorENUM.COLORLESS);
         this.addCard(newWild);
         this.addCard(newWild);
         this.shuffle();

@@ -2,41 +2,26 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
-import com.example.tyudy.ticket2rideclient.common.Color;
-import com.example.tyudy.ticket2rideclient.common.Destination;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
-import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
-import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
@@ -224,12 +209,10 @@ public class GameBoardFragment extends Fragment implements iObserver
             public void onClick(View v) {
                 // Test 1
                 if(testCounter == 0) {
-                    City a = ClientModel.SINGLETON.getCityByName("New York");
-                    City b = ClientModel.SINGLETON.getCityByName("Boston");
-                    Path path = new Path(Color.RED, 30, a, b);
+                    Path path = ClientModel.SINGLETON.getAllPaths().get(0);
                     MethodsFacade.SINGLETON.claimPath(path);
 
-                    mMapView.reDrawWithLineBetween(a, b);
+                    mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
                     testCounter = 1;
                 } else {
                     City c = ClientModel.SINGLETON.getCityByName("Atlanta");
@@ -302,8 +285,10 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
+        mPlayerScores.invalidate();
         mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
+        mMyInfo.invalidate();
         mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
         mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
                 R.layout.points_fragment, mCards));
@@ -353,7 +338,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder.mUsername.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
             }
             
-            Color color = user.getColor();
+            ColorENUM color = user.getColor();
             if(color == null){
                 holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
             }

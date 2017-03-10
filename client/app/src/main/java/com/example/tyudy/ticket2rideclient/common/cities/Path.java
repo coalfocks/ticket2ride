@@ -1,6 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common.cities;
 
-import com.example.tyudy.ticket2rideclient.common.Color;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.io.Serializable;
@@ -12,18 +12,20 @@ import java.util.TreeSet;
  */
 
 public class Path implements Serializable {
-    private Color pathColor;
+    private ColorENUM pathColor;
     private int distance;
     private ArrayList<City> connectedCities;
     private User owner;
+    private String name;
 
-    public Path(Color c, int dist, City city1, City city2) {
+    public Path(ColorENUM c, int dist, City city1, City city2, String n) {
         pathColor = c;
         distance = dist;
         connectedCities = new ArrayList<>();
         connectedCities.add(city1);
         connectedCities.add(city2);
         owner = null;
+        name = n;
     }
 
     public void setOwner(User p) { owner = p; }
@@ -42,5 +44,9 @@ public class Path implements Serializable {
 
         TreeSet<City> cities = new TreeSet<>(connectedCities);
         return cities.contains(city);
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

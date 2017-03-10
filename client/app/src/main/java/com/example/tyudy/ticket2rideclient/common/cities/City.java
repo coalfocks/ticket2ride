@@ -39,7 +39,10 @@ public class City implements Serializable {
         mPaths = new ArrayList<>();
     }
 
-    public City(){}
+    public City(){
+
+    }
+
 
     public float getxPosScale(){
         return xPosScale;
@@ -51,13 +54,16 @@ public class City implements Serializable {
 
     public void setConnectedCities(Map<City, Path> cc) { mConnectedCities = cc; }
 
+    /**
+     * A function to find if a city is connected to another
+     */
     public String getCityName() { return mCityName; }
 
     public void setPaths(ArrayList<Path> paths) { this.mPaths = paths; }
     public ArrayList<Path> getPaths() { return mPaths; }
 
     /**
-     * A function to find if a city is connected to another
+     * A function to findif a city is connected to another
      * @param city The city the question is about
      * @return True if the two are connected, false otherwise
      */
@@ -113,6 +119,7 @@ public class City implements Serializable {
      * COMMENTED OUT BECAUSE THIS NEEDS TO HAPPEN IN THE ClientModel.
      * Each individual city should initialize all the cities.
      * Needs to be called during game set-up
+     * Todo: Still need to get points attached to cities
      */
     public static void initAllCities() {
 //        TreeMap<String, City> cities = new TreeMap<>();

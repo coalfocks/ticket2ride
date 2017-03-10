@@ -108,12 +108,12 @@ public class TTRGame implements Serializable
         this.gameID = gameID;
     }
 
-    public int getTurnIndex()
+    public int getmTurnIndex()
     {
         return mTurnIndex;
     }
 
-    public void setTurnIndex(int mTurnIndex)
+    public void setmTurnIndex(int mTurnIndex)
     {
         this.mTurnIndex = mTurnIndex;
     }

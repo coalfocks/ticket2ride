@@ -48,6 +48,7 @@ public class GameLobbyActivity extends AppCompatActivity {
 
     public void onStartGame(){
         // Launch GameBoardActivity Activity
+        ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(1);
         Intent i = new Intent(this, GameBoardActivity.class);
         startActivity(i);
     }

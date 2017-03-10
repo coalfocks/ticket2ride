@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient.common.commands;
 
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 
 import java.io.Serializable;
@@ -9,9 +10,7 @@ import java.io.Serializable;
 /**
  * Created by tyudy on 3/3/17.
  */
-
-public class InitializeTrainCardsCommand extends Command implements iCommand, Serializable {
-
+public class InitializeGameCommand extends Command implements iCommand, Serializable {
     private DataTransferObject data;
 
     @Override
@@ -21,7 +20,7 @@ public class InitializeTrainCardsCommand extends Command implements iCommand, Se
 
     @Override
     public DataTransferObject execute() {
-        // Tell the MethodsFacade to update the model accordingly
+        //update the current player
         return null;
     }
 }

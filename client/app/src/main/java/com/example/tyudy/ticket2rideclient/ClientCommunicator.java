@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.InitializeGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
@@ -155,6 +157,10 @@ public class ClientCommunicator {
                        SendChatCommand sendChatCommand = new SendChatCommand();
                        sendChatCommand.setData(responseDTO);
                        sendChatCommand.execute();
+                   case "getCommands" :
+                       GetCommandsCommand getCommandsCommand = new GetCommandsCommand();
+                       getCommandsCommand.setData(responseDTO);
+                       getCommandsCommand.execute();
                    default:
                        break;
                }

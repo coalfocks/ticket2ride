@@ -16,6 +16,8 @@ public interface iTTRServer
 
     DataTransferObject listGames(DataTransferObject data);
 
+    DataTransferObject getCommands(DataTransferObject data);
+
     DataTransferObject joinGame(DataTransferObject data);
 
     DataTransferObject login(DataTransferObject data);

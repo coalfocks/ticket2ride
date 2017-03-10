@@ -27,7 +27,7 @@ public class SendChatCommand extends Command implements iCommand, Serializable {
     @Override
     public DataTransferObject execute() {
         try {
-            String newChat = (String) Serializer.deserialize(data.getData());
+            String newChat = data.getData();
             MethodsFacade.SINGLETON.addChat(newChat);
         } catch (Exception e)
         {

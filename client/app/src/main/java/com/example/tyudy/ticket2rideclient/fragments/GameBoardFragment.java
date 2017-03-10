@@ -10,8 +10,6 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -32,12 +30,11 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.Destination;
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
-import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -67,9 +64,14 @@ public class GameBoardFragment extends Fragment implements iObserver
     private SlidingUpPanelLayout mChat;
 
     private GameBoardPresenter mGameBoardPresenter;
-    private ArrayList<User> mPlayers;
 
     int testCounter = 0;
+    private User mThisUser;
+    private ArrayList<User> mUsers;
+    private ArrayList<String> mPlayerNames;
+    private ArrayList<TrainCard> mCards;
+   
+    private GameBoardPresenter mGameBoardPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -80,7 +82,17 @@ public class GameBoardFragment extends Fragment implements iObserver
         ClientModel.SINGLETON.addObserver(this);
 
 
+        City.initAllCities();
 
+        // TEST PURPOSES ----------------------
+//        Toast.makeText(getContext(), "Cities Initialized", Toast.LENGTH_SHORT).show();
+//
+//        Toast.makeText(getContext(), ClientModel.SINGLETON.getCityByName("Atlanta").toString(),
+//                Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), ClientModel.SINGLETON.getCityByName("Duluth").toString(),
+//                Toast.LENGTH_LONG).show();
+        // ------------------------------------
+        
 //        User pug = new User();
 //        pug.setUsername("pug");
 //        pug.setColor(Color.RED);
@@ -99,8 +111,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        golden.setUsername("daisy");
 //        golden.setColor(Color.MAGENTA);
 //        golden.addPoints(10000000);
-
-        mPlayers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getPlayers());
 //        mPlayers.add(pug);
 //        mPlayers.add(cat);
 //        mPlayers.add(milo);
@@ -114,9 +124,44 @@ public class GameBoardFragment extends Fragment implements iObserver
 //            myCard.setNum(i);
 //            mCards.add(myCard);
 //        }
-        // set current player
 
-//        mCards = ClientModel.SINGLETON.getCurrentPlayer().getTrainCards();
+//         Destination d = new Destination(ClientModel.SINGLETON.getCityByName("Atlanta"),
+//                                         ClientModel.SINGLETON.getCityByName("St. Louis"));
+//         DestinationCard card = new DestinationCard(d, 5);
+//         milo.addDestinationCard(card);
+//         milo.addDestinationCard(new DestinationCard(new
+//                 Destination(ClientModel.SINGLETON.getCityByName("Montreal"),
+//                 ClientModel.SINGLETON.getCityByName("Los Angeles")), 16));
+
+//         milo.addDestinationCard(new DestinationCard(new
+//                 Destination(ClientModel.SINGLETON.getCityByName("Washington DC"),
+//                 ClientModel.SINGLETON.getCityByName("Nashville")), 8));
+
+//         Path p1 = ClientModel.SINGLETON.getCityByName("Atlanta").getPathTo(
+//                 ClientModel.SINGLETON.getCityByName("Nashville")
+//         );
+//         Path p2 = ClientModel.SINGLETON.getCityByName("Nashville").getPathTo(
+//                 ClientModel.SINGLETON.getCityByName("St. Louis")
+//         );
+//         Path p3 = ClientModel.SINGLETON.getCityByName("Nashville").getPathTo(
+//                 ClientModel.SINGLETON.getCityByName("Pittsburgh")
+//         );
+//         Path p4 = ClientModel.SINGLETON.getCityByName("Pittsburgh").getPathTo(
+//                 ClientModel.SINGLETON.getCityByName("Washington DC")
+//         );
+//         milo.claimPath(p1);
+//         milo.claimPath(p2);
+//         milo.claimPath(p3);
+//         milo.claimPath(p4);
+
+        // ---------------------------------------------------
+
+
+
+        // set current player
+        mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
+
+        mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
         //mCards = new ArrayList<TrainCard>();
 //        for(int i = 0; i < 10; i++){
 //            TrainCard myCard = new TrainCard();
@@ -124,7 +169,12 @@ public class GameBoardFragment extends Fragment implements iObserver
 //            myCard.setNum(i);
 //            mCards.add(myCard);
 //        }
+//         mThisUser = milo;   // set current player (FOR TESTING)
+//         ClientModel.SINGLETON.setCurrentUser(mThisUser);
+
     }
+
+    public User getCurrentUser() { return mThisUser; }
 
     @Override
     public void onResume()
@@ -239,7 +289,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         });
 
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
-                R.layout.points_fragment, mPlayers));
+                R.layout.points_fragment, mUsers));
 
         //observe function to make it change with updated info
         this.observe();
@@ -251,45 +301,29 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mPlayers));
-//        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
-//                R.layout.points_fragment, mCards));
+        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
+        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+                R.layout.points_fragment, mCards));
 
     }
-
-//    /**
-//     * This must be called before any drawing is done
-//     */
-//    public void initializeDrawingHelper(){
-//        // Tell the DrawingHelper the size of the game so we can draw
-//        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-//        Display display = mWindowManager.getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//        DrawingHelper.setViewWidth(size.x);
-//        DrawingHelper.setViewHeight(size.y);
-//
-//        // Set the canvas in the Drawing Helper so that we are all ready to draw
-//        Bitmap workingBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.united_states_image);
-//        Bitmap mutableBitmap = workingBitMap.copy(Bitmap.Config.ARGB_8888, true);
-//        Canvas canvas = new Canvas(mutableBitmap);
-//        DrawingHelper.setCanvas(canvas);
-//    }
-
 
     private class PlayerAdapter extends ArrayAdapter<User> {
 
         private Context mContext;
+        private ArrayList<User> users;
 
         public PlayerAdapter(Context context, int resourceId, ArrayList<User> items) {
             super(context, resourceId, items);
             this.mContext = context;
+            this.users = items;
         }
 
         /*private view holder class*/
         private class ViewHolder {
             TextView mUsername;
             TextView mPoints;
+            TextView mTrains;
+            TextView mDest;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -303,13 +337,55 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = new ViewHolder();
                 holder.mUsername = (TextView) convertView.findViewById(R.id.player_username);
                 holder.mPoints = (TextView) convertView.findViewById(R.id.player_points);
+                holder.mTrains = (TextView) convertView.findViewById(R.id.train_cards);
+                holder.mDest = (TextView) convertView.findViewById(R.id.dest_cards);
                 convertView.setTag(holder);
             } else
                 holder = (ViewHolder) convertView.getTag();
 
             holder.mUsername.setText(user.getUsername().toUpperCase());
-            holder.mUsername.setBackgroundColor(user.getColor());
+            
+            Color color = user.getColor();
+            if(color == null){
+                holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
+            }
+            else{
+            switch(color) {
+                case YELLOW:
+                    holder.mUsername.setBackgroundColor(YELLOW);
+                    break;
+                case PURPLE:
+                    holder.mUsername.setBackgroundColor(PURPLE);
+                    break;
+                case BLACK:
+                    holder.mUsername.setBackgroundColor(BLACK);
+                    break;
+                case WHITE:
+                    holder.mUsername.setBackgroundColor(WHITE);
+                    break;
+                case GREEN:
+                    holder.mUsername.setBackgroundColor(GREEN);
+                    break;
+                case ORANGE:
+                    holder.mUsername.setBackgroundColor(ORANGE);
+                    break;
+                case BLUE:
+                    holder.mUsername.setBackgroundColor(BLUE);
+                    break;
+                case RED:
+                    holder.mUsername.setBackgroundColor(RED);
+                    break;
+                default:
+                    holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
+                    break;
+              }
+            }
+            
             holder.mPoints.setText(String.valueOf(user.getPoints()));
+            String trains = "Train Cards: " + String.valueOf(user.getTrainCards().size());
+            holder.mTrains.setText(trains);
+            String dest = "Dest Cards: " + String.valueOf(user.getDestCards().size());
+            holder.mDest.setText(dest);
 
             return convertView;
         }
@@ -345,7 +421,7 @@ public class GameBoardFragment extends Fragment implements iObserver
             } else
                 holder = (ViewHolder) convertView.getTag();
                 holder.mUsername.setText(String.valueOf(myCard.getNum()));
-                switch( myCard.getColor()) {
+                switch(myCard.getColor()) {
                     case YELLOW:
                         holder.mUsername.setBackgroundColor(YELLOW);
                         break;

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.R;
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 /**
@@ -19,7 +18,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 public class CardsFragment extends Fragment {
 
     private TextView player_points;
-    private Player player = null;
+    private User user = null;
     private boolean canDo = false;
 
     @Override
@@ -33,13 +32,13 @@ public class CardsFragment extends Fragment {
             View v = inflater.inflate(R.layout.cards_fragment, container, false);
 //needs to go
             player_points = (TextView) v.findViewById(R.id.player_points);
-            player_points.setText(player.getPoints());
+            player_points.setText(user.getPoints());
 
             return v;
         }
         else
         {
-            Toast.makeText(this.getContext(), "You must set the appropriate player with setPlayer()", Toast.LENGTH_SHORT);
+            Toast.makeText(this.getContext(), "You must set the appropriate player with setUser()", Toast.LENGTH_SHORT);
             return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
@@ -47,11 +46,12 @@ public class CardsFragment extends Fragment {
     /**
      * This method must be called before viewing the fragment.
      * Calling this method will set canDo to true.
-     * @param player The player associated with the points showing (not null)
+     * @param user The player associated with the points showing (not null)
      */
-    public void setPlayer(Player player) {
-        if (player != null) {
-            this.player = player;
+    public void setPlayer(User user) {
+        if (user != null) {
+            this.user = user;
+
             canDo = true;
         }
     }

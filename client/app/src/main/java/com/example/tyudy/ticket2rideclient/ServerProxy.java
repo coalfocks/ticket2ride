@@ -5,13 +5,17 @@ import android.util.Log;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
 import com.google.gson.Gson;
+
+import java.io.IOException;
 
 /**
  * Created by tyudy on 2/27/17.
@@ -60,6 +64,22 @@ public class ServerProxy implements iTTRServer {
     @Override
     public DataTransferObject listGames(DataTransferObject data) {
         Command newCommand = new ListGamesCommand();
+        newCommand.setData(data);
+        try {
+            String commandString = Serializer.serialize(newCommand);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.d("MethodsFacade", e.getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    @Override
+    public DataTransferObject getCommands(DataTransferObject data) {
+        Command newCommand = new GetCommandsCommand();
         newCommand.setData(data);
         try {
             String commandString = Serializer.serialize(newCommand);
@@ -144,7 +164,17 @@ public class ServerProxy implements iTTRServer {
 
     @Override
     public DataTransferObject sendChatMessage(DataTransferObject data) {
-        // NEEDS TO BE IMPLEMENTED STILL
+
+        SendChatCommand newCommand = new SendChatCommand();
+        newCommand.setData(data);
+
+        try {
+            String commandString = Serializer.serialize(newCommand);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
+        }
         return null;
     }
 

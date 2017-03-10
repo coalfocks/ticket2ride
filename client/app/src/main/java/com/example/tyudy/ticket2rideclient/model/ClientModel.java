@@ -8,7 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -20,9 +20,9 @@ public class ClientModel implements iObservable {
     private ArrayList<TTRGame> mTTRGameList;
     private ArrayList<iObserver> obsList;
     private ArrayList<String> chatMsgs;
+    private TreeMap<String, City> mCities;
     private String ipAddress;
     private User currentUser;
-    private Player currentPlayer;
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
 
@@ -95,10 +95,6 @@ public class ClientModel implements iObservable {
         currentUser = u;
     }
 
-    public void setCurrentPlayer(Player p) {
-        currentPlayer = p;
-    }
-
     public void setCurrentTTRGame(TTRGame g){
         mCurrentTTRGame = g;
     }
@@ -107,9 +103,6 @@ public class ClientModel implements iObservable {
         return currentUser;
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
 
     public String getIpAddress(){
         return ipAddress;
@@ -286,5 +279,11 @@ public class ClientModel implements iObservable {
         }
         return null;
     }
+  
+    public void setCitiesList(TreeMap<String, City> cities) {
+        mCities = cities;
+    }
+
+    public City getCityInMapByName(String name) { return mCities.get(name); }
 
 }

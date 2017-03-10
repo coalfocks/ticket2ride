@@ -51,4 +51,8 @@ public class PresenterHolder {
         return mGameBoardPresenter;
     }
 
+    public ChatPresenter getChatPresenter(){
+        return mChatPresenter;
+    }
+
 }

@@ -15,15 +15,18 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
+import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.fragments.ChatFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
 import com.example.tyudy.ticket2rideclient.fragments.PointsFragment;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.GameBoardPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
@@ -48,7 +51,6 @@ public class GameBoardActivity extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.activity_game_board);
         //--------------------------------------------------------------------------------------
-
 
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.activity_game_board);

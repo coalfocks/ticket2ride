@@ -10,12 +10,14 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,8 +123,14 @@ public class MethodsFacade {
          DataTransferObject dto = new DataTransferObject();
          dto.setCommand("gameList");
          ServerProxy.SINGLETON.listGames(dto);
-
      }
+
+    public void getCommands(int index) {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setCommand(("getCommands"));
+        dto.setData(Integer.toString(index));
+        ServerProxy.SINGLETON.getCommands(dto);
+    }
 
     /**
      * Joins the currentUser into the game that was clicked on in the GameSelectionFragment.
@@ -164,6 +172,22 @@ public class MethodsFacade {
 
     public void addChat(String chat){
         ClientModel.SINGLETON.receiveNewChat(chat);
+    }
+
+    public void sendChatMessage(String chatMessage){
+        // We don't want to send an empty string to the server
+        if (!chatMessage.equals("")) {
+            // Before sending to the server, patch on player's name before message
+            String userName = ClientModel.SINGLETON.getCurrentUser().getUsername();
+            StringBuilder message =
+                    new StringBuilder(userName + ": " + chatMessage);
+
+            DataTransferObject dto = new DataTransferObject();
+            dto.setData(message.toString());
+            dto.setCommand("sendChat");
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            ServerProxy.SINGLETON.sendChatMessage(dto);
+        }
     }
 
     public void reset() {

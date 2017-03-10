@@ -14,23 +14,21 @@ public interface iTTRServer
 
     DataTransferObject endGame(DataTransferObject data);
 
-    DataTransferObject listGames(DataTransferObject data);
-
-    DataTransferObject getCommands(DataTransferObject data);
-
     DataTransferObject joinGame(DataTransferObject data);
 
     DataTransferObject login(DataTransferObject data);
 
     DataTransferObject register(DataTransferObject data);
 
-    DataTransferObject initializeTrainCards(DataTransferObject data);
+    DataTransferObject listGames(DataTransferObject data);
 
-    DataTransferObject initializeDestinationCards(DataTransferObject data);
-
-    DataTransferObject initializeChatRoom(DataTransferObject data);
+    DataTransferObject initializeGame(DataTransferObject data);
 
     DataTransferObject sendChatMessage(DataTransferObject data);
 
     DataTransferObject updateGameplay(DataTransferObject data);
+
+    DataTransferObject claimPath(DataTransferObject data);
+
+    DataTransferObject getCommands(DataTransferObject data);
 }

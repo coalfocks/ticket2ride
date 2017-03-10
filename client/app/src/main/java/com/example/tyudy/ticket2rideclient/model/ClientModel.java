@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.cities.City;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
@@ -24,6 +25,7 @@ public class ClientModel implements iObservable {
     private User currentUser;
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
+    private ArrayList<Path> allPaths;
 
 
     private ClientModel(){
@@ -35,6 +37,7 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         initCities();
+        initPaths();
     }
 
     /**
@@ -142,10 +145,9 @@ public class ClientModel implements iObservable {
     }
 
     /**
-     * This method doesn't necessarily need to be in the ClientModel,
-     * but I didn't have anywhere else to put it. So for now, it sits here
+     * Initialize all cities in the map with a name and location
      */
-    public void initCities(){
+    private void initCities(){
         /*
          * List of cities:
          * Atlanta
@@ -262,6 +264,18 @@ public class ClientModel implements iObservable {
         allCities.add(Washington_DC);
         allCities.add(Winnipeg);
 
+
+    }
+
+    /**
+     * Initialize all cities in the map with a name and location
+     */
+    private void initPaths(){
+
+        //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order
+        Path Seattle_to_Vancouver = new Path()
+        City
+        // Add all of the Paths to the array list of paths
 
     }
 

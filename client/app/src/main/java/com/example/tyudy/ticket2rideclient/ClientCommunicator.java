@@ -142,12 +142,12 @@ public class ClientCommunicator {
                        createGameCommand.setData(responseDTO);
                        createGameCommand.execute();
                        break;
-                   case "start":
-                       //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO);
-                       StartGameCommand startGameCommand = new StartGameCommand();
-                       startGameCommand.setData(responseDTO);
-                       startGameCommand.execute();
-                       break;
+//                   case "start":
+//                       //MethodsFacade.SINGLETON.passBackDTOStart(responseDTO);
+//                       StartGameCommand startGameCommand = new StartGameCommand();
+//                       startGameCommand.setData(responseDTO);
+//                       startGameCommand.execute();
+//                       break;
                    case "gameList":
                       // MethodsFacade.SINGLETON.updateGameList(responseDTO);
                        ListGamesCommand listGamesCommand = new ListGamesCommand();

@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient;
 
+import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -86,7 +87,7 @@ public class Poller  implements Runnable
             MethodsFacade.SINGLETON.getGameList();
         }
         if (ClientModel.SINGLETON.getCurrentTTRGame() != null  &&
-            ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+            MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class) {
             MethodsFacade.SINGLETON.getCommands(queueIndex);
         }
     }

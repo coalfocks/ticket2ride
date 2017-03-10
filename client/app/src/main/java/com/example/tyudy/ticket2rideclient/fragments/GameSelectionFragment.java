@@ -24,6 +24,7 @@ import com.example.tyudy.ticket2rideclient.presenters.GameSelectionPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -80,6 +81,23 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         if (ClientModel.SINGLETON.getCurrentTTRGame() != null && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
             ((GameLobbyActivity) getContext()).onStartGame();      // Start new activity
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        ClientModel.SINGLETON.addObserver((iObserver) this);
     }
 
     public class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

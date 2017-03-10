@@ -1,12 +1,16 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.cities.City;
-import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
+import com.
+  example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
+
+import java.util.Observer;
+
 import java.util.TreeMap;
 
 /**
@@ -41,6 +45,7 @@ public class ClientModel implements iObservable {
      * Add an observer to the list of observers stored inside this observable
      */
     public void addObserver(iObserver observer){
+
         obsList.add(observer);
     }
 
@@ -139,6 +144,11 @@ public class ClientModel implements iObservable {
             }
         }
         return mCurrentTTRGame;
+    }
+
+
+    public void removeObserver(iObserver observer) {
+        obsList.remove(observer);
     }
 
     /**

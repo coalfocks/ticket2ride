@@ -8,6 +8,7 @@ import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
@@ -188,6 +189,19 @@ public class MethodsFacade {
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             ServerProxy.SINGLETON.sendChatMessage(dto);
         }
+    }
+
+    /**
+     * Send a path to the server and tell it its ready to go
+     * @param path - path to be claimed
+     */
+    public void claimPath(Path path){
+        DataTransferObject dto = new DataTransferObject();
+        String pathData = gson.toJson(path);
+        dto.setData(pathData);
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("claimPath");
+        ServerProxy.SINGLETON.claimPath(dto);
     }
 
     public void reset() {

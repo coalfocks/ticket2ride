@@ -42,6 +42,7 @@ public class User implements Serializable, Comparable<User> {
         points = 0;
         destCards = new ArrayList<>();
         colorCards = new HashMap<Color, TrainCard>();
+        claimedPaths = new ArrayList<>();
         this.color = BLACK;
     }
 

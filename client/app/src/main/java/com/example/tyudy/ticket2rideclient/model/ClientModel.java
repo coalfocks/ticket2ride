@@ -1,8 +1,9 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
-import com.
-  example.tyudy.ticket2rideclient.interfaces.iObservable;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
@@ -28,6 +29,7 @@ public class ClientModel implements iObservable {
     private User currentUser;
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
+    private ArrayList<Path> allPaths;
 
 
     private ClientModel(){
@@ -38,7 +40,8 @@ public class ClientModel implements iObservable {
         currentUser = null;
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
-        initCities();
+        allPaths = new ArrayList<>();
+        initCitiesAndPaths();
     }
 
     /**
@@ -152,10 +155,9 @@ public class ClientModel implements iObservable {
     }
 
     /**
-     * This method doesn't necessarily need to be in the ClientModel,
-     * but I didn't have anywhere else to put it. So for now, it sits here
+     * Initialize all cities in the map with a name and location
      */
-    public void initCities(){
+    private void initCitiesAndPaths(){
         /*
          * List of cities:
          * Atlanta
@@ -273,7 +275,166 @@ public class ClientModel implements iObservable {
         allCities.add(Winnipeg);
 
 
+        //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order-------------------------------
+        Path Calgary_to_Vancouver = new Path(Color.COLORLESS, 3, Calgary, Vancouver);
+        Path Calgary_to_Winnipeg = new Path(Color.WHITE, 6, Calgary, Winnipeg);
+        Path Calgary_to_Helena = new Path(Color.COLORLESS, 4, Calgary, Helena);
+        //Path Calgary_to_Seattle = new Path(Color.COLORLESS, 4, Calgary, Seattle);     NOT IMPLEMENTED IN OUR MAP
+        Path Dallas_to_ElPaso = new Path(Color.RED, 4, Dallas, El_Paso);
+        Path Dallas_to_OklahomaCity = new Path(Color.COLORLESS, 2, Dallas, Oklahoma_City);
+        Path Dallas_to_Houston = new Path(Color.COLORLESS, 1, Dallas, Houston);
+        Path Denver_to_Phoenix = new Path(Color.WHITE, 5, Denver, Phoenix);
+        Path Denver_to_SaltLake = new Path(Color.YELLOW, 3, Denver, Salt_Lake);
+        Path Denver_to_OklahomaCity = new Path(Color.RED, 4, Denver, Oklahoma_City);
+        Path Denver_to_KansasCity = new Path(Color.BLACK, 4, Denver, Kansas_City);
+        Path Denver_to_SantaFe = new Path(Color.COLORLESS, 2, Denver, Santa_Fe);
+        Path Denver_to_Omaha = new Path(Color.PURPLE, 4, Denver, Omaha);
+        Path Denver_to_Helena = new Path(Color.GREEN, 4, Denver, Helena);
+        Path Duluth_to_Helena = new Path(Color.ORANGE, 6, Duluth, Helena);
+        Path Duluth_to_Omaha = new Path(Color.COLORLESS, 2, Duluth, Omaha);
+        Path ElPaso_Houston = new Path(Color.GREEN, 6, El_Paso, Houston);
+        Path ElPaso_to_OklahomaCity = new Path(Color.YELLOW, 5, El_Paso, Oklahoma_City);
+        Path ElPaso_to_SantaFe = new Path(Color.COLORLESS, 2, El_Paso, Santa_Fe);
+        Path ElPaso_to_LosAngeles = new Path(Color.BLACK, 6, El_Paso, Los_Angeles);
+        Path ElPaso_to_Phoenix = new Path(Color.COLORLESS, 3, El_Paso, Phoenix);
+        Path Helena_to_Seattle = new Path(Color.YELLOW, 6, Seattle, Helena);
+        Path Helena_to_Winnipeg = new Path(Color.BLACK, 4, Helena, Winnipeg);
+        Path Helena_to_SaltLake = new Path(Color.PURPLE, 3, Helena, Salt_Lake);
+        Path Helena_to_Omaha = new Path(Color.RED, 5, Helena, Omaha);
+        Path KansasCity_to_Omaha = new Path(Color.COLORLESS, 1, Kansas_City, Omaha);
+        Path KansasCity_to_OklahomaCity = new Path(Color.COLORLESS, 2, Kansas_City, Oklahoma_City);
+        Path LasVegas_to_SaltLake = new Path(Color.ORANGE, 3, Las_Vegas, Salt_Lake);
+        Path OklahomaCity_to_SantaFe = new Path(Color.BLUE, 3, Oklahoma_City, Santa_Fe);
+        Path Phoenix_to_SantaFe = new Path(Color.COLORLESS, 3, Phoenix, Santa_Fe);
+        Path Portland_to_Seattle = new Path(Color.COLORLESS, 1, Portland, Seattle);
+        Path Portland_to_SanFrancisco = new Path(Color.GREEN, 5, Portland, San_Francisco);
+        Path Portland_to_SaltLake = new Path(Color.BLUE, 6, Portland, Salt_Lake);
+        //Path SaltLake_to_SanFrancisco = new Path(Color.)      NOT IMPLEMENTED IN OUR MAP
+        Path Seattle_to_Vancouver = new Path(Color.COLORLESS, 1, Seattle, Vancouver);
+        
+        
+        
+        Path Atlanta_to_Raleigh = new Path(Color.COLORLESS, 2, Atlanta, Raleigh);
+        Path Atlanta_to_Charleston = new Path(Color.COLORLESS, 2, Atlanta, Charleston);
+        Path Atlanta_to_Nashville = new Path(Color.COLORLESS, 1, Atlanta, Nashville);
+        Path Atlanta_to_New_Orleans = new Path(Color.ORANGE, 4,   Atlanta,New_Orleans);
+        Path Atlanta_to_Miami = new Path(Color.BLUE, 5,   Atlanta,Miami);
+        Path Boston_to_Montreal = new Path(Color.COLORLESS, 2, Boston,  Montreal);
+        Path Boston_to_New_York = new Path(Color.RED, 2, Boston,  New_York);
+        Path Charleston_to_Raleigh = new Path(Color.COLORLESS, 2, Charleston, Raleigh);
+        Path Charleston_to_Miami = new Path(Color.PURPLE, 4, Charleston, Miami);
+        Path Chicago_to_Toronto = new Path(Color.WHITE, 4, Chicago,Toronto);
+        Path Chicago_to_Duluth = new Path(Color.RED, 3, Chicago,Duluth);
+        Path Chicago_to_Omaha = new Path(Color.BLUE, 4, Chicago,Omaha);
+        Path Chicago_to_St_Louis = new Path(Color.GREEN, 2, Chicago,St_Louis);
+        Path Chicago_to_Pittsburgh = new Path(Color.BLACK, 3, Chicago,Pittsburgh);
+        Path Dallas_to_Little_Rock = new Path(Color.COLORLESS, 2,  Dallas, Little_Rock);
+        Path Duluth_to_Winnipeg = new Path(Color.BLACK,4, Duluth, Winnipeg );
+        Path Duluth_to_Sault_St_Marie = new Path(Color.COLORLESS,3, Duluth, Sault_St_Marie );
+        Path Duluth_to_Toronto = new Path(Color.PURPLE, 6, Duluth, Toronto);
+        Path Houston_to_New_Orleans = new Path(Color.COLORLESS, 2,   Houston, New_Orleans);
+        Path Kansas_City_to_St_Louis = new Path(Color.PURPLE, 2,  Kansas_City, St_Louis);
+        Path Little_Rock_to_Nashville = new Path(Color.WHITE, 3,  Little_Rock, Nashville);
+        Path Little_Rock_to_New_Orleans = new Path(Color.GREEN, 3,  Little_Rock, New_Orleans);
+        Path Little_Rock_to_St_Louis = new Path(Color.COLORLESS, 2,  Little_Rock, St_Louis);
+        Path Little_Rock_to_Oklahoma_City = new Path(Color.COLORLESS, 2,  Little_Rock, Oklahoma_City);
+        Path Montreal_to_Sault_St_Marie = new Path(Color.BLACK, 5, Montreal, Sault_St_Marie);
+        Path Montreal_to_New_York = new Path(Color.BLUE, 3, Montreal, New_York);
+        Path Montreal_to_Toronto = new Path(Color.COLORLESS, 3, Montreal, Toronto);
+        Path Nashville_to_Raleigh = new Path(Color.BLACK, 3,  Nashville, Raleigh);
+        Path Nashville_to_St_Louis = new Path(Color.COLORLESS, 2,  Nashville, St_Louis);
+        Path New_Orleans_to_Miami = new Path(Color.RED, 6,   New_Orleans, Miami);
+        Path New_York_to_Washington_DC = new Path(Color.ORANGE, 2, New_York, Washington_DC);
+        Path New_York_to_Pittsburgh = new Path(Color.GREEN, 2, New_York, Pittsburgh);
+        Path Pittsburgh_to_Toronto = new Path(Color.COLORLESS, 2, Pittsburgh,Toronto);
+        Path Pittsburgh_to_St_Louis = new Path(Color.GREEN, 5, Pittsburgh,St_Louis);
+        Path Pittsburgh_to_Nashville = new Path(Color.YELLOW, 4, Pittsburgh,Nashville);
+        Path Pittsburgh_to_Raleigh = new Path(Color.COLORLESS, 2, Pittsburgh,Raleigh);
+        Path Raleigh_to_Washington = new Path(Color.COLORLESS, 2, Raleigh,Washington_DC);
+        Path Sault_St_Marie_to_Winnipeg = new Path(Color.COLORLESS, 6, Sault_St_Marie , Winnipeg);
+        Path Toronto_to_Sault_St_Marie = new Path(Color.COLORLESS, 2, Toronto,Sault_St_Marie);
+
+
+        allPaths.add(Calgary_to_Vancouver);
+        allPaths.add(Calgary_to_Winnipeg);
+        allPaths.add(Calgary_to_Helena);
+        allPaths.add(Dallas_to_ElPaso);
+        allPaths.add(Dallas_to_OklahomaCity);
+        allPaths.add(Dallas_to_Houston);
+        allPaths.add(Denver_to_SaltLake);
+        allPaths.add(Denver_to_OklahomaCity);
+        allPaths.add(Denver_to_KansasCity);
+        allPaths.add(Denver_to_SantaFe);
+        allPaths.add(Denver_to_Omaha);
+        allPaths.add(Denver_to_Helena);
+        allPaths.add(Duluth_to_Helena);
+        allPaths.add(Duluth_to_Omaha);
+        allPaths.add(ElPaso_Houston);
+        allPaths.add(ElPaso_to_OklahomaCity);
+        allPaths.add(ElPaso_to_SantaFe);
+        allPaths.add(ElPaso_to_LosAngeles);
+        allPaths.add(ElPaso_to_Phoenix);
+        allPaths.add(Helena_to_Seattle);
+        allPaths.add(Helena_to_Winnipeg);
+        allPaths.add(Helena_to_SaltLake);
+        allPaths.add(Helena_to_Omaha);
+        allPaths.add(KansasCity_to_Omaha);
+        allPaths.add(KansasCity_to_OklahomaCity);
+        allPaths.add(LasVegas_to_SaltLake);
+        allPaths.add(OklahomaCity_to_SantaFe);
+        allPaths.add(Phoenix_to_SantaFe);
+        allPaths.add(Portland_to_Seattle);
+        allPaths.add(Portland_to_SanFrancisco);
+        allPaths.add(Portland_to_SaltLake);
+        allPaths.add(Seattle_to_Vancouver);
+
+
+        allPaths.add(Atlanta_to_Raleigh);
+        allPaths.add(Atlanta_to_Charleston);
+        allPaths.add(Atlanta_to_Nashville);
+        allPaths.add(Atlanta_to_New_Orleans);
+        allPaths.add(Atlanta_to_Miami);
+        allPaths.add(Boston_to_Montreal);
+        allPaths.add(Boston_to_New_York);
+        allPaths.add(Charleston_to_Raleigh);
+        allPaths.add(Charleston_to_Miami);
+        allPaths.add(Chicago_to_Toronto);
+        allPaths.add(Chicago_to_Duluth);
+        allPaths.add(Chicago_to_Omaha);
+        allPaths.add(Chicago_to_St_Louis);
+        allPaths.add(Chicago_to_Pittsburgh);
+        allPaths.add(Dallas_to_Little_Rock);
+        allPaths.add(Duluth_to_Winnipeg);
+        allPaths.add(Duluth_to_Sault_St_Marie);
+        allPaths.add(Duluth_to_Toronto);
+        allPaths.add(Houston_to_New_Orleans);
+        allPaths.add(Kansas_City_to_St_Louis);
+        allPaths.add(Little_Rock_to_Nashville);
+        allPaths.add(Little_Rock_to_New_Orleans);
+        allPaths.add(Little_Rock_to_St_Louis);
+        allPaths.add(Little_Rock_to_Oklahoma_City);
+        allPaths.add(Montreal_to_Sault_St_Marie);
+        allPaths.add(Montreal_to_New_York);
+        allPaths.add(Montreal_to_Toronto);
+        allPaths.add(Nashville_to_Raleigh);
+        allPaths.add(Nashville_to_St_Louis);
+        allPaths.add(New_Orleans_to_Miami);
+        allPaths.add(New_York_to_Washington_DC);
+        allPaths.add(New_York_to_Pittsburgh);
+        allPaths.add(Pittsburgh_to_Toronto);
+        allPaths.add(Pittsburgh_to_St_Louis);
+        allPaths.add(Pittsburgh_to_Nashville);
+        allPaths.add(Pittsburgh_to_Raleigh);
+        allPaths.add(Raleigh_to_Washington);
+        allPaths.add(Sault_St_Marie_to_Winnipeg);
+        allPaths.add(Toronto_to_Sault_St_Marie);
+
+
+        // Add all of the Paths to the array list of paths
+
+
     }
+
 
     /**
      * @param name - name of the city to search
@@ -293,7 +454,6 @@ public class ClientModel implements iObservable {
     }
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
-
 
 
 }

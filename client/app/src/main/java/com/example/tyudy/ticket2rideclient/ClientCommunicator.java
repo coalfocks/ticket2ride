@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.InitializeGameCommand;
@@ -153,12 +154,7 @@ public class ClientCommunicator {
                        listGamesCommand.setData(responseDTO);
                        listGamesCommand.execute();
                        break;
-                   case "sendChat":
-//                       SendChatCommand sendChatCommand = new SendChatCommand();
-//                       sendChatCommand.setData(responseDTO);
-//                       sendChatCommand.execute();
-                       break;
-                   case "getCommands" :
+                    case "getCommands" :
                        GetCommandsCommand getCommandsCommand = new GetCommandsCommand();
                        getCommandsCommand.setData(responseDTO);
                        getCommandsCommand.execute();

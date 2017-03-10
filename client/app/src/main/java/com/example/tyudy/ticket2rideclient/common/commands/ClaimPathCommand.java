@@ -10,6 +10,8 @@ import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -31,7 +33,9 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else {
             try {
-
+                Path path = (Path) Serializer.deserialize(data.getData());
+                ClientModel.SINGLETON.getCurrentTTRGame().claimPath(path);
+                Toast.makeText(jeffery, "Route Claimed", Toast.LENGTH_LONG).show();
             } catch(Exception e){
                 e.printStackTrace();
             }

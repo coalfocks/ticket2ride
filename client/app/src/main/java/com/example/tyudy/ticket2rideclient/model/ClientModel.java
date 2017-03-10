@@ -273,7 +273,7 @@ public class ClientModel implements iObservable {
         allCities.add(Winnipeg);
 
         //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order
-        Path Seattle_to_Vancouver = new Path();
+        //Path Seattle_to_Vancouver = new Path();
 
         // Add all of the Paths to the array list of paths
 
@@ -299,6 +299,11 @@ public class ClientModel implements iObservable {
     }
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
+
+    public void claimRoute(Path path) {
+        this.getCurrentTTRGame().claimPath(path);
+        notifyObservers();
+    }
 
 
 }

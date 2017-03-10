@@ -11,10 +11,10 @@ import java.util.TreeSet;
  * Created by Trevor on 3/8/2017.
  */
 
-public class Path implements Serializable{
-    public Color pathColor;
-    public int distance;
-    public ArrayList<City> connectedCities;
+public class Path implements Serializable {
+    private Color pathColor;
+    private int distance;
+    private ArrayList<City> connectedCities;
     private User owner;
 
     public Path(Color c, int dist, City city1, City city2) {
@@ -29,6 +29,9 @@ public class Path implements Serializable{
     public void setOwner(User p) { owner = p; }
     public User getOwner() { return owner; }
     public ArrayList<City> getCities() { return connectedCities; }
+    public int getPoints() {
+        return this.distance;
+    }
 
     /**
      * A method to find if a path contains the given city
@@ -40,20 +43,4 @@ public class Path implements Serializable{
         TreeSet<City> cities = new TreeSet<>(connectedCities);
         return cities.contains(city);
     }
-
-//    @Override
-//    public String toString() {
-//        String color = "Color: " + pathColor.toString();
-//        String length = ", Length: " + distance;
-//        String cities = ", Cities: " + connectedCities.first.getCityName()
-//                + " <-> " + connectedCities.second.getCityName();
-//        String ownr = "\nOwner: ";
-//
-//        if (owner != null)
-//            ownr += owner.getUsername();
-//        else
-//            ownr += "none";
-//
-//        return color + length + cities + ownr;
-//    }
 }

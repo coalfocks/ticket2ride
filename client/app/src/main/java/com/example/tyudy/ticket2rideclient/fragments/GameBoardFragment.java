@@ -29,11 +29,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.Color;
 import com.example.tyudy.ticket2rideclient.common.Destination;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
+import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -67,7 +69,6 @@ public class GameBoardFragment extends Fragment implements iObserver
     int testCounter = 0;
     private User mThisUser;
     private ArrayList<User> mUsers;
-    private ArrayList<String> mPlayerNames;
     private ArrayList<TrainCard> mCards;
    
     private GameBoardPresenter mGameBoardPresenter;
@@ -225,6 +226,8 @@ public class GameBoardFragment extends Fragment implements iObserver
                 if(testCounter == 0) {
                     City a = ClientModel.SINGLETON.getCityByName("New York");
                     City b = ClientModel.SINGLETON.getCityByName("Boston");
+                    Path path = new Path(Color.RED, 30, a, b);
+                    MethodsFacade.SINGLETON.claimPath(path);
 
                     mMapView.reDrawWithLineBetween(a, b);
                     testCounter = 1;
@@ -299,6 +302,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void observe()
     {
+        mUsers = ClientModel.SINGLETON.get
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
         mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
                 R.layout.points_fragment, mCards));

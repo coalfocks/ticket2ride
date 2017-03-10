@@ -82,6 +82,12 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+
     public class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mGameNumberTitle;

@@ -1,9 +1,13 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
+import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
 

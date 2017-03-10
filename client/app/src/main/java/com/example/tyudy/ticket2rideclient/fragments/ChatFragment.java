@@ -1,6 +1,8 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
@@ -20,6 +24,7 @@ import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -27,7 +32,10 @@ import com.example.tyudy.ticket2rideclient.presenters.ChatPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.resource;
 
 /**
  * Created by Trevor on 2/23/2017.
@@ -36,9 +44,10 @@ import java.util.List;
 public class ChatFragment extends Fragment implements iObserver {
     private LinearLayoutManager llm;
     private Button mSendButton;
-    private RecyclerView mChatRecyclerView;
+    private ListView mChatRecyclerView;
     private EditText mChatBox;
     private ChatsAdapter mChatsAdapter;
+    private int numChats = ClientModel.SINGLETON.getChatMsgs().size();
 
     ChatPresenter mChatPresenter = PresenterHolder.SINGLETON.getChatPresenter();
 
@@ -59,11 +68,19 @@ public class ChatFragment extends Fragment implements iObserver {
         mSendButton = (Button) v.findViewById(R.id.send_button);
         mChatBox = (EditText) v.findViewById(R.id.chat_box);
 
-        mChatRecyclerView = (RecyclerView) v.findViewById(R.id.chat_recycler);
-        llm = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, true);
-        llm.setReverseLayout(true);
-        mChatRecyclerView.setLayoutManager(llm);
+        mChatRecyclerView = (ListView) v.findViewById(R.id.chat_recycler);
+//        llm = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, true);
+//        llm.setReverseLayout(true);
         observe();
+
+
+//        View v = inflater.inflate(R.layout.cards_fragment, container, false);
+////needs to go
+//        player_points = (TextView) v.findViewById(R.id.player_points);
+//        player_points.setText(user.getPoints());
+//
+//        return v;
+
 
 
         mChatBox.addTextChangedListener(new TextWatcher(){
@@ -81,6 +98,7 @@ public class ChatFragment extends Fragment implements iObserver {
             public void afterTextChanged(Editable editable) {
                 // Nothing
             }
+
         });
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
@@ -89,18 +107,9 @@ public class ChatFragment extends Fragment implements iObserver {
                 mChatPresenter.sendClicked();
             }
         });
-
+        observe();
         return v;
     }
-
-//    /**
-//     * Call this function to add a chat to the RecyclerView
-//     * @param chat
-//     */
-//    public void addChat(String chat)
-//    {
-//        adapter.addMessage(chat);
-//    }
 
     /**
      * This is the method called when there's information to update.
@@ -109,63 +118,84 @@ public class ChatFragment extends Fragment implements iObserver {
     @Override
     public void observe() {
         // Update the adapter to use the updated model
-        mChatsAdapter = null;
-        mChatsAdapter = new ChatsAdapter(ClientModel.SINGLETON.getChatMsgs());
-        mChatRecyclerView.setAdapter(mChatsAdapter);
+        if(numChats!=ClientModel.SINGLETON.getChatMsgs().size()) {
+            mChatsAdapter = null;
+            mChatsAdapter = new ChatsAdapter(this.getContext(),
+                    R.layout.chat_list_item, ClientModel.SINGLETON.getChatMsgs());
+            mChatRecyclerView.setAdapter(mChatsAdapter);
+            numChats=ClientModel.SINGLETON.getChatMsgs().size();
+        }
 
     }
 
     // -------------------------------------Adapter and ViewHolder Classes---------------------------------------
 
-    public class ChatsAdapter extends RecyclerView.Adapter<ChatsViewHolder> {
+    public class ChatsAdapter extends ArrayAdapter<String> {
 
         private List<String> messages;
-//        private int nextMsgPosition;
-//        private final int MAX_MESSAGES = 15;
+        private Context mContext;
+        private ArrayList<String> msgs;
 
-        public ChatsAdapter(List<String> items) {
-            this.messages = items;
+        public ChatsAdapter(Context context, int resourceId, ArrayList<String> items) {
+            super(context, resourceId, items);
+                this.mContext = context;
+                this.msgs = items;
 
-//            if (items != null) {
-//                nextMsgPosition = items.size();
-//                if (nextMsgPosition > MAX_MESSAGES){
-//                    nextMsgPosition = MAX_MESSAGES;
-//                }
-//            } else {
-//                nextMsgPosition = 0;
-//            }
         }
+        private class ViewHolder {
+                TextView mChat;
+            }
 
-        @Override
-        public ChatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(getActivity()).inflate(R.layout.message_holder, parent, false);
-            return new ChatsViewHolder(v);
-        }
+            public View getView(int position, View convertView, ViewGroup parent) {
+                ViewHolder holder = null;
+                String msg = getItem(position);
 
-        @Override
-        public void onBindViewHolder(ChatsViewHolder holder, int position) {
-            String message = messages.get(position);
-            holder.bind(message);
-        }
+                LayoutInflater mInflater = (LayoutInflater) mContext
+                        .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                if (convertView == null) {
+                    convertView = mInflater.inflate(R.layout.chat_list_item, null);
+                    holder = new ViewHolder();
+                    holder.mChat = (TextView) convertView.findViewById(R.id.chat_message);
+                    convertView.setTag(holder);
+                } else
+                    holder = (ViewHolder) convertView.getTag();
+                holder.mChat.setText(msg);
 
-        @Override
-        public int getItemCount() {
-            return messages.size();
+
+
+                return convertView;
+            }
         }
+//        @Override
+//        public ChatsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            View v = LayoutInflater.from(getActivity()).inflate(R.layout.message_holder, parent, false);
+//            return new ChatsViewHolder(v);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(ChatsViewHolder holder, int position) {
+//            String message = messages.get(position);
+//            holder.bind(message);
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return messages.size();
+//        }
 
     }
 
 
-    public class ChatsViewHolder extends RecyclerView.ViewHolder {
-        public TextView mChatText;
-
-        public ChatsViewHolder(View itemView) {
-            super(itemView);
-            mChatText = (TextView) itemView.findViewById(R.id.message_holder_text);
-        }
-
-        public void bind(String s){
-            mChatText.setText(s);
-        }
-    }
-}
+//    public class ChatsViewHolder extends RecyclerView.ViewHolder {
+//        public TextView mChatText;
+//
+//        public ChatsViewHolder(View itemView) {
+//            super(itemView);
+//            mChatText = (TextView) itemView.findViewById(R.id.message_holder_text);
+//        }
+//
+//        public void bind(String s){
+//            mChatText.setText(s);
+//        }
+//    }
+//}

@@ -382,9 +382,9 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
             
             holder.mPoints.setText(String.valueOf(user.getPoints()));
-            String trains = "Train Cards: " + String.valueOf(user.getTrainCards().size());
+            String trains = "Train: " + String.valueOf(user.getTrainCards().size());
             holder.mTrains.setText(trains);
-            String dest = "Dest Cards: " + String.valueOf(user.getDestCards().size());
+            String dest = "Dest: " + String.valueOf(user.getDestCards().size());
             holder.mDest.setText(dest);
 
             return convertView;
@@ -420,8 +420,9 @@ public class GameBoardFragment extends Fragment implements iObserver
                 convertView.setTag(holder);
             } else
                 holder = (ViewHolder) convertView.getTag();
-                holder.mUsername.setText(String.valueOf(myCard.getNum()));
-                switch(myCard.getColor()) {
+                holder.mUsername.setText(String.valueOf(myCard.getNum() + 1));
+                switch( myCard.getColor()) {
+
                     case YELLOW:
                         holder.mUsername.setBackgroundColor(YELLOW);
                         break;

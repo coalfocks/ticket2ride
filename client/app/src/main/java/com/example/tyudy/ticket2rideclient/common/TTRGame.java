@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
@@ -25,7 +26,6 @@ public class TTRGame implements Serializable
     private int mTurnIndex = 0;
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
-    private Set<Path> paths = new TreeSet<>();
 
     public TTRGame()
     {
@@ -117,17 +117,23 @@ public class TTRGame implements Serializable
         this.mTurnIndex = mTurnIndex;
     }
 
+    /**
+     * Updates the ClientModels given path to have an owner and adds the corresponding points to the paths owner user.
+     * @param path - the path to update in the client model
+     */
     public void claimPath(Path path) {
-        for (Path p : this.paths) {
-            if (p.getCities().equals(path.getCities())) {
-                p.setOwner(path.getOwner());
-                for (User u : this.getUsers()) {
-                    if (u.getPlayerID() == path.getOwner().getPlayerID()) {
+        ArrayList<Path> paths = ClientModel.SINGLETON.getPaths();
+        for (Path p : paths) {
+            if (p.getCities().equals(path.getCities())) { // if path and p are the same path
+                p.setOwner(path.getOwner());              // set the models path owner
+                for (User u : this.getUsers()) {          //
+                    if (u.getPlayerID() == path.getOwner().getPlayerID()) {  // add the routes points to the users points
                         u.addPoints(path.getPoints());
                     }
                 }
             }
         }
+
     }
 
     public void dealTrainCard(User u){

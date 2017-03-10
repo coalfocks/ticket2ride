@@ -34,7 +34,7 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
         } else {
             try {
                 Path path = (Path) Serializer.deserialize(data.getData());
-                ClientModel.SINGLETON.getCurrentTTRGame().claimPath(path);
+                ClientModel.SINGLETON.claimPath(path);
                 Toast.makeText(jeffery, "Route Claimed", Toast.LENGTH_LONG).show();
             } catch(Exception e){
                 e.printStackTrace();

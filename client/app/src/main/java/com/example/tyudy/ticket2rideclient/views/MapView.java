@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.tyudy.ticket2rideclient.common.cities.City;
-import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
-import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 
-import java.sql.ClientInfoStatus;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+
+import java.util.ArrayList;
 
 /**
  * Created by tyudy on 3/9/17.
@@ -21,11 +22,14 @@ import java.sql.ClientInfoStatus;
 
 public class MapView extends View {
 
+    private final int DRAW_WIDTH = 12;
+
     float mScreenWidth;
     float mScreenHeight;
     City mSource;
     City mDestination;
     Canvas mCanvas;
+    ArrayList<Path> mPathsToDraw;
 
     public MapView(Context context){
         super(context);
@@ -36,6 +40,7 @@ public class MapView extends View {
         display.getSize(size);
         mScreenWidth = size.x;
         mScreenHeight = size.y;
+        mPathsToDraw = new ArrayList<>();
 
         mCanvas = null;
         mSource = new City();
@@ -53,16 +58,30 @@ public class MapView extends View {
 //        }
 
         Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(DRAW_WIDTH);
 
         // Make this draw from atlanta to Miami
 
-        float sourceX = mSource.getxPosScale() * mScreenWidth;
-        float sourceY = mSource.getyPosScale() * mScreenHeight;
-        float destinationX = mDestination.getxPosScale() * mScreenWidth;
-        float destinationY = mDestination.getyPosScale() * mScreenHeight;
-        canvas.drawLine(sourceX,sourceY,destinationX,destinationY,paint);
+
+        for(Path p: mPathsToDraw){
+            if(p.hasOwner()){
+                // Draw the route in its correct location with its correct mColorENUM
+                ColorENUM drawColorENUM = p.getOwner().getColor();
+                int paintColor = getColorFromEnum(drawColorENUM);
+                paint.setColor(paintColor);
+
+                City source = p.getCities().get(0);
+                City destination = p.getCities().get(1);
+
+                float sourceX = source.getxPosScale() * mScreenWidth;
+                float sourceY = source.getyPosScale() * mScreenHeight;
+                float destinationX = destination.getxPosScale() * mScreenWidth;
+                float destinationY = destination.getyPosScale() * mScreenHeight;
+
+                canvas.drawLine(sourceX,sourceY,destinationX,destinationY,paint);
+
+            }
+        }
     }
 
     /**
@@ -74,6 +93,35 @@ public class MapView extends View {
         mSource = source;
         mDestination = destination;
         invalidate();
+    }
+
+    public void redrawModelPaths(ArrayList<Path> pathsToDraw){
+        mPathsToDraw = pathsToDraw;
+        invalidate();
+    }
+
+    private int getColorFromEnum(ColorENUM c){
+        switch(c){
+            case WHITE:
+                return Color.WHITE;
+            case BLACK:
+                return Color.BLACK;
+            case BLUE:
+                return Color.BLUE;
+            case RED:
+                return Color.RED;
+            case ORANGE:
+                return android.graphics.Color.rgb(239, 163, 33); // GameBoardFragment says this is Orange so I believe it
+            case YELLOW:
+                return Color.YELLOW;
+            case GREEN:
+                return Color.GREEN;
+            case PURPLE:
+                return Color.MAGENTA;
+            case COLORLESS:
+                return Color.GRAY;
+        }
+        return 0;
     }
 
 }

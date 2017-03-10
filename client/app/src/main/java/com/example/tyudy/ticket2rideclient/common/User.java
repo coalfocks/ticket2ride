@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Stack;
 
-import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
-import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLACK;
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.WHITE;
 
 /**
  * Created by tyudy on 2/7/17.
@@ -26,10 +26,10 @@ public class User implements Serializable, Comparable<User> {
     private int inGame;
     private int points = 0;
 
-    private Color color;
+    private ColorENUM color;
 
     private ArrayList<Path> claimedPaths;
-    private Map<Color, TrainCard> colorCards;
+    private Map<ColorENUM, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
 
 
@@ -41,8 +41,7 @@ public class User implements Serializable, Comparable<User> {
         inGame = 0;
         points = 0;
         destCards = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
-        claimedPaths = new ArrayList<>();
+        colorCards = new HashMap<ColorENUM, TrainCard>();
         this.color = BLACK;
     }
 
@@ -53,16 +52,16 @@ public class User implements Serializable, Comparable<User> {
         this.playerID = playerID;
         this.inGame = inGame;
 
-      
+
         destCards = new ArrayList<>();
         //claimedPaths = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
-      
+        colorCards = new HashMap<ColorENUM, TrainCard>();
+
         TrainCard myCard = new TrainCard();
-        myCard.setColor(WHITE);
+        myCard.setColorENUM(WHITE);
         this.addTrainCard(myCard);
         destCards = new ArrayList<>();
-        colorCards = new HashMap<Color, TrainCard>();
+        colorCards = new HashMap<ColorENUM, TrainCard>();
         this.color = BLACK;
     }
 
@@ -137,13 +136,13 @@ public class User implements Serializable, Comparable<User> {
 
     //Cards stuff
     public void addTrainCard(TrainCard card){
-        TrainCard c = colorCards.get(card.getColor());
+        TrainCard c = colorCards.get(card.getColorENUM());
         if(c != null) {
             c.incNum();
-            colorCards.put(card.getColor(), c);
+            colorCards.put(card.getColorENUM(), c);
         }
         else{
-            colorCards.put(card.getColor(), card);
+            colorCards.put(card.getColorENUM(), card);
         }
     }
     public ArrayList<TrainCard> getTrainCards(){
@@ -151,7 +150,7 @@ public class User implements Serializable, Comparable<User> {
         return arrayOfCards;
     }
 
-    public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
+    public TrainCard getNumCardsOfColor(ColorENUM c) { return colorCards.get(c); }
 
     public void increasePoints(int addPoints) {
         points += Math.abs(addPoints);
@@ -173,23 +172,23 @@ public class User implements Serializable, Comparable<User> {
     }
 
 
-    public Color getColor() {
+    public ColorENUM getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(ColorENUM color) {
         this.color = color;
     }
 
-   // public void claimPath(Path p) { claimedPaths.add(p); }
+    // public void claimPath(Path p) { claimedPaths.add(p); }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
         if (destCards.contains(card))
         {
             HashSet<City> citiesInRoute = new HashSet<>();
-            City source = card.getDestination().source;
-            City dest = card.getDestination().dest;
+            City source = new City();
+            City dest = new City();
             boolean connectsToDest = false;
             boolean connectsToSource = false;
 

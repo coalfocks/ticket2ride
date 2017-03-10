@@ -204,6 +204,10 @@ public class MethodsFacade {
         ServerProxy.SINGLETON.claimPath(dto);
     }
 
+    public ArrayList<Path> getModelPaths(){
+        return ClientModel.SINGLETON.getPaths();
+    }
+
     public void reset() {
         ClientModel.SINGLETON.setCurrentTTRGame(new TTRGame());
         ClientModel.SINGLETON.setCurrentUser(new User());

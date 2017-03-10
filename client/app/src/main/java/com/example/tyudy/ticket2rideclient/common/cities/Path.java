@@ -1,6 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common.cities;
 
-import com.example.tyudy.ticket2rideclient.common.Color;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.io.Serializable;
@@ -12,13 +12,13 @@ import java.util.TreeSet;
  */
 
 public class Path implements Serializable {
-    private Color pathColor;
+    private ColorENUM mPathColorENUM;
     private int distance;
     private ArrayList<City> connectedCities;
     private User owner;
 
-    public Path(Color c, int dist, City city1, City city2) {
-        pathColor = c;
+    public Path(ColorENUM c, int dist, City city1, City city2) {
+        mPathColorENUM = c;
         distance = dist;
         connectedCities = new ArrayList<>();
         connectedCities.add(city1);
@@ -42,5 +42,17 @@ public class Path implements Serializable {
 
         TreeSet<City> cities = new TreeSet<>(connectedCities);
         return cities.contains(city);
+    }
+
+    /**
+     * Check if the path has an owner
+     * @return - true if the path is owned false if not
+     */
+    public boolean hasOwner(){
+        if(owner != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

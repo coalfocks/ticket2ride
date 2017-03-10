@@ -42,6 +42,7 @@ public class User implements Serializable, Comparable<User> {
         points = 0;
         destCards = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
+        claimedPaths = new ArrayList<>();
         this.color = BLACK;
     }
 
@@ -56,7 +57,6 @@ public class User implements Serializable, Comparable<User> {
         destCards = new ArrayList<>();
         //claimedPaths = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
-
         TrainCard myCard = new TrainCard();
         myCard.setColorENUM(WHITE);
         this.addTrainCard(myCard);

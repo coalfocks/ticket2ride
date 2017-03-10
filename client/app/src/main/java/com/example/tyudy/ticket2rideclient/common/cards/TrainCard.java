@@ -14,9 +14,11 @@ import java.io.Serializable;
  *
  */
 public class TrainCard implements iCard, Serializable {
+
     public ColorENUM mColorENUM;
     public int num;
     public TrainCard(ColorENUM colorENUM){
+
         this.num = 0;
         this.mColorENUM = colorENUM;
     }
@@ -33,12 +35,13 @@ public class TrainCard implements iCard, Serializable {
         return num;
     }
 
-    public void setColorENUM(ColorENUM colorENUM) {
-        this.mColorENUM = colorENUM;
+
+    public void setColor(ColorENUM color) {
+        this.color = color;
     }
 
-    public ColorENUM getColorENUM() {
-        return mColorENUM;
+    public ColorENUM getColor() {
+        return color;
     }
 
     public void incNum() {

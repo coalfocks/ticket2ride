@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -208,12 +209,11 @@ public class GameBoardFragment extends Fragment implements iObserver
             public void onClick(View v) {
                 // Test 1
                 if(testCounter == 0) {
-                    City a = ClientModel.SINGLETON.getCityByName("New York");
-                    City b = ClientModel.SINGLETON.getCityByName("Boston");
-                    Path path = new Path(ColorENUM.RED, 30, a, b);
+
+                    Path path = ClientModel.SINGLETON.getAllPaths().get(0);
                     MethodsFacade.SINGLETON.claimPath(path);
 
-                    mMapView.reDrawWithLineBetween(a, b);
+                    mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
                     testCounter = 1;
                 } else {
                     City c = ClientModel.SINGLETON.getCityByName("Atlanta");
@@ -340,8 +340,10 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder.mUsername.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
             }
             
-            ColorENUM colorENUM = user.getColor();
-            if(colorENUM == null){
+
+            ColorENUM color = user.getColor();
+            
+            if(color == null){
                 holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
             }
             else{

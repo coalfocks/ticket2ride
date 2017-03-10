@@ -215,7 +215,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                     Path colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
                     tysTestPath.setOwner(anOwner);
                     colesPathThatSucks.setOwner(anOwner);
-                    MethodsFacade.SINGLETON.claimPath(colesPathThatSucks);
+
                     mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
 
 

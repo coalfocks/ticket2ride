@@ -45,9 +45,7 @@ private DataTransferObject data;
                 e.printStackTrace();
             }
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
-            if (jeffery.getClass() == GameLobbyActivity.class) {
-                ((GameLobbyActivity) jeffery).onStartGame();
-            }
+            ((GameLobbyActivity) jeffery).onStartGame();
         }
         return null;
     }

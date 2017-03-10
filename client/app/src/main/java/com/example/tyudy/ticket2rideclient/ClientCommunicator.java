@@ -154,20 +154,11 @@ public class ClientCommunicator {
                        listGamesCommand.setData(responseDTO);
                        listGamesCommand.execute();
                        break;
-                   case "sendChat":
-                       SendChatCommand sendChatCommand = new SendChatCommand();
-                       sendChatCommand.setData(responseDTO);
-                       sendChatCommand.execute();
-                       break;
-                   case "claimPath":
-                       ClaimPathCommand claimPathCommand = new ClaimPathCommand();
-                       claimPathCommand.setData(responseDTO);
-                       claimPathCommand.execute();
-                       break;
-                   case "getCommands" :
+                    case "getCommands" :
                        GetCommandsCommand getCommandsCommand = new GetCommandsCommand();
                        getCommandsCommand.setData(responseDTO);
                        getCommandsCommand.execute();
+                       break;
                    default:
                        break;
                }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -86,16 +87,18 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             TextView dest;
             TextView points;
             CheckBox checkBox;
+            CheckBox returnBox;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+
+            final ViewHolder holder;
             DestinationCard card = getItem(position);
 
             if (card != null) {
-                String src = "From:   " + card.getDestination().getSource().getCityName();
-                String dst = "To:     " + card.getDestination().getDest().getCityName();
-                String pts = "Points: " + card.getPointValue();
+//                String src = "From:   " + card.getDestination().getSource().getCityName();
+//                String dst = "To:     " + card.getDestination().getDest().getCityName();
+//                String pts = "Points: " + card.getPointValue();
 
                 LayoutInflater mInflater = (LayoutInflater) mContext
                         .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -108,23 +111,34 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                     holder.dest = (TextView) convertView.findViewById(R.id.destCard_dest);
                     holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
+                    holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
 
-                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-                        holder.checkBox.setChecked(true);
-                    else
+//                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+//                        holder.checkBox.setChecked(true);
+//                    else
                         holder.checkBox.setChecked(false);
 
                     convertView.setTag(holder);
                 } else
                     holder = (ViewHolder) convertView.getTag();
 
-                holder.source.setText(src);
-                holder.dest.setText(dst);
-                holder.points.setText(pts);
-                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-                    holder.checkBox.setChecked(true);
-                else
+                holder.source.setText("FROM: DEST 1");//src);
+                holder.dest.setText("TO: DEST 2");//dst);
+                holder.points.setText("30");//pts);
+//                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+//                    holder.checkBox.setChecked(true);
+//                else
                     holder.checkBox.setChecked(false);
+                if(holder.returnBox.isChecked())
+                    ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
+                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                                        @Override
+                                                                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                                                                               holder.returnBox.setChecked(true);
+                                                                        }
+                                                            }
+                );
             }
 
             return convertView;

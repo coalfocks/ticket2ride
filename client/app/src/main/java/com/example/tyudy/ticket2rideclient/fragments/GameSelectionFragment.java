@@ -24,6 +24,7 @@ import com.example.tyudy.ticket2rideclient.presenters.GameSelectionPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -82,6 +83,24 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        ClientModel.SINGLETON.addObserver((iObserver) this);
+    }
+
     public class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mGameNumberTitle;
@@ -130,10 +149,7 @@ public class GameSelectionFragment extends Fragment implements iObserver {
             } else {
                 Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
             }
-
         }
-
-
     }
 
     public class GameAdapter extends RecyclerView.Adapter<GameHolder> {

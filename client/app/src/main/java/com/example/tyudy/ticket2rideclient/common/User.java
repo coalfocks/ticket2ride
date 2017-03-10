@@ -15,7 +15,6 @@ import java.util.Stack;
 import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
 import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
 
-
 /**
  * Created by tyudy on 2/7/17.
  */
@@ -26,10 +25,13 @@ public class User implements Serializable, Comparable<User> {
     private int playerID;
     private int inGame;
     private int points = 0;
+
     private Color color;
+
     private ArrayList<Path> claimedPaths;
     private Map<Color, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
+
 
     public User()
     {
@@ -39,7 +41,6 @@ public class User implements Serializable, Comparable<User> {
         inGame = 0;
         points = 0;
         destCards = new ArrayList<>();
-        claimedPaths = new ArrayList<>();
         colorCards = new HashMap<Color, TrainCard>();
         this.color = BLACK;
     }
@@ -50,6 +51,7 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
+
       
         destCards = new ArrayList<>();
         //claimedPaths = new ArrayList<>();
@@ -58,7 +60,8 @@ public class User implements Serializable, Comparable<User> {
         TrainCard myCard = new TrainCard();
         myCard.setColor(WHITE);
         this.addTrainCard(myCard);
-        
+        destCards = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
         this.color = BLACK;
     }
 
@@ -112,7 +115,7 @@ public class User implements Serializable, Comparable<User> {
     public void addPoints(int pointValue) {
         this.points += pointValue;
     }
-  
+
     @Override
     public int compareTo(User o)
     {
@@ -142,7 +145,6 @@ public class User implements Serializable, Comparable<User> {
             colorCards.put(card.getColor(), card);
         }
     }
-
     public ArrayList<TrainCard> getTrainCards(){
         ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
         return arrayOfCards;
@@ -168,6 +170,7 @@ public class User implements Serializable, Comparable<User> {
         else
             points = 0;
     }
+
 
     public Color getColor() {
         return color;
@@ -243,4 +246,7 @@ public class User implements Serializable, Comparable<User> {
     }
 
 
+    public void removeDestinationCard(DestinationCard card) {
+        this.destCards.remove(card);
+    }
 }

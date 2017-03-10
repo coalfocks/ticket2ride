@@ -8,6 +8,9 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
+
+import java.util.Observer;
+
 import java.util.TreeMap;
 
 /**
@@ -44,6 +47,7 @@ public class ClientModel implements iObservable {
      * Add an observer to the list of observers stored inside this observable
      */
     public void addObserver(iObserver observer){
+
         obsList.add(observer);
     }
 
@@ -142,6 +146,11 @@ public class ClientModel implements iObservable {
             }
         }
         return mCurrentTTRGame;
+    }
+
+
+    public void removeObserver(iObserver observer) {
+        obsList.remove(observer);
     }
 
     /**
@@ -297,5 +306,9 @@ public class ClientModel implements iObservable {
     }
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
+
+    public void removeObserver(iObserver observer) {
+        obsList.remove(observer);
+    }
 
 }

@@ -13,5 +13,6 @@ public enum Color {
     YELLOW,
     PURPLE,
     GREEN,
-    COLORLESS
+    COLORLESS,
+    WILD
 }

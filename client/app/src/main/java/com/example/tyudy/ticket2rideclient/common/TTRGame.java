@@ -20,7 +20,7 @@ public class TTRGame implements Serializable
     private int ownerID;
     private String ownerUsername;
     private Set<User> players = new TreeSet<User>();
-
+    private int mTurnIndex = 0;
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
 
@@ -104,6 +104,16 @@ public class TTRGame implements Serializable
         this.gameID = gameID;
     }
 
+    public int getmTurnIndex()
+    {
+        return mTurnIndex;
+    }
+
+    public void setmTurnIndex(int mTurnIndex)
+    {
+        this.mTurnIndex = mTurnIndex;
+    }
+
     public void dealTrainCard(User u){
         TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
         u.addTrainCard(myCard);
@@ -115,6 +125,15 @@ public class TTRGame implements Serializable
 
     }
 
+    public void changeTurn() {
+        this.mTurnIndex++;
+        mTurnIndex %= this.players.size();
+    }
+
+    public int getWhoTurn() {
+        ArrayList<User> arr = new ArrayList<>(players);
+        return arr.get(mTurnIndex).getPlayerID();
+    }
 
     public void setUsers(Set<User> users) {
         this.players = users;

@@ -58,7 +58,7 @@ public class User implements Serializable, Comparable<User> {
         //claimedPaths = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
         TrainCard myCard = new TrainCard();
-        myCard.setColorENUM(WHITE);
+        myCard.setColor(WHITE);
         this.addTrainCard(myCard);
         destCards = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
@@ -136,13 +136,13 @@ public class User implements Serializable, Comparable<User> {
 
     //Cards stuff
     public void addTrainCard(TrainCard card){
-        TrainCard c = colorCards.get(card.getColorENUM());
+        TrainCard c = colorCards.get(card.getColor());
         if(c != null) {
             c.incNum();
-            colorCards.put(card.getColorENUM(), c);
+            colorCards.put(card.getColor(), c);
         }
         else{
-            colorCards.put(card.getColorENUM(), card);
+            colorCards.put(card.getColor(), card);
         }
     }
     public ArrayList<TrainCard> getTrainCards(){

@@ -347,7 +347,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
             }
             else{
-            switch(colorENUM) {
+            switch(color) {
                 case YELLOW:
                     holder.mUsername.setBackgroundColor(YELLOW);
                     break;
@@ -422,7 +422,7 @@ public class GameBoardFragment extends Fragment implements iObserver
             } else
                 holder = (ViewHolder) convertView.getTag();
                 holder.mUsername.setText(String.valueOf(myCard.getNum() + 1));
-                switch( myCard.getColorENUM()) {
+                switch( myCard.getColor()) {
 
                     case YELLOW:
                         holder.mUsername.setBackgroundColor(YELLOW);

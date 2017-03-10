@@ -8,9 +8,10 @@ import java.io.Serializable;
  * Created by zacheaton on 3/2/17.
  */
 
+
 public class DestinationCard implements iCard, Serializable {
-    Destination destination;
-    int pointValue;
+    private Destination destination;
+    private int pointValue;
 
     public Destination getDestination() {
         return destination;
@@ -24,5 +25,9 @@ public class DestinationCard implements iCard, Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return destination.toString() + " Point Value: " + pointValue;
+    }
 }
 

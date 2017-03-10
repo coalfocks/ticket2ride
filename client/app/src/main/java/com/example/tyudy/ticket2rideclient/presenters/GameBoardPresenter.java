@@ -22,13 +22,17 @@ public class GameBoardPresenter {
         mGameBoardFragment = gameBoardFragment;
     }
 
+    /**
+     * Method called when the button is pressed to show the current user
+     * his/her destination cards
+     */
     public void showDestCards(){
-//        Player player = mGameBoardFragment.getCurrentPlayer();
+
         User user = ClientModel.SINGLETON.getCurrentUser();
         mDialogFragment = new DisplayDestCardsDialogFragment();
         mDialogFragment.setCardList(user.getDestCards());
         mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
-
         mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
+      
     }
 }

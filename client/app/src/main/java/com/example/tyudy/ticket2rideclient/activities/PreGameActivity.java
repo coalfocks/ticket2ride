@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
@@ -35,6 +38,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
+
     }
 
     public void onLogin(){

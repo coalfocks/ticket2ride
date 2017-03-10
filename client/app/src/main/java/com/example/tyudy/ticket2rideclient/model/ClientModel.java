@@ -469,5 +469,19 @@ public class ClientModel implements iObservable {
         return this.allPaths;
     }
 
+    /**
+     * Find a path in the list of all paths with the given name
+     * @param name - name of the path
+     * @return - The desired path or null if not found
+     */
+    public Path getPathByName(String name){
+        for (Path p: allPaths){
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
+
 
 }

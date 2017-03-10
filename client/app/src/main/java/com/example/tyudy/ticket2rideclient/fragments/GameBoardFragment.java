@@ -208,20 +208,30 @@ public class GameBoardFragment extends Fragment implements iObserver
             @Override
             public void onClick(View v) {
                 // Test 1
-                if(testCounter == 0) {
+//                if(testCounter == 0) {
 
-                    Path path = ClientModel.SINGLETON.getAllPaths().get(0);
-                    MethodsFacade.SINGLETON.claimPath(path);
+                    User anOwner = ClientModel.SINGLETON.getCurrentUser();
+                    Path tysTestPath = ClientModel.SINGLETON.getPathByName("Atlanta_to_Miami");
+                    Path colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
+                    tysTestPath.setOwner(anOwner);
+                    colesPathThatSucks.setOwner(anOwner);
 
-                    mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
-                    testCounter = 1;
-                } else {
-                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
-                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
+                    mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
 
-                    mMapView.reDrawWithLineBetween(c, d);
-                    testCounter = 0;
-                }
+
+                    //Path path = ClientModel.SINGLETON.getAllPaths().get(0);
+                    //MethodsFacade.SINGLETON.claimPath(path);
+
+
+                    //mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
+                    //testCounter = 1;
+//                } else {
+//                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
+//                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
+//
+//                    mMapView.reDrawWithLineBetween(c, d);
+//                    testCounter = 0;
+//                }
             }
         });
 

@@ -104,6 +104,7 @@ public class ChatFragment extends Fragment implements iObserver {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mChatBox.setText("");
                 mChatPresenter.sendClicked();
             }
         });

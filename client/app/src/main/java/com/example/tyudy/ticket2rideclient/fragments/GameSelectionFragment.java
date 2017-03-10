@@ -88,6 +88,7 @@ public class GameSelectionFragment extends Fragment implements iObserver {
         super.onStop();
         ClientModel.SINGLETON.removeObserver((iObserver) this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -148,10 +149,7 @@ public class GameSelectionFragment extends Fragment implements iObserver {
             } else {
                 Toast.makeText(getContext(), "You can't join more than one game silly", Toast.LENGTH_LONG).show();
             }
-
         }
-
-
     }
 
     public class GameAdapter extends RecyclerView.Adapter<GameHolder> {

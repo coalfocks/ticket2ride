@@ -294,4 +294,8 @@ public class ClientModel implements iObservable {
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
+    public void removeObserver(iObserver observer) {
+        obsList.remove(observer);
+    }
+
 }

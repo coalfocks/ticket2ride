@@ -11,6 +11,7 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.TypedValue;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -62,8 +63,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private MapView mMapView;
 
     private SlidingUpPanelLayout mChat;
-
-
+    
     int testCounter = 0;
     private User mThisUser;
     private ArrayList<User> mUsers;
@@ -80,8 +80,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mGameBoardPresenter.setGameBoardFragment(this);
         ClientModel.SINGLETON.addObserver(this);
 
-
-        City.initAllCities();
+//        City.initAllCities();
 
         // TEST PURPOSES ----------------------
 //        Toast.makeText(getContext(), "Cities Initialized", Toast.LENGTH_SHORT).show();
@@ -310,11 +309,13 @@ public class GameBoardFragment extends Fragment implements iObserver
 
         private Context mContext;
         private ArrayList<User> users;
+        private int mCurrentTurn;
 
         public PlayerAdapter(Context context, int resourceId, ArrayList<User> items) {
             super(context, resourceId, items);
             this.mContext = context;
             this.users = items;
+            this.mCurrentTurn = ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn();
         }
 
         /*private view holder class*/
@@ -343,6 +344,9 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder = (ViewHolder) convertView.getTag();
 
             holder.mUsername.setText(user.getUsername().toUpperCase());
+            if (user.getPlayerID() == mCurrentTurn) {
+                holder.mUsername.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+            }
             
             Color color = user.getColor();
             if(color == null){
@@ -358,6 +362,10 @@ public class GameBoardFragment extends Fragment implements iObserver
                     break;
                 case BLACK:
                     holder.mUsername.setBackgroundColor(BLACK);
+                    holder.mUsername.setTextColor(COLORLESS);
+                    holder.mPoints.setTextColor(COLORLESS);
+                    holder.mDest.setTextColor(COLORLESS);
+                    holder.mTrains.setTextColor(COLORLESS);
                     break;
                 case WHITE:
                     holder.mUsername.setBackgroundColor(WHITE);
@@ -430,6 +438,8 @@ public class GameBoardFragment extends Fragment implements iObserver
                         break;
                     case BLACK:
                         holder.mUsername.setBackgroundColor(BLACK);
+                        holder.mUsername.setTextColor(COLORLESS);
+                        holder.mPoints.setTextColor(COLORLESS);
                         break;
                     case WHITE:
                         holder.mUsername.setBackgroundColor(WHITE);
@@ -445,6 +455,9 @@ public class GameBoardFragment extends Fragment implements iObserver
                         break;
                     case RED:
                         holder.mUsername.setBackgroundColor(RED);
+                        break;
+                    case WILD:
+                        holder.mUsername.setBackgroundColor(WILD);
                         break;
                     default:
                         holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
@@ -464,4 +477,6 @@ public class GameBoardFragment extends Fragment implements iObserver
     private final int ORANGE = android.graphics.Color.rgb(239, 163, 33); // Yes, this is Orange
     private final int RED = android.graphics.Color.RED;
     private final int BLUE = android.graphics.Color.BLUE;
+    private final int COLORLESS = android.graphics.Color.LTGRAY;
+    private final int WILD = android.graphics.Color.CYAN;
 }

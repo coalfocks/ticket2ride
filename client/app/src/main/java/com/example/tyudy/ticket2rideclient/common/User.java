@@ -2,6 +2,8 @@ package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cities.City;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -243,11 +245,8 @@ public class User implements Serializable, Comparable<User> {
         return false;
     }
 
-<<<<<<< Updated upstream
-=======
 
     public void removeDestinationCard(DestinationCard card) {
         this.destCards.remove(card);
     }
->>>>>>> Stashed changes
 }

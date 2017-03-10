@@ -85,4 +85,30 @@
         android:layout_below="@id/completed_dest_checkbox"
         android:background="#e79537"/>
 
+    <CheckBox
+        android:id="@+id/return_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:checked="false"
+        android:layout_below="@+id/completed_dest_checkbox"
+        android:layout_alignLeft="@+id/destCard_points"
+        android:layout_alignStart="@+id/destCard_points"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:layout_alignBaseline="@id/return_checkbox"
+        android:layout_alignBottom="@id/return_checkbox"
+        android:layout_toRightOf="@id/return_checkbox"
+        android:layout_toEndOf="@id/return_checkbox"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/return_checkbox"
+        android:background="#e79537"/>
 </RelativeLayout>

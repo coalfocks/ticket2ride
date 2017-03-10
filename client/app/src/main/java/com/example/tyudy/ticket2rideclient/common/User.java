@@ -243,4 +243,11 @@ public class User implements Serializable, Comparable<User> {
         return false;
     }
 
+<<<<<<< Updated upstream
+=======
+
+    public void removeDestinationCard(DestinationCard card) {
+        this.destCards.remove(card);
+    }
+>>>>>>> Stashed changes
 }

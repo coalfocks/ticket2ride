@@ -74,8 +74,10 @@ public class Poller  implements Runnable
     /**
      * Poll method, called every [amount of time] by ClientCommunicator
      */
-    public void poll() {
-        if (ClientModel.SINGLETON.getIpAddress() == null) {
+    public void poll()
+    {
+        if (ClientModel.SINGLETON.getIpAddress() == null)
+        {
             return;
         }
 
@@ -83,11 +85,14 @@ public class Poller  implements Runnable
         if ((ClientModel.SINGLETON.getCurrentTTRGame() != null &&
                 ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() != 1) ||
                 (ClientModel.SINGLETON.getCurrentUser() != null &&
-                ClientModel.SINGLETON.getCurrentTTRGame() == null)) {
+                        ClientModel.SINGLETON.getCurrentTTRGame() == null)) {
             MethodsFacade.SINGLETON.getGameList();
         }
-        if (ClientModel.SINGLETON.getCurrentTTRGame() != null  &&
-            MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class) {
+        if (ClientModel.SINGLETON.getCurrentTTRGame() != null &&
+                MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class) {
+            MethodsFacade.SINGLETON.getCommands(queueIndex);
+        } else if (ClientModel.SINGLETON.getCurrentTTRGame() != null &&
+                ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
             MethodsFacade.SINGLETON.getCommands(queueIndex);
         }
     }

@@ -25,7 +25,7 @@ public class TrainCardDeck implements iDeck, Serializable
                 this.addCard(newCard);
             }
         }
-        TrainCard newWild = new TrainCard(Color.WILD);
+        TrainCard newWild = new TrainCard(Color.COLORLESS);
         this.addCard(newWild);
         this.addCard(newWild);
         this.shuffle();

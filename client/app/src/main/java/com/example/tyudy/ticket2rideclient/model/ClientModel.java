@@ -1,6 +1,5 @@
 package com.example.tyudy.ticket2rideclient.model;
 
-import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -34,7 +33,6 @@ public class ClientModel implements iObservable {
         ipAddress = null;
         currentUser = null;
         mCurrentTTRGame = null;
-        currentPlayer = null;
         allCities = new ArrayList<>();
         initCities();
     }

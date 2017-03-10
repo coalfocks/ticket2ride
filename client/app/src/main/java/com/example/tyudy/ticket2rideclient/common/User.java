@@ -9,10 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Stack;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Stack;
 
 import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
 import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
@@ -29,9 +27,7 @@ public class User implements Serializable, Comparable<User> {
     private int inGame;
     private int points = 0;
     private Color color;
-    private User associatedUser;
-  
-    private ArrayList<Path> claimedPaths;    
+    private ArrayList<Path> claimedPaths;
     private Map<Color, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
 
@@ -56,7 +52,7 @@ public class User implements Serializable, Comparable<User> {
         this.inGame = inGame;
       
         destCards = new ArrayList<>();
-        claimedPaths = new ArrayList<>();
+        //claimedPaths = new ArrayList<>();
         colorCards = new HashMap<Color, TrainCard>();
       
         TrainCard myCard = new TrainCard();
@@ -154,6 +150,10 @@ public class User implements Serializable, Comparable<User> {
 
     public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
 
+    public void increasePoints(int addPoints) {
+        points += Math.abs(addPoints);
+    }
+
     public void decreasePoints(int subtractPoints) {
         points -= Math.abs(subtractPoints);
 
@@ -177,7 +177,7 @@ public class User implements Serializable, Comparable<User> {
         this.color = color;
     }
 
-    public void claimPath(Path p) { claimedPaths.add(p); }
+   // public void claimPath(Path p) { claimedPaths.add(p); }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
@@ -224,8 +224,8 @@ public class User implements Serializable, Comparable<User> {
 
                     for (Path path : nextCity.getPaths())
                     {
-                        City c1 = path.getCities().first;
-                        City c2 = path.getCities().second;
+                        City c1 = path.getCities().get(0);
+                        City c2 = path.getCities().get(1);
 
                         if (!c1.equals(nextCity))
                             citySCC.push(c1);

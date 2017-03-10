@@ -63,7 +63,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 
     private SlidingUpPanelLayout mChat;
 
-    private GameBoardPresenter mGameBoardPresenter;
 
     int testCounter = 0;
     private User mThisUser;

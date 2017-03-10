@@ -5,9 +5,10 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.Stack;
 
 import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
 import static com.example.tyudy.ticket2rideclient.common.Color.WHITE;
@@ -24,8 +25,9 @@ public class User implements Serializable, Comparable<User> {
     private int points = 0;
 
     private Color color;
-    private User associatedUser;
-    private Map<Color, TrainCard> colorCards = new HashMap<Color, TrainCard>();;
+
+    private ArrayList<Path> claimedPaths;
+    private Map<Color, TrainCard> colorCards;
     private ArrayList<DestinationCard> destCards;
 
 
@@ -47,6 +49,12 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
+
+      
+        destCards = new ArrayList<>();
+        //claimedPaths = new ArrayList<>();
+        colorCards = new HashMap<Color, TrainCard>();
+      
         TrainCard myCard = new TrainCard();
         myCard.setColor(WHITE);
         this.addTrainCard(myCard);
@@ -142,7 +150,6 @@ public class User implements Serializable, Comparable<User> {
 
     public TrainCard getNumCardsOfColor(Color c) { return colorCards.get(c); }
 
-
     public void increasePoints(int addPoints) {
         points += Math.abs(addPoints);
     }
@@ -171,5 +178,69 @@ public class User implements Serializable, Comparable<User> {
         this.color = color;
     }
 
+   // public void claimPath(Path p) { claimedPaths.add(p); }
+
+    public boolean haveCompletedRoute(DestinationCard card) {
+        // Make sure the given card is a card the player has
+        if (destCards.contains(card))
+        {
+            HashSet<City> citiesInRoute = new HashSet<>();
+            City source = card.getDestination().source;
+            City dest = card.getDestination().dest;
+            boolean connectsToDest = false;
+            boolean connectsToSource = false;
+
+            // Iterate through each path the user has claimed
+            for (Path path: claimedPaths)
+            {
+                if (path.containsCity(source))
+                {
+                    connectsToSource = true;
+                }
+                else if (path.containsCity(dest))
+                {
+                    connectsToDest = true;
+                }
+
+                if (connectsToSource && connectsToDest)
+                    break;
+            }
+
+            // Player does not own a path connected to one of the necessary cities
+            if (!(connectsToSource && connectsToDest))
+                return false;
+
+            // DFS to find the SCC of the source city
+            // tldr; if the source city is in the same set as
+            //  the destination city after the loop exist,
+            //  there exists a path from src to dest
+            Stack<City> citySCC = new Stack<>();
+            citySCC.push(source);
+            while(!citySCC.empty())
+            {
+                City nextCity = citySCC.pop();
+                if (!citiesInRoute.contains(nextCity))
+                {
+                    citiesInRoute.add(nextCity);
+
+                    for (Path path : nextCity.getPaths())
+                    {
+                        City c1 = path.getCities().get(0);
+                        City c2 = path.getCities().get(1);
+
+                        if (!c1.equals(nextCity))
+                            citySCC.push(c1);
+                        else
+                            citySCC.push(c2);
+                    }
+                }
+            }
+
+            if (citiesInRoute.contains(source) && citiesInRoute.contains(dest))
+                return true;
+        }
+
+        return false;
+    }
 
 }

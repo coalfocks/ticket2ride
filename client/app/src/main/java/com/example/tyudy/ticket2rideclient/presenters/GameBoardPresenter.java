@@ -27,11 +27,12 @@ public class GameBoardPresenter {
      * his/her destination cards
      */
     public void showDestCards(){
+
         User user = ClientModel.SINGLETON.getCurrentUser();
         mDialogFragment = new DisplayDestCardsDialogFragment();
         mDialogFragment.setCardList(user.getDestCards());
         mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
-
         mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
+      
     }
 }

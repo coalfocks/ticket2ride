@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
@@ -14,8 +17,10 @@ import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameSelectionFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
-public class PreGameActivity extends AppCompatActivity {
+public class PreGameActivity extends AppCompatActivity implements iObserver {
 
     private FragmentManager fm;
 
@@ -33,6 +38,7 @@ public class PreGameActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
+
     }
 
     public void onLogin(){
@@ -57,4 +63,15 @@ public class PreGameActivity extends AppCompatActivity {
         super.onResume();
         MethodsFacade.SINGLETON.setContext(this);
     }
+
+    @Override
+    public void observe() {
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ClientModel.SINGLETON.removeObserver((iObserver) this);
+    }
+
 }

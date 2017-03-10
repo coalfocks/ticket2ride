@@ -1,11 +1,13 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -17,6 +19,7 @@ public class ClientModel implements iObservable {
     private ArrayList<TTRGame> mTTRGameList;
     private ArrayList<iObserver> obsList;
     private ArrayList<String> chatMsgs;
+    private TreeMap<String, City> mCities;
     private String ipAddress;
     private User currentUser;
     private TTRGame mCurrentTTRGame;
@@ -87,7 +90,6 @@ public class ClientModel implements iObservable {
         currentUser = u;
     }
 
-
     public void setCurrentTTRGame(TTRGame g){
         mCurrentTTRGame = g;
     }
@@ -135,5 +137,11 @@ public class ClientModel implements iObservable {
         }
         return mCurrentTTRGame;
     }
+
+    public void setCitiesList(TreeMap<String, City> cities) {
+        mCities = cities;
+    }
+
+    public City getCityByName(String name) { return mCities.get(name); }
 
 }

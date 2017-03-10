@@ -39,8 +39,7 @@ public class ClientModel implements iObservable {
         currentUser = null;
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
-        initCities();
-        initPaths();
+        initCitiesAndPaths();
     }
 
     /**
@@ -156,7 +155,7 @@ public class ClientModel implements iObservable {
     /**
      * Initialize all cities in the map with a name and location
      */
-    private void initCities(){
+    private void initCitiesAndPaths(){
         /*
          * List of cities:
          * Atlanta
@@ -273,21 +272,15 @@ public class ClientModel implements iObservable {
         allCities.add(Washington_DC);
         allCities.add(Winnipeg);
 
-
-    }
-
-    /**
-     * Initialize all cities in the map with a name and location
-     */
-    private void initPaths(){
-
         //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order
-        Path Seattle_to_Vancouver = new Path()
-        City
+        Path Seattle_to_Vancouver = new Path();
+
         // Add all of the Paths to the array list of paths
 
+
     }
 
+    
     /**
      * @param name - name of the city to search
      * @return - the city with the given name, or null if unfound
@@ -307,8 +300,5 @@ public class ClientModel implements iObservable {
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
-    public void removeObserver(iObserver observer) {
-        obsList.remove(observer);
-    }
 
 }

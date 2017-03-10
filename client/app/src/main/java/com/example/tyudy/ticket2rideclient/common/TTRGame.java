@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -117,7 +118,12 @@ public class TTRGame implements Serializable
         this.mTurnIndex = mTurnIndex;
     }
 
+    /**
+     * Updates the ClientModels given path to have an owner and adds the corresponding points to the paths owner user.
+     * @param path - the path to update in the client model
+     */
     public void claimPath(Path path) {
+
         for (Path p : ClientModel.SINGLETON.getAllPaths()) {
             if (p.getName().equals(path.getName())) {
                 p.setOwner(path.getOwner());
@@ -128,6 +134,7 @@ public class TTRGame implements Serializable
                 }
             }
         }
+
     }
 
     public void dealTrainCard(User u){

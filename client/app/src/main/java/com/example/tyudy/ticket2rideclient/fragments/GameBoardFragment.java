@@ -79,21 +79,21 @@ public class GameBoardFragment extends Fragment implements iObserver
         
 //        User pug = new User();
 //        pug.setUsername("pug");
-//        pug.setColor(Color.RED);
+//        pug.setColorENUM(ColorENUM.RED);
 //        pug.addPoints(1000);
 //
 //        User cat = new User();
 //        cat.setUsername("cat");
-//        cat.setColor(Color.YELLOW);
+//        cat.setColorENUM(ColorENUM.YELLOW);
 //
 //        User milo = new User();
 //        milo.setUsername("milo");
-//        milo.setColor(Color.BLUE);
+//        milo.setColorENUM(ColorENUM.BLUE);
 //        milo.addPoints(100);
 //
 //        User golden = new User();
 //        golden.setUsername("daisy");
-//        golden.setColor(Color.MAGENTA);
+//        golden.setColorENUM(ColorENUM.MAGENTA);
 //        golden.addPoints(10000000);
 //        mPlayers.add(pug);
 //        mPlayers.add(cat);
@@ -104,7 +104,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        mCards = new ArrayList<TrainCard>();
 //        for(int i = 0; i < 10; i++){
 //            TrainCard myCard = new TrainCard();
-//            myCard.setColor(YELLOW);
+//            myCard.setColorENUM(YELLOW);
 //            myCard.setNum(i);
 //            mCards.add(myCard);
 //        }
@@ -149,7 +149,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         //mCards = new ArrayList<TrainCard>();
 //        for(int i = 0; i < 10; i++){
 //            TrainCard myCard = new TrainCard();
-//            myCard.setColor(Color.YELLOW);
+//            myCard.setColorENUM(ColorENUM.YELLOW);
 //            myCard.setNum(i);
 //            mCards.add(myCard);
 //        }
@@ -208,19 +208,30 @@ public class GameBoardFragment extends Fragment implements iObserver
             @Override
             public void onClick(View v) {
                 // Test 1
-                if(testCounter == 0) {
-                    Path path = ClientModel.SINGLETON.getAllPaths().get(0);
-                    MethodsFacade.SINGLETON.claimPath(path);
+//                if(testCounter == 0) {
 
-                    mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
-                    testCounter = 1;
-                } else {
-                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
-                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
+                    User anOwner = ClientModel.SINGLETON.getCurrentUser();
+                    Path tysTestPath = ClientModel.SINGLETON.getPathByName("Atlanta_to_Miami");
+                    Path colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
+                    tysTestPath.setOwner(anOwner);
+                    colesPathThatSucks.setOwner(anOwner);
 
-                    mMapView.reDrawWithLineBetween(c, d);
-                    testCounter = 0;
-                }
+                    mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
+
+
+                    //Path path = ClientModel.SINGLETON.getAllPaths().get(0);
+                    //MethodsFacade.SINGLETON.claimPath(path);
+
+
+                    //mMapView.reDrawWithLineBetween(path.getCities().get(0), path.getCities().get(1));
+                    //testCounter = 1;
+//                } else {
+//                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
+//                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
+//
+//                    mMapView.reDrawWithLineBetween(c, d);
+//                    testCounter = 0;
+//                }
             }
         });
 
@@ -293,6 +304,9 @@ public class GameBoardFragment extends Fragment implements iObserver
         mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
                 R.layout.points_fragment, mCards));
 
+        // Draw route to screen
+        mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
+
     }
 
     private class PlayerAdapter extends ArrayAdapter<User> {
@@ -338,7 +352,9 @@ public class GameBoardFragment extends Fragment implements iObserver
                 holder.mUsername.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
             }
             
+
             ColorENUM color = user.getColor();
+            
             if(color == null){
                 holder.mUsername.setBackgroundColor(android.graphics.Color.LTGRAY);
             }
@@ -458,6 +474,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         }
 
     }
+
 
     private final int YELLOW = android.graphics.Color.YELLOW;
     private final int PURPLE = android.graphics.Color.MAGENTA;

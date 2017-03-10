@@ -53,11 +53,10 @@ public class User implements Serializable, Comparable<User> {
         this.playerID = playerID;
         this.inGame = inGame;
 
-      
+
         destCards = new ArrayList<>();
         //claimedPaths = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
-      
         TrainCard myCard = new TrainCard();
         myCard.setColor(WHITE);
         this.addTrainCard(myCard);
@@ -181,15 +180,15 @@ public class User implements Serializable, Comparable<User> {
         this.color = color;
     }
 
-   // public void claimPath(Path p) { claimedPaths.add(p); }
+    // public void claimPath(Path p) { claimedPaths.add(p); }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
         if (destCards.contains(card))
         {
             HashSet<City> citiesInRoute = new HashSet<>();
-            City source = card.getDestination().source;
-            City dest = card.getDestination().dest;
+            City source = new City();
+            City dest = new City();
             boolean connectsToDest = false;
             boolean connectsToSource = false;
 

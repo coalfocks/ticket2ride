@@ -273,6 +273,7 @@ public class ClientModel implements iObservable {
         allCities.add(Winnipeg);
 
         //Create all of the Paths NOTE: Their name is based on the two connected cities alphabetical order-------------------------------
+
         Path Calgary_to_Vancouver = new Path(ColorENUM.COLORLESS, 3, Calgary, Vancouver, "Calgary_to_Vancouver");
         Path Calgary_to_Winnipeg = new Path(ColorENUM.WHITE, 6, Calgary, Winnipeg, "Calgary_to_Winnipeg");
         Path Calgary_to_Helena = new Path(ColorENUM.COLORLESS, 4, Calgary, Helena, "Calgary_to_Helena");
@@ -449,15 +450,37 @@ public class ClientModel implements iObservable {
         mCities = cities;
     }
 
+    public ArrayList<City> getCities(){
+        return allCities;
+    }
+
+    public ArrayList<Path> getPaths(){
+        return allPaths;
+    }
+
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
-    public void claimRoute(Path path) {
+    public void claimPath(Path path) {
         this.getCurrentTTRGame().claimPath(path);
         notifyObservers();
     }
 
     public ArrayList<Path> getAllPaths() {
         return this.allPaths;
+    }
+
+    /**
+     * Find a path in the list of all paths with the given name
+     * @param name - name of the path
+     * @return - The desired path or null if not found
+     */
+    public Path getPathByName(String name){
+        for (Path p: allPaths){
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
     }
 
 

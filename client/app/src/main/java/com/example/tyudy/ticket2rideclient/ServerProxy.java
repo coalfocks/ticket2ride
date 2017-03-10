@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.commands.AddTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
@@ -181,6 +182,22 @@ public class ServerProxy implements iTTRServer {
             String commandString = Serializer.serialize(newCommand);
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (IOException e){
+            e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
+        }
+        return null;
+    }
+
+    public DataTransferObject addTrainCard(DataTransferObject data)
+    {
+        try
+        {
+            AddTrainCardCommand command = new AddTrainCardCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (IOException e)
+        {
             e.printStackTrace();
             Log.d("ServerProxy", e.getMessage());
         }

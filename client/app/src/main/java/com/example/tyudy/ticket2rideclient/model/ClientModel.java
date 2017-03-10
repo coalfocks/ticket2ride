@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -483,5 +484,17 @@ public class ClientModel implements iObservable {
         return null;
     }
 
+    public void addTrainCard(TrainCard card, int playerID) {
+
+        for (User u : mCurrentTTRGame.getUsers()) {
+            if (u.getPlayerID() == playerID) {
+                mCurrentTTRGame.dealTrainCard(u);
+                if (u.getPlayerID() == currentUser.getPlayerID()) {
+                    currentUser.addTrainCard(card);
+                }
+            }
+        }
+        notifyObservers();
+    }
 
 }

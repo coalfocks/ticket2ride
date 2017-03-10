@@ -164,6 +164,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     public void onResume()
     {
         super.onResume();
+
     }
 
 
@@ -216,6 +217,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                     tysTestPath.setOwner(anOwner);
                     colesPathThatSucks.setOwner(anOwner);
                     MethodsFacade.SINGLETON.claimPath(colesPathThatSucks);
+                    MethodsFacade.SINGLETON.addTrainCard();
                     mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
 
 

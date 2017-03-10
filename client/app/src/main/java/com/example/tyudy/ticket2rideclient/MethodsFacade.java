@@ -191,6 +191,17 @@ public class MethodsFacade {
         }
     }
 
+    public void addTrainCard() {
+        int playerID = ClientModel.SINGLETON.getCurrentUser().getPlayerID();
+        int gameID = ClientModel.SINGLETON.getCurrentTTRGame().getGameID();
+
+        DataTransferObject dto = new DataTransferObject();
+        dto.setData(String.valueOf(gameID));
+        dto.setCommand("addTrainCard");
+        dto.setPlayerID(playerID);
+        ServerProxy.SINGLETON.addTrainCard(dto);
+    }
+
     /**
      * Send a path to the server and tell it its ready to go
      * @param path - path to be claimed

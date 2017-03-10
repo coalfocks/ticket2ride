@@ -21,15 +21,17 @@ public class ChatPresenter {
     private ChatFragment mChatFragment;
     private String mChatMessage;
 
-    public ChatPresenter(){
-
-    }
+    public ChatPresenter(){}
 
     // Called in the onCreate function in the ChatFragment Class in the Fragments folder so that it can be updated.
     public void setChatFragment(ChatFragment chatFragment) {
         mChatFragment = chatFragment;
     }
 
+    /**
+     * Sets the chat to send to the server when the button is clicked
+     * @param chat The chat message
+     */
     public void chatEntered(String chat){
         mChatMessage = chat;
     }

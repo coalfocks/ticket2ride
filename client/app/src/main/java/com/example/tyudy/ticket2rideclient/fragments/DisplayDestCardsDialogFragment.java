@@ -32,20 +32,32 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
     private ListView allCardsView;
     private DisplayCardsAdapter adapter;
 
+    /**
+     * Constructor for this fragment
+     */
     public DisplayDestCardsDialogFragment(){
         destinationCards = new ArrayList<>();
     }
 
+    /**
+     * Sets a reference to the current activity
+     * @param a The activity to reference
+     */
     public void setGameBoardActivity(Activity a) { gameBoardActivity = a; }
 
     /**
-     * Set the list of destination cards for the adapter to use
+     * Sets the list of destination cards for the adapter to use
      * @param list
      */
     public void setCardList(ArrayList<DestinationCard> list) {
         destinationCards = list;
     }
 
+    /**
+     * The necessary overridden function to create a dialog to show the destination cards
+     * @param savedInstanceState Given param
+     * @return The built dialog
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(gameBoardActivity);
@@ -71,6 +83,9 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Adapter to show the destination cards
+     */
     private class DisplayCardsAdapter extends ArrayAdapter<DestinationCard> {
         private Context mContext;
 
@@ -90,6 +105,13 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             CheckBox returnBox;
         }
 
+        /**
+         * Called by the API to show the dialog
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return The view for the dialog
+         */
         public View getView(int position, View convertView, ViewGroup parent) {
 
             final ViewHolder holder;
@@ -132,12 +154,11 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                 if(holder.returnBox.isChecked())
                     ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
                 holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                                        @Override
-                                                                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                                                                               holder.returnBox.setChecked(true);
-                                                                        }
-                                                            }
+                                @Override
+                                public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                                       holder.returnBox.setChecked(true);
+                                }
+                    }
                 );
             }
 

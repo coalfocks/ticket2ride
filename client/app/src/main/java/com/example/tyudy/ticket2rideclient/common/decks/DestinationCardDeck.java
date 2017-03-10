@@ -14,7 +14,9 @@ import java.util.List;
 public class DestinationCardDeck implements iDeck, Serializable {
     List<iCard> cards = new ArrayList<iCard>();
 
-    //initialize a deck TODO: figure out wtf to do here.
+    //initialize a deck
+    // TODO: Need to get a list of all destination cards and individually create them
+    //  but this probably will work enough for this phase
     public DestinationCardDeck() {
         for (int i = 0; i < 30; i++) {
             cards.add(new DestinationCard());

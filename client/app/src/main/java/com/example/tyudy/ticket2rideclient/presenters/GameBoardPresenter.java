@@ -29,11 +29,11 @@ public class GameBoardPresenter {
      * his/her destination cards
      */
     public void showDestCards(){
-        Player player = mGameBoardFragment.getCurrentPlayer();
-        mDialogFragment = new DisplayDestCardsDialogFragment();
-        mDialogFragment.setCardList(player.getDestCards());
-        mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
-
-        mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
+//        Player player = mGameBoardFragment.ge();
+//        mDialogFragment = new DisplayDestCardsDialogFragment();
+//        mDialogFragment.setCardList(player.getDestCards());
+//        mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
+//
+//        mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
     }
 }

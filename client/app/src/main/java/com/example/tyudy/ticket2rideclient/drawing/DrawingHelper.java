@@ -27,51 +27,12 @@ public class DrawingHelper {
     private static int viewWidth;
     private static int viewHeight;
 
-    public static void setCanvas(Canvas canvas) {
-        DrawingHelper.canvas = canvas;
-    }
-
-
-
-
-    /**
-     * Draws a point to the game view using the provided parameters.  Will not draw if the current canvas is null.
-     * @param location The location of the point in view coordinates
-     * @param width The width of the point
-     * @param color The color of the point
-     * @param alpha The point alpha value (0 - 255, 0 = completely transparent, 255 = completely opaque)
-     */
-    public static void drawPoint(PointF location, float width, int color, int alpha) {
-
-        if(canvas == null)
-            return;
-
-        paint.reset();
-        paint.setStrokeWidth(width);
-        paint.setColor(color);
-        paint.setAlpha(alpha);
-        canvas.drawPoint(location.x, location.y, paint);
-    }
-
-    /**
-     * Draw a line between the given points
-     * @param start - start point
-     * @param stop - stop point
-     * @param color - color to draw the line
-     */
-    public static void drawLine(PointF start, PointF stop, int color){
-        paint.reset();
-        paint.setStrokeWidth(PATH_WIDTH);
-        paint.setColor(color);
-        canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
-    }
-
 
     /**
      * Get the width of the game view
      * @return The width of the game view, 0 if the current canvas is null
      */
-    public static int getGameViewWidth() {
+    public static int getViewWidth() {
 
         if(canvas == null)
             return 0;
@@ -84,7 +45,7 @@ public class DrawingHelper {
      * Get the height of the game view
      * @return The height of the game view, 0 if the current canvas is null
      */
-    public static int getGameViewHeight() {
+    public static int getViewHeight() {
 
         if(canvas == null)
             return 0;

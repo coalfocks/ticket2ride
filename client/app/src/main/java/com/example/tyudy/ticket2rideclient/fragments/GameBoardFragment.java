@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
@@ -58,17 +60,16 @@ public class GameBoardFragment extends Fragment implements iObserver
     private ListView mMyInfo;
 
     private ImageButton mDestCardsButton;
-    private ImageView mUnitedStatesImage;
+    private Button mTestButton;
     private FrameLayout mMapHolderFL;
     private MapView mMapView;
 
     private SlidingUpPanelLayout mChat;
-    
+
     private GameBoardPresenter mGameBoardPresenter;
-    private Player mThisPlayer;
     private ArrayList<User> mPlayers;
-    private ArrayList<String> mPlayerNames;
-    private ArrayList<TrainCard> mCards;
+
+    int testCounter = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -139,25 +140,25 @@ public class GameBoardFragment extends Fragment implements iObserver
         View v = inflater.inflate(R.layout.gameplay_fragment, container, false);
 
         // Tester listener to print coordinates when they are clicked on for city location finding
-        v.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-                Display display = mWindowManager.getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                int maxX = size.x;
-                int maxY = size.y;
-
-                // Display display =  getWindowManager().getDefaultDisplay();
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    int x = (int) event.getX();
-                    int y = (int) event.getY();
-                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
-                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-        });
+//        v.setOnTouchListener(new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent event) {
+//                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//                Display display = mWindowManager.getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                int maxX = size.x;
+//                int maxY = size.y;
+//
+//                // Display display =  getWindowManager().getDefaultDisplay();
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    int x = (int) event.getX();
+//                    int y = (int) event.getY();
+//                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
+//                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
+//                }
+//                return true;
+//            }
+//        });
 
 //        mUnitedStatesImage = (ImageView) v.findViewById(R.id.UnitedStatesImage);
         mMapHolderFL = (FrameLayout) v.findViewById(R.id.content_frame);
@@ -168,6 +169,26 @@ public class GameBoardFragment extends Fragment implements iObserver
         mMyInfo = (ListView) v.findViewById(R.id.right_drawer);
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
+        mTestButton = (Button) v.findViewById(R.id.test_button);
+        mTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Test 1
+                if(testCounter == 0) {
+                    City a = ClientModel.SINGLETON.getCityByName("New York");
+                    City b = ClientModel.SINGLETON.getCityByName("Boston");
+
+                    mMapView.reDrawWithLineBetween(a, b);
+                    testCounter = 1;
+                } else {
+                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
+                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
+
+                    mMapView.reDrawWithLineBetween(c, d);
+                    testCounter = 0;
+                }
+            }
+        });
 
 
 //        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
@@ -186,27 +207,26 @@ public class GameBoardFragment extends Fragment implements iObserver
 
 
         // Listener to print coordinates when the image is clicked on
-        mMapView.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-                Display display = mWindowManager.getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                int maxX = size.x;
-                int maxY = size.y;
-
-                // Display display =  getWindowManager().getDefaultDisplay();
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    int x = (int) event.getX();
-                    int y = (int) event.getY();
-                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
-                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
-
-                    mMapView.reDraw();
-                }
-                return true;
-            }
-        });
+//        mMapView.setOnTouchListener(new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent event) {
+//                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//                Display display = mWindowManager.getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                float maxX = size.x;
+//                float maxY = size.y;
+//
+//                // Display display =  getWindowManager().getDefaultDisplay();
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    float x = event.getX();
+//                    float y = event.getY();
+//                    Toast.makeText(getContext(), "xScale: " + x/maxX + " yScale: " + y/maxY, Toast.LENGTH_SHORT).show();
+//
+//                    mMapView.reDraw();
+//                }
+//                return true;
+//            }
+//        });
 
 
 
@@ -214,6 +234,7 @@ public class GameBoardFragment extends Fragment implements iObserver
             @Override
             public void onClick(View view) {
                 mGameBoardPresenter.showDestCards();
+
             }
         });
 
@@ -255,7 +276,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        DrawingHelper.setCanvas(canvas);
 //    }
 
-    public Player getCurrentPlayer() { return mThisPlayer; }
 
     private class PlayerAdapter extends ArrayAdapter<User> {
 

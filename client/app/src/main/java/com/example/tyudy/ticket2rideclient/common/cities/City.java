@@ -18,16 +18,41 @@ public class City {
     private String mCityName;
     private Map<City, Path> mConnectedCities;
     private PointF mCoordinates;
+    private float xPosScale;
+    private float yPosScale;
 
     public City(String cityName, Map<City, Path> connectedCities) {
         mConnectedCities = connectedCities;
         mCityName = cityName;
     }
 
-    public City(String cityName) {
+    /**
+     * Initialize a city
+     * @param cityName - Name of the city
+     * @param xPercentage - horizontal percentage of the screen where the city sits
+     * @param yPercentage - vertical percentage of the screen where the city sits
+     */
+    public City(String cityName, float xPercentage, float yPercentage) {
         mConnectedCities = null;
         mCityName = cityName;
+        xPosScale = xPercentage;
+        yPosScale = yPercentage;
+    }
 
+    public City(){
+
+    }
+
+    public String getCityName(){
+        return mCityName;
+    }
+
+    public float getxPosScale(){
+        return xPosScale;
+    }
+
+    public float getyPosScale(){
+        return yPosScale;
     }
 
     public void setCoordinate(PointF coordinate) { mCoordinates = coordinate; }

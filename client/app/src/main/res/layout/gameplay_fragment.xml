@@ -30,15 +30,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+
+
+
+            <Button
+                android:id="@+id/test_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:text="Swap Test"/>
+
             <ImageButton
                 android:id="@+id/dest_cards_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:scaleType="fitCenter"
-                android:layout_gravity="bottom|right"
                 android:layout_margin="10dp"
+                android:layout_toLeftOf="@id/test_button"
+                android:layout_gravity="bottom|right"
                 android:backgroundTint="?attr/colorAccent"
                 android:src="@drawable/dest_cards_icon"/>
+
 
         </FrameLayout>
 

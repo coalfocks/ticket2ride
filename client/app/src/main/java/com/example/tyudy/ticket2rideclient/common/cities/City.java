@@ -2,14 +2,11 @@ package com.example.tyudy.ticket2rideclient.common.cities;
 
 import android.graphics.PointF;
 import android.util.Pair;
-
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import static com.example.tyudy.ticket2rideclient.common.Color.BLACK;
 import static com.example.tyudy.ticket2rideclient.common.Color.BLUE;
 import static com.example.tyudy.ticket2rideclient.common.Color.COLORLESS;
@@ -30,17 +27,53 @@ public class City {
      * values being the class Path
      */
     private String mCityName;
-    private ArrayList<Path> mPaths;
+    private Map<City, Path> mConnectedCities;
     private PointF mCoordinates;
+    private float xPosScale;
+    private float yPosScale;
 
-    public City(String cityName) {
+    public City(String cityName, Map<City, Path> connectedCities) {
+        mConnectedCities = connectedCities;
         mCityName = cityName;
-        mPaths = new ArrayList<>();
-        mCoordinates = null;
+    }
+
+    /**
+     * Initialize a city
+     * @param cityName - Name of the city
+     * @param xPercentage - horizontal percentage of the screen where the city sits
+     * @param yPercentage - vertical percentage of the screen where the city sits
+     */
+    public City(String cityName, float xPercentage, float yPercentage) {
+        mConnectedCities = null;
+        mCityName = cityName;
+        xPosScale = xPercentage;
+        yPosScale = yPercentage;
+    }
+
+    public City(){
+
+    }
+
+    public String getCityName(){
+        return mCityName;
+    }
+
+    public float getxPosScale(){
+        return xPosScale;
+    }
+
+    public float getyPosScale(){
+        return yPosScale;
     }
 
     public void setCoordinate(PointF coordinate) { mCoordinates = coordinate; }
     public PointF getCoordinates() { return mCoordinates; }
+
+    public void setConnectedCities(Map<City, Path> cc) { mConnectedCities = cc; }
+
+    /**
+     * A function to find if a city is connected to another
+     */
     public String getCityName() { return mCityName; }
 
     public void setPaths(ArrayList<Path> paths) { this.mPaths = paths; }
@@ -52,6 +85,9 @@ public class City {
      * @return True if the two are connected, false otherwise
      */
     public boolean isConnectedTo(City city) {
+        if (mConnectedCities.containsKey(city))
+            return true;
+
         if (city.equals(this))
             return true;
 
@@ -60,11 +96,21 @@ public class City {
             if (path.containsCity(city))
                 return true;
         }
-
         return false;
     }
 
     /**
+     * A function to find the path length between 2 cities
+     * @param city The connected city to find length to
+     * @return Distance to city, if connected. -1 if no connection exists
+     */
+    public int getDistTo(City city) {
+        if (isConnectedTo(city))
+            return mConnectedCities.get(city).distance;
+
+        return -1;
+    }
+
      * Getter function to return the path between the two cities
      * @param city The connected city to get the path to
      * @return Path to the given city, if connected. Null if no connection exists,

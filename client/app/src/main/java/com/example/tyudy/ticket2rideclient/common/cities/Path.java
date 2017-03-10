@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.common.cities;
 import android.util.Pair;
 
 import com.example.tyudy.ticket2rideclient.common.Color;
+import com.example.tyudy.ticket2rideclient.common.Player;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 /**

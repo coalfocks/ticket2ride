@@ -180,7 +180,10 @@ public class User implements Serializable, Comparable<User> {
         this.color = color;
     }
 
-    // public void claimPath(Path p) { claimedPaths.add(p); }
+     public void claimPath(Path p) {
+         claimedPaths.add(p);
+         addPoints(p.getPoints());
+     }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
@@ -244,7 +247,6 @@ public class User implements Serializable, Comparable<User> {
 
         return false;
     }
-
 
     public void removeDestinationCard(DestinationCard card) {
         this.destCards.remove(card);

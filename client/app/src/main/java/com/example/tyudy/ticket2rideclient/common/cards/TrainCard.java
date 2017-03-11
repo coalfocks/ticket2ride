@@ -43,6 +43,6 @@ public class TrainCard implements iCard, Serializable {
     }
 
     public void incNum() {
-        this.num = this.num++;
+        this.num++;
     }
 }

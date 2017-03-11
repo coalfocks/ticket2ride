@@ -300,10 +300,10 @@ public class GameBoardFragment extends Fragment implements iObserver
     {
         mPlayerScores.invalidate();
         mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
+        mPlayerScores.setAdapter(new PlayerAdapter(getContext(), R.layout.points_fragment, mUsers));
         mMyInfo.invalidate();
         mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
-        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+        mMyInfo.setAdapter(new CardsAdapter(getContext(),
                 R.layout.points_fragment, mCards));
 
         // Draw route to screen

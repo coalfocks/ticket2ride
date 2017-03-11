@@ -116,14 +116,26 @@ public class TTRGame implements Serializable
     }
 
     public void claimPath(Path path) {
-        return;
+        for (User u : players) {
+            if (u.getPlayerID() == path.getOwner().getPlayerID()) {
+                u.claimPath(path);
+            }
+        }
     }
 
-    public TrainCard dealTrainCard(User u){
-        TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
-        u.addTrainCard(myCard);
+    public TrainCard dealTrainCard(TrainCard card, int playerID){
+        TrainCard myCard = null;
+        for (User u : players)
+        {
+            if (u.getPlayerID() == playerID)
+            {
+                myCard = (TrainCard) getMyTrainDeck().getCard();
+                u.addTrainCard(myCard);
+            }
+        }
         return myCard;
     }
+
     public void dealDestCard(User u){
         DestinationCard myCard = (DestinationCard) getMyDestDeck().getCard();
         u.addDestinationCard(myCard);

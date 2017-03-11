@@ -463,6 +463,11 @@ public class ClientModel implements iObservable {
 
     public void claimPath(Path path) {
         this.getCurrentTTRGame().claimPath(path);
+        for (Path p : allPaths) {
+            if (p.getName().equals(path.getName())) {
+                p = path;
+            }
+        }
         notifyObservers();
     }
 
@@ -486,13 +491,9 @@ public class ClientModel implements iObservable {
 
     public void addTrainCard(TrainCard card, int playerID) {
 
-        for (User u : mCurrentTTRGame.getUsers()) {
-            if (u.getPlayerID() == playerID) {
-                mCurrentTTRGame.dealTrainCard(u);
-                if (u.getPlayerID() == currentUser.getPlayerID()) {
-                    currentUser.addTrainCard(card);
-                }
-            }
+        mCurrentTTRGame.dealTrainCard(card, playerID);
+        if (playerID == currentUser.getPlayerID()) {
+            currentUser.addTrainCard(card);
         }
         notifyObservers();
     }

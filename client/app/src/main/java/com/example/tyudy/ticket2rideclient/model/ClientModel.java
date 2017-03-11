@@ -491,7 +491,7 @@ public class ClientModel implements iObservable {
 
     public void addTrainCard(TrainCard card, int playerID) {
 
-        mCurrentTTRGame.dealTrainCard(card, playerID);
+        mCurrentTTRGame.dealTrainCard(playerID);
         if (playerID == currentUser.getPlayerID()) {
             currentUser.addTrainCard(card);
         }

@@ -123,7 +123,7 @@ public class TTRGame implements Serializable
         }
     }
 
-    public TrainCard dealTrainCard(TrainCard card, int playerID){
+    public TrainCard dealTrainCard(int playerID){
         TrainCard myCard = null;
         for (User u : players)
         {

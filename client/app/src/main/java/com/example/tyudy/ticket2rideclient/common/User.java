@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.common;
 
+
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -250,5 +251,13 @@ public class User implements Serializable, Comparable<User> {
 
     public void removeDestinationCard(DestinationCard card) {
         this.destCards.remove(card);
+    }
+
+    public void removeAllTrainCards(){
+        colorCards = new HashMap<>();
+    }
+
+    public void removeAllDestinationCards(){
+        destCards = new ArrayList<>();
     }
 }

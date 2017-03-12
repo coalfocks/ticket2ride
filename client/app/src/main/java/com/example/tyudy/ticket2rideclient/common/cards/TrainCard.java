@@ -30,6 +30,9 @@ public class TrainCard implements iCard, Serializable {
         this.num = num;
     }
 
+    /**
+     * @return - the number of train cards of a specific color that a player has
+     */
     public int getNum() {
         return num;
     }

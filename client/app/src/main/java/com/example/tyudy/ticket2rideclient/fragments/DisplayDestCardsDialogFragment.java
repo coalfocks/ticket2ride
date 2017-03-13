@@ -132,9 +132,9 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                 } else
                     holder = (ViewHolder) convertView.getTag();
 
-                holder.source.setText("FROM: " );//+ card.getDestination().getSource().getCityName());
-                holder.dest.setText("TO: " );//+ card.getDestination().getDest().getCityName());
-                holder.points.setText("POINTS: ");// + card.getPointValue());//pts);
+                holder.source.setText("FROM: " + card.getDestination().getSource().getCityName());
+                holder.dest.setText("TO: " + card.getDestination().getDest().getCityName());
+                holder.points.setText("POINTS: " + card.getPointValue());//pts);
 //                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
 //                    holder.checkBox.setChecked(true);
 //                else

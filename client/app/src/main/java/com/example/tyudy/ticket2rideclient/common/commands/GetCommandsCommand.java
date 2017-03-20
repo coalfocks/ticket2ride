@@ -28,8 +28,8 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
             ArrayList<Command> commands = (ArrayList<Command>) Serializer.deserialize(data.getData());
             for (Command c : commands) {
                 c.execute();
+                Poller.getInstance().incIndex(1);
             }
-            Poller.getInstance().incIndex(commands.size());
         } catch (Exception e) {
             e.printStackTrace();
         }

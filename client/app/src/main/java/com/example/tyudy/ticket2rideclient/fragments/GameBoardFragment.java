@@ -2,13 +2,18 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -16,10 +21,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.Destination;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
@@ -32,6 +41,7 @@ import com.example.tyudy.ticket2rideclient.views.MapView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 
 /**
@@ -164,6 +174,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     public void onResume()
     {
         super.onResume();
+
     }
 
 
@@ -210,13 +221,16 @@ public class GameBoardFragment extends Fragment implements iObserver
                 // Test 1
 //                if(testCounter == 0) {
 
-                    User anOwner = ClientModel.SINGLETON.getCurrentUser();
-                    Path tysTestPath = ClientModel.SINGLETON.getPathByName("Atlanta_to_Miami");
-                    Path colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
-                    tysTestPath.setOwner(anOwner);
-                    colesPathThatSucks.setOwner(anOwner);
+//                    User anOwner = ClientModel.SINGLETON.getCurrentUser();
+//                    Path tysTestPath = ClientModel.SINGLETON.getPathByName("Atlanta_to_Miami");
+//                    Path colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
+//                    tysTestPath.setOwner(anOwner);
+//                    colesPathThatSucks.setOwner(anOwner);
+//                    MethodsFacade.SINGLETON.claimPath(colesPathThatSucks);
+//                    MethodsFacade.SINGLETON.addTrainCard();
+//                    mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
 
-                    mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
+                testButtonClicked();
 
 
                     //Path path = ClientModel.SINGLETON.getAllPaths().get(0);
@@ -227,6 +241,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                     //testCounter = 1;
 //                } else {
 //                    City c = ClientModel.SINGLETON.getCityByName("Atlanta");
+
 //                    City d = ClientModel.SINGLETON.getCityByName("Nashville");
 //
 //                    mMapView.reDrawWithLineBetween(c, d);
@@ -267,7 +282,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //                    float y = event.getY();
 //                    Toast.makeText(getContext(), "xScale: " + x/maxX + " yScale: " + y/maxY, Toast.LENGTH_SHORT).show();
 //
-//                    mMapView.reDraw();
 //                }
 //                return true;
 //            }
@@ -298,13 +312,13 @@ public class GameBoardFragment extends Fragment implements iObserver
     {
         mPlayerScores.invalidate();
         mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
-        mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
+        mPlayerScores.setAdapter(new PlayerAdapter(getContext(), R.layout.points_fragment, mUsers));
         mMyInfo.invalidate();
         mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
-        mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
+        mMyInfo.setAdapter(new CardsAdapter(getContext(),
                 R.layout.points_fragment, mCards));
 
-        // Draw route to screen
+        // Draw routes to screen
         mMapView.redrawModelPaths(ClientModel.SINGLETON.getPaths());
 
     }
@@ -473,6 +487,149 @@ public class GameBoardFragment extends Fragment implements iObserver
             return convertView;
         }
 
+    }
+
+    public void testButtonClicked(){
+        // Change each users number of trains cars
+        User currentUser = ClientModel.SINGLETON.getCurrentUser();
+
+        switch(testCounter){
+            case 0:
+                runTestCaseForTrainCards();
+                testCounter++;
+                break;
+            case 1:
+                runTestCaseForPaths();
+                testCounter++;
+            case 2:
+                testCounter = 0;
+                break;
+            default:
+                System.err.print("Error: ");
+                System.out.print("The test case button logic is broken. See the testButtonClicked() function in GameBoardFragment");
+                break;
+        }
+
+
+
+    }
+
+    // TEST HELPER FUNCTIONS -------------------------------------------------------------------------------------------------------
+
+
+    public void runTestCaseForTrainCards(){
+        User currentUser = ClientModel.SINGLETON.getCurrentUser();
+
+        Log.i("testCaseForTrainCards", "All Players should have 2 cards");
+        Log.i("testCaseForTrainCards", "All Players should have 2 cards");
+        Log.i("testCaseForTrainCards", "Your destination cards should be Portland to Nashville (17), Toronto to Miami (10), and Calgary to Salt Lake City (7)");
+
+        //Set up destinations
+        Destination dest1 = new Destination(ClientModel.SINGLETON.getCityByName("Portland"), ClientModel.SINGLETON.getCityByName("Nashville"));
+        Destination dest2 = new Destination(ClientModel.SINGLETON.getCityByName("Toronto"), ClientModel.SINGLETON.getCityByName("Miami"));
+        Destination dest3 = new Destination(ClientModel.SINGLETON.getCityByName("Calgary"), ClientModel.SINGLETON.getCityByName("Salt Lake"));
+        DestinationCard destinationCard1 = new DestinationCard(dest1, 17);
+        DestinationCard destinationCard2 = new DestinationCard(dest2, 10);
+        DestinationCard destinationCard3 = new DestinationCard(dest3, 7);
+
+
+        // Make sure player 1 has 4 train cards
+        for(User u: mUsers){
+            if(u.getPlayerID() == currentUser.getPlayerID()){
+                //change for current user as well
+                currentUser.removeAllTrainCards();
+                TrainCard trainCard1 = new TrainCard(ColorENUM.BLUE);
+                TrainCard trainCard2 = new TrainCard(ColorENUM.RED);
+                currentUser.addTrainCard(trainCard1);
+                currentUser.addTrainCard(trainCard2);
+
+            }
+            u.removeAllTrainCards();
+            TrainCard trainCard1 = new TrainCard(ColorENUM.BLUE);
+            TrainCard trainCard2 = new TrainCard(ColorENUM.RED);
+            u.addTrainCard(trainCard1);
+            u.addTrainCard(trainCard2);
+        }
+
+        currentUser.removeAllDestinationCards();
+        currentUser.addDestinationCard(destinationCard1);
+        currentUser.addDestinationCard(destinationCard2);
+        currentUser.addDestinationCard(destinationCard3);
+
+        ClientModel.SINGLETON.notifyObservers();
+    }
+
+    private void runTestCaseForPaths(){
+        Log.i("runTestCaseForPaths", "It should be player 2's turn");
+        Log.i("testCaseForTrainCards", "Your destination cards should be Los Angeles to New York City (21), Duluth to Houston (8), and New York to Atlanta (6)");
+        Log.i("runTestCaseForPaths", "Player 1 should have the route Boston_NewYork (2 points) and Portland_SanFran (10 points)");
+        Log.i("runTestCaseForPaths", "Player 2 should have the route ElPaso_Houston (15 points) and LA_SanFran (4 points)");
+        Log.i("runTestCaseForPaths", "If there is a Player 3, they should have the route Atlanta_Miami (10 points) and Helena_SaltLakeCity (4 points)");
+        Log.i("runTestCaseForPaths", "If there is a Player 4, they should have the route NewYork_WashingtonDC (2 points) and NewYork_Pittsburgh (2 points)");
+        Log.i("runTestCaseForPaths", "If there is a Player 5, they should have the route Phoenix_SantaFe (4 points) and Pittsburgh_Toronto (2 points)");
+
+
+        User currentUser = ClientModel.SINGLETON.getCurrentUser();
+
+        Destination dest1 = new Destination(ClientModel.SINGLETON.getCityByName("Los Angeles"), ClientModel.SINGLETON.getCityByName("New York"));
+        Destination dest2 = new Destination(ClientModel.SINGLETON.getCityByName("Duluth"), ClientModel.SINGLETON.getCityByName("Houston"));
+        Destination dest3 = new Destination(ClientModel.SINGLETON.getCityByName("New York"), ClientModel.SINGLETON.getCityByName("Atlanta"));
+        DestinationCard destinationCard1 = new DestinationCard(dest1, 21);
+        DestinationCard destinationCard2 = new DestinationCard(dest2, 8);
+        DestinationCard destinationCard3 = new DestinationCard(dest3, 6);
+
+        // It is now player 2's turn
+        ClientModel.SINGLETON.getCurrentTTRGame().setmTurnIndex(1);
+
+        int userCounter = 0;
+        Path tysTestPath = new Path();
+        Path colesPathThatSucks = new Path();
+        for (User u: mUsers){
+            // Set the two paths according to the print statements above
+            switch(userCounter){
+                case 0: // Set player 1's Paths
+                    tysTestPath = ClientModel.SINGLETON.getPathByName("Portland_to_SanFrancisco");
+                    colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Boston_to_New_York");
+                    userCounter++;
+                    break;
+                case 1: // Set player 2's Paths
+                    tysTestPath = ClientModel.SINGLETON.getPathByName("ElPaso_Houston");
+                    colesPathThatSucks = ClientModel.SINGLETON.getPathByName("LosAngeles_to_SanFrancisco");
+                    userCounter++;
+                    break;
+                case 2: // Set player 3's Paths
+                    tysTestPath = ClientModel.SINGLETON.getPathByName("Atlanta_to_Miami");
+                    colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Helena_to_SaltLake");
+                    userCounter++;
+                    break;
+                case 3: // Set player 4's Paths
+                    tysTestPath = ClientModel.SINGLETON.getPathByName("New_York_to_Washington_DC");
+                    colesPathThatSucks = ClientModel.SINGLETON.getPathByName("New_York_to_Pittsburgh");
+                    userCounter++;
+                    break;
+                case 4: // Set player 5's Paths
+                    tysTestPath = ClientModel.SINGLETON.getPathByName("Phoenix_to_SantaFe");
+                    colesPathThatSucks = ClientModel.SINGLETON.getPathByName("Pittsburgh_to_Toronto");
+                    userCounter++;
+                    break;
+                default:
+                    System.err.print("Error: ");
+                    System.out.print("There are more than 5 players in the game!");
+                    break;
+            }
+            tysTestPath.setOwner(u);
+            colesPathThatSucks.setOwner(u);
+            u.addPoints(tysTestPath.getPoints());
+            u.addPoints(colesPathThatSucks.getPoints());
+
+
+            currentUser.removeAllDestinationCards();
+            currentUser.addDestinationCard(destinationCard1);
+            currentUser.addDestinationCard(destinationCard2);
+            currentUser.addDestinationCard(destinationCard3);
+
+            ClientModel.SINGLETON.notifyObservers();
+        }
     }
 
 

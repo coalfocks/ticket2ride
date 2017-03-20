@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -11,6 +12,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 import java.util.ArrayList;
 
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Created by tyudy on 2/13/17.
@@ -73,6 +75,10 @@ public class ClientModel implements iObservable {
             this.mCurrentTTRGame = getTTRGameWithID(getCurrentTTRGame().getGameID());
         }
         this.notifyObservers();
+    }
+
+    public void updateUsers(ArrayList<User> updatedUserList){
+        mCurrentTTRGame.setUsers(new TreeSet<User>(updatedUserList));
     }
 
     /**
@@ -207,7 +213,7 @@ public class ClientModel implements iObservable {
         City Duluth = new City("Duluth", .5084f, .1796f);
         City El_Paso = new City("El Paso", .3108f, .5416f);
         City Helena = new City("Helena", .2917f, .1398f);
-        City Houston = new City("Houston", .4814f, 5898f);
+        City Houston = new City("Houston", .4814f, .5898f);
         City Kansas_City = new City("Kansas City", .5747f, .3454f);
         City Las_Vegas = new City("Las Vegas", .1616f, .3935f);
         City Little_Rock = new City("Little Rock", .5619f, .4666f);
@@ -302,6 +308,8 @@ public class ClientModel implements iObservable {
         Path KansasCity_to_Omaha = new Path(ColorENUM.COLORLESS, 1, Kansas_City, Omaha, "KansasCity_to_Omaha");
         Path KansasCity_to_OklahomaCity = new Path(ColorENUM.COLORLESS, 2, Kansas_City, Oklahoma_City, "KansasCity_to_OklahomaCity");
         Path LasVegas_to_SaltLake = new Path(ColorENUM.ORANGE, 3, Las_Vegas, Salt_Lake, "LasVegas_to_SaltLake");
+        Path LosAngeles_to_SantaFe = new Path(ColorENUM.COLORLESS, 3, Los_Angeles, Santa_Fe, "LosAngeles_to_SantaFe");
+        Path LosAngeles_to_SanFrancisco = new Path(ColorENUM.YELLOW, 3, Los_Angeles, San_Francisco, "LosAngeles_to_SanFrancisco");
         Path OklahomaCity_to_SantaFe = new Path(ColorENUM.BLUE, 3, Oklahoma_City, Santa_Fe, "OklahomaCity_to_SantaFe");
         Path Phoenix_to_SantaFe = new Path(ColorENUM.COLORLESS, 3, Phoenix, Santa_Fe, "Phoenix_to_SantaFe");
         Path Portland_to_Seattle = new Path(ColorENUM.COLORLESS, 1, Portland, Seattle, "Portland_to_Seattle");
@@ -359,6 +367,7 @@ public class ClientModel implements iObservable {
         allPaths.add(Dallas_to_ElPaso);
         allPaths.add(Dallas_to_OklahomaCity);
         allPaths.add(Dallas_to_Houston);
+        allPaths.add(Denver_to_Phoenix);
         allPaths.add(Denver_to_SaltLake);
         allPaths.add(Denver_to_OklahomaCity);
         allPaths.add(Denver_to_KansasCity);
@@ -379,6 +388,8 @@ public class ClientModel implements iObservable {
         allPaths.add(KansasCity_to_Omaha);
         allPaths.add(KansasCity_to_OklahomaCity);
         allPaths.add(LasVegas_to_SaltLake);
+        allPaths.add(LosAngeles_to_SanFrancisco);
+        allPaths.add(LosAngeles_to_SantaFe);
         allPaths.add(OklahomaCity_to_SantaFe);
         allPaths.add(Phoenix_to_SantaFe);
         allPaths.add(Portland_to_Seattle);
@@ -462,6 +473,11 @@ public class ClientModel implements iObservable {
 
     public void claimPath(Path path) {
         this.getCurrentTTRGame().claimPath(path);
+        for (Path p : allPaths) {
+            if (p.getName().equals(path.getName())) {
+                p = path;
+            }
+        }
         notifyObservers();
     }
 
@@ -483,5 +499,13 @@ public class ClientModel implements iObservable {
         return null;
     }
 
+    public void addTrainCard(TrainCard card, int playerID) {
+
+        mCurrentTTRGame.dealTrainCard(playerID);
+        if (playerID == currentUser.getPlayerID()) {
+            currentUser.addTrainCard(card);
+        }
+        notifyObservers();
+    }
 
 }

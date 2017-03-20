@@ -29,8 +29,11 @@ public class GameLobbyPresenter {
 
     public void startGameClicked(){
         if(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-            if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
+            if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2 && ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0) {
                 MethodsFacade.SINGLETON.startGame();
+            }
+            else if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+                mGameLobbyActivity.onStartGame();
             }
             else {
                 Toast.makeText(mGameLobbyActivity, "You can't play by yourself!", Toast.LENGTH_LONG).show();

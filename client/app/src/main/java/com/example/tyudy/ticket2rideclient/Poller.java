@@ -71,6 +71,8 @@ public class Poller  implements Runnable
 
     public int getQueueIndex() { return this.queueIndex; }
 
+    public void setQueueIndex(int i) {this.queueIndex = i; }
+
     /**
      * Poll method, called every [amount of time] by ClientCommunicator
      */

@@ -29,11 +29,40 @@ public class Path implements Serializable {
         name = n;
     }
 
+    public Path(){
+        pathColor = ColorENUM.COLORLESS;
+        distance = 0;
+        connectedCities = new ArrayList<>();
+        owner = null;
+        name = "";
+    }
+
     public void setOwner(User p) { owner = p; }
     public User getOwner() { return owner; }
     public ArrayList<City> getCities() { return connectedCities; }
+
+    /**
+     * @return the correct point value of the path based on how long it is.
+     */
     public int getPoints() {
-        return this.distance;
+        switch(distance){
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;
+            case 4:
+                return 7;
+            case 5:
+                return 10;
+            case 6:
+                return 15;
+            case 7:
+                return 18;
+            default:
+                return 0;
+        }
     }
 
     /**
@@ -62,4 +91,5 @@ public class Path implements Serializable {
     public String getName() {
         return this.name;
     }
+
 }

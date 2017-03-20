@@ -1,9 +1,12 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.fragments.DisplayDestCardsDialogFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by tyudy on 2/24/17.
@@ -35,4 +38,5 @@ public class GameBoardPresenter {
         mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
       
     }
+
 }

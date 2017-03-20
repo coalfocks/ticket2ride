@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
@@ -32,7 +31,6 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
     private Activity gameBoardActivity;
     private ListView allCardsView;
     private DisplayCardsAdapter adapter;
-    private CheckBox mReturnBox;
 
     public DisplayDestCardsDialogFragment(){
         destinationCards = new ArrayList<>();
@@ -52,7 +50,7 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(gameBoardActivity);
         View v = gameBoardActivity.getLayoutInflater().inflate(R.layout.scroll_view, null);
-        destinationCards = ClientModel.SINGLETON.getCurrentUser().getDestCards();
+
         adapter = new DisplayCardsAdapter(gameBoardActivity.getBaseContext(),
                 R.layout.display_destination_cards, destinationCards);
 
@@ -114,19 +112,11 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                     holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
                     holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
-                    holder.returnBox.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            holder.checkBox.toggle();
-                        }
-                    });
 
 //                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
 //                        holder.checkBox.setChecked(true);
 //                    else
-                        //holder.checkBox.setChecked(false);
+                        holder.checkBox.setChecked(false);
 
                     convertView.setTag(holder);
                 } else
@@ -138,30 +128,17 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
 //                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
 //                    holder.checkBox.setChecked(true);
 //                else
-//                    holder.checkBox.setChecked(false);
-                if(holder.returnBox.isChecked()) {
+                    holder.checkBox.setChecked(false);
+                if(holder.returnBox.isChecked())
                     ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
-                }
-                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                    {
-                        if (isChecked)
-                        {
-                            if (destinationCards.size() > 2)
-                            {
-                                destinationCards.remove(0);
-                                Toast.makeText(getContext(), "Card Removed!", Toast.LENGTH_SHORT).show();
+                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                            }
-                            else {
-                                Toast.makeText(getContext(), "You may only return 1 card", Toast.LENGTH_SHORT).show();
-                            }
-                            getDialog().dismiss();
-                        }
-                    }
-                });
+                                                                        @Override
+                                                                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                                                                               holder.returnBox.setChecked(true);
+                                                                        }
+                                                            }
+                );
             }
 
             return convertView;

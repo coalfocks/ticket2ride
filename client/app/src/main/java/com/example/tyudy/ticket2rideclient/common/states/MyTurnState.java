@@ -2,43 +2,46 @@ package com.example.tyudy.ticket2rideclient.common.states;
 
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 
 /**
  * Created by Trevor on 3/15/2017.
  */
 
 public class MyTurnState implements IState {
-    private User mUser;
-
-    public MyTurnState(User currentUser) { mUser = currentUser; }
 
     @Override
-    public boolean drawCard() {
-        return false;
+    public IState drawCard() {
+        return this;
     }
 
     @Override
-    public boolean drawDest() {
-        return false;
+    public IState drawDest() {
+        return this;
     }
 
     @Override
-    public boolean pickCard() {
-        return false;
+    public IState pickCard() {
+        return this;
     }
 
     @Override
-    public boolean claimPath() {
-        return false;
+    public IState claimPath(Path pathToClaim) {
+        return this;
     }
 
     @Override
-    public boolean returnCard(iCard cardToBeReturned) {
-        return false;
+    public IState returnCard(iCard cardToBeReturned) {
+        return this;
     }
 
     @Override
-    public boolean scorePoints() {
-        return false;
+    public IState scorePoints() {
+        return this;
+    }
+
+    @Override
+    public IState endTurn() {
+        return this;
     }
 }

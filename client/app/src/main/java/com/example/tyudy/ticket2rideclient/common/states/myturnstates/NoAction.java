@@ -2,6 +2,8 @@ package com.example.tyudy.ticket2rideclient.common.states.myturnstates;
 
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.common.states.IState;
 import com.example.tyudy.ticket2rideclient.common.states.MyTurnState;
 
 /**
@@ -10,36 +12,38 @@ import com.example.tyudy.ticket2rideclient.common.states.MyTurnState;
 
 public class NoAction extends MyTurnState {
 
-    public NoAction(User currentUser) { super(currentUser);}
-
     @Override
-    public boolean drawCard() {
-        return super.drawCard();
+    public IState drawCard() {
+        return new DrawFirst();
     }
 
     @Override
-    public boolean drawDest() {
-        return super.drawDest();
+    public IState drawDest() {
+        return new DrawDest();
     }
 
     @Override
-    public boolean pickCard() {
-        return super.pickCard();
+    public IState pickCard() {
+        return new PickFirst();
     }
 
     @Override
-    public boolean claimPath() {
-        return super.claimPath();
+    public IState claimPath(Path pathToClaim) {
+        return new ClaimRoute();
     }
 
     @Override
-    public boolean returnCard(iCard cardToBeReturned) {
-        return super.returnCard(cardToBeReturned);
+    public IState returnCard(iCard cardToBeReturned) {
+        return this;
     }
 
-    // You can't score points at the beginning of the turn
     @Override
-    public boolean scorePoints() {
-        return false;
+    public IState scorePoints() {
+        return this;
+    }
+
+    @Override
+    public IState endTurn() {
+        return this;
     }
 }

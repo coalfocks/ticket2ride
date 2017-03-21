@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient.common.states;
 
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 
 /**
  * Created by Trevor on 3/15/2017.
@@ -21,7 +22,7 @@ public interface IState {
      *      claimed a path on this turn.
      * @post The action will be valid.
      */
-    boolean drawCard();
+    IState drawCard();
 
     /**
      * This is the function to be called when a player
@@ -32,7 +33,7 @@ public interface IState {
      *      cards or claimed any paths.
      * @post The action will be valid.
      */
-    boolean drawDest();
+    IState drawDest();
 
     /**
      * This is the function to be called when a player
@@ -46,12 +47,13 @@ public interface IState {
      * @post The action will be valid.
      *
      */
-    boolean pickCard();
+    IState pickCard();
 
     /**
      * This is the function to be called when a player
      * wants to claim a path with the necessary amount
      * of train cards they currently have.
+     * @param pathToClaim The path that will be claimed.
      * @return True if it's a valid action, false otherwise.
      * @pre Must be the current player's turn, and can't have
      *      taken any other actions already, meaning drawing
@@ -60,7 +62,7 @@ public interface IState {
      *      train cards of the necessary color.
      * @post The action will be valid.
      */
-    boolean claimPath();
+    IState claimPath(Path pathToClaim);
 
     /**
      * This is the function to be called when a player
@@ -73,7 +75,7 @@ public interface IState {
      *      cards.
      * @post The action will be valid.
      */
-    boolean returnCard(iCard cardToBeReturned);
+    IState returnCard(iCard cardToBeReturned);
 
     /**
      * This is the function that is called at the end
@@ -88,5 +90,13 @@ public interface IState {
      *      claimed a path.
      * @post The action will be valid.
      */
-    boolean scorePoints();
+    IState scorePoints();
+
+    /**
+     * This is the function that is called when
+     * a player's turn is over.
+     * @return NotMyTurnState, if it's a valid time to end
+     *          the turn, current state if not.
+     */
+    IState endTurn();
 }

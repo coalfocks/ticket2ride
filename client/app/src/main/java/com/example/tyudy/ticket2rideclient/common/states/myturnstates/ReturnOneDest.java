@@ -1,19 +1,16 @@
-package com.example.tyudy.ticket2rideclient.common.states;
+package com.example.tyudy.ticket2rideclient.common.states.myturnstates;
 
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.common.states.IState;
+import com.example.tyudy.ticket2rideclient.common.states.MyTurnState;
+import com.example.tyudy.ticket2rideclient.common.states.NotMyTurnState;
 
 /**
- * Created by Trevor on 3/15/2017.
+ * Created by Trevor on 3/21/2017.
  */
 
-/**
- * All of the methods in this state will return false,
- * since there are no valid actions you can do on another
- * players' turns.
- */
-public class NotMyTurnState implements IState {
-
+public class ReturnOneDest extends MyTurnState {
     @Override
     public IState drawCard() {
         return this;
@@ -36,7 +33,7 @@ public class NotMyTurnState implements IState {
 
     @Override
     public IState returnCard(iCard cardToBeReturned) {
-        return this;
+        return new ReturnTwoDest();
     }
 
     @Override
@@ -46,6 +43,6 @@ public class NotMyTurnState implements IState {
 
     @Override
     public IState endTurn() {
-        return this;
+        return new NotMyTurnState();
     }
 }

@@ -4,8 +4,8 @@ import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
-import com.example.tyudy.ticket2rideclient.common.states.IState;
-import com.example.tyudy.ticket2rideclient.common.states.PreGameState;
+import com.example.tyudy.ticket2rideclient.model.states.IState;
+import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 import java.io.Serializable;
 import java.util.ArrayList;

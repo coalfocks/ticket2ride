@@ -1,8 +1,5 @@
 package com.example.tyudy.ticket2rideclient.common.states.myturnstates;
 
-import com.example.tyudy.ticket2rideclient.common.User;
-import com.example.tyudy.ticket2rideclient.common.cards.iCard;
-import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.states.IState;
 import com.example.tyudy.ticket2rideclient.common.states.MyTurnState;
 
@@ -28,12 +25,12 @@ public class NoAction extends MyTurnState {
     }
 
     @Override
-    public IState claimPath(Path pathToClaim) {
+    public IState claimPath() {
         return new ClaimRoute();
     }
 
     @Override
-    public IState returnCard(iCard cardToBeReturned) {
+    public IState returnCard() {
         return this;
     }
 

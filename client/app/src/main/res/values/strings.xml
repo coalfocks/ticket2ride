@@ -15,5 +15,7 @@
     <string name="ok">OK</string>
     <string name="placeholder">IM A PLACEHLODER TETXS</string>
     <string name="completed">Completed</string>
+    <string name="draw_dest_cards">Draw Destinations</string>
+    <string name="return_dest">Return This Destination</string>
 
 </resources>

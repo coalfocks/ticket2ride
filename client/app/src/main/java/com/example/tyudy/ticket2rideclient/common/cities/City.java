@@ -39,6 +39,10 @@ public class City implements Serializable {
         mPaths = new ArrayList<>();
     }
 
+    /**
+     * Default constructor
+     * @post A new City object will be returned
+     */
     public City(){
 
     }

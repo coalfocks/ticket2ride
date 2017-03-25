@@ -11,11 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
@@ -27,14 +26,14 @@ import java.util.ArrayList;
  * Created by Trevor on 3/3/2017.
  */
 
-public class DisplayDestCardsDialogFragment extends DialogFragment {
+public class DisplayDrawnDestCardsDialogFragment extends DialogFragment {
     private ArrayList<DestinationCard> destinationCards;
     private Activity gameBoardActivity;
     private ListView allCardsView;
     private DisplayCardsAdapter adapter;
-//    private CheckBox mReturnBox;
+    private Button mReturnButton;
 
-    public DisplayDestCardsDialogFragment(){
+    public DisplayDrawnDestCardsDialogFragment(){
         destinationCards = new ArrayList<>();
     }
 
@@ -54,15 +53,17 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
         View v = gameBoardActivity.getLayoutInflater().inflate(R.layout.scroll_view, null);
         destinationCards = ClientModel.SINGLETON.getCurrentUser().getDestCards();
         adapter = new DisplayCardsAdapter(gameBoardActivity.getBaseContext(),
-                R.layout.display_destination_cards, destinationCards);
+                R.layout.display_drawn_dest_cards, destinationCards);
 
         allCardsView = (ListView) v.findViewById(R.id.genericScrollViewContainer);
         allCardsView.setAdapter(adapter);
 
-        builder.setTitle(R.string.dest_cards).
-                setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setTitle("You Drew These Destination Cards").
+                setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // TODO: add all cards not returned to current player's dest collection
+
                         dialogInterface.cancel(); // Close the dialog
                     }
                 }).
@@ -88,8 +89,7 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             TextView source;
             TextView dest;
             TextView points;
-            CheckBox checkBox;
-//            CheckBox returnBox;
+            Button returnButton;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -98,73 +98,35 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             DestinationCard card = getItem(position);
 
             if (card != null) {
-//                String src = "From:   " + card.getDestination().getSource().getCityName();
-//                String dst = "To:     " + card.getDestination().getDest().getCityName();
-//                String pts = "Points: " + card.getPointValue();
+                String src = "From:   " + card.getDestination().getSource().getCityName();
+                String dst = "To:     " + card.getDestination().getDest().getCityName();
+                String pts = "Points: " + card.getPointValue();
 
                 LayoutInflater mInflater = (LayoutInflater) mContext
                         .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
                 if (convertView == null) {
-                    convertView = mInflater.inflate(R.layout.display_destination_cards, null);
+                    convertView = mInflater.inflate(R.layout.display_drawn_dest_cards, null);
 
                     holder = new ViewHolder();
                     holder.source = (TextView) convertView.findViewById(R.id.destCard_source);
                     holder.dest = (TextView) convertView.findViewById(R.id.destCard_dest);
                     holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
-                    holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
-//                    holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
-//                    holder.returnBox.setOnClickListener(new View.OnClickListener()
-//                    {
-//                        @Override
-//                        public void onClick(View v)
-//                        {
-//                            holder.checkBox.toggle();
-//                        }
-//                    });
-
-//                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-//                        holder.checkBox.setChecked(true);
-//                    else
-                        //holder.checkBox.setChecked(false);
-
+                    holder.returnButton = (Button) convertView.findViewById(R.id.return_dest_card);
                     convertView.setTag(holder);
                 } else
                     holder = (ViewHolder) convertView.getTag();
 
-                holder.source.setText("FROM: DEST 1");//src);
-                holder.dest.setText("TO: DEST 2");//dst);
-                holder.points.setText("30");//pts);
+                holder.source.setText(src);
+                holder.dest.setText(dst);
+                holder.points.setText(pts);
 
-//                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-//                    holder.checkBox.setChecked(true);
-//                else
-//                    holder.checkBox.setChecked(false);
-
-
-//                if(holder.returnBox.isChecked()) {
-//                    ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
-//                }
-//                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-//                {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-//                    {
-//                        if (isChecked)
-//                        {
-//                            if (destinationCards.size() > 2)
-//                            {
-//                                destinationCards.remove(0);
-//                                Toast.makeText(getContext(), "Card Removed!", Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                            else {
-//                                Toast.makeText(getContext(), "You may only return 1 card", Toast.LENGTH_SHORT).show();
-//                            }
-//                            getDialog().dismiss();
-//                        }
-//                    }
-//                });
+                holder.returnButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO: return card back to deck
+                    }
+                });
             }
 
             return convertView;

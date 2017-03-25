@@ -58,38 +58,29 @@
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="10dp"/>
 
-    <CheckBox
-        android:id="@+id/completed_dest_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:checked="false"
-        android:layout_below="@+id/destCard_points"
-        android:layout_alignLeft="@+id/destCard_points"
-        android:layout_alignStart="@+id/destCard_points"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/completed"
-        android:layout_alignBaseline="@id/completed_dest_checkbox"
-        android:layout_alignBottom="@id/completed_dest_checkbox"
-        android:layout_toRightOf="@id/completed_dest_checkbox"
-        android:layout_toEndOf="@id/completed_dest_checkbox"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_below="@id/completed_dest_checkbox"
-        android:background="#e79537"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_below="@id/destCard_points"
-        android:background="#AAAAAA"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#AAAAAA" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/return_dest_card"
+        android:text="@string/return_dest"
+        android:layout_below="@id/destCard_points"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/return_dest_card"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/holo_green_dark" />
 </RelativeLayout>
